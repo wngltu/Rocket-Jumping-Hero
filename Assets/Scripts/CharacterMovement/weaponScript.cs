@@ -16,7 +16,7 @@ public class weaponScript : MonoBehaviour
     protected virtual void Start()
     {
         Instance = this;
-        Invoke("AddWeapon", .5f);
+        AddWeapon();
     }
 
     // Update is called once per frame

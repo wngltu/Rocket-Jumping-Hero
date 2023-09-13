@@ -12,6 +12,8 @@ public class weaponManager : MonoBehaviour
     void Start()
     {
         Instance = this;
+        Invoke("UnequipAll", .1f);
+        Invoke("EquipCurrentWeapon", .1f);
     }
 
     // Update is called once per frame
@@ -45,12 +47,12 @@ public class weaponManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            equippedWeapon = weaponInventory[0];
+            equippedNum = 0;
             EquipCurrentWeapon();
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            equippedWeapon = weaponInventory[1];
+            equippedNum = 1;
             EquipCurrentWeapon();
         }
     }
@@ -64,6 +66,7 @@ public class weaponManager : MonoBehaviour
     }
     public void EquipCurrentWeapon()
     {
+        equippedWeapon = weaponInventory[equippedNum];
         UnequipAll();
         equippedWeapon.Equip();
     }

@@ -1,27 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    //Component variables
     public CharacterController controller;
     public BoxCollider jumpCheck;
+    public TrailRenderer trail;
     public static PlayerMovement Instance;
-
+    
+    //Horizontal variables
+    private float horizontalVeloCap = 7.5f;
     private float playerSpeed = 6.5f;
+    private float playerSprintSpeed = 10f;
+
+    //Vertical/Jump variables
     private float gravity = -15f;
     private float jumpStrength = 7.5f;
-    private float jumpCooldown = 0f;
+    private float jumpCooldown = 0;
     private float multiJumpCooldown = .1f;
     private float jumpsLeft = 2;
-    private float explosionRecoilRecoveryRate = 10; //higher = faster recovery
-    private float horizontalVeloCap = 7.5f;
     private float verticalVeloCap = 10f;
 
+    //Dash variables
+    private float dashCooldown = 3; //the set limit cooldown of dash
+    private float dashTimer = 0f; //the current cooldown of the player's dash
+    private float dashStrength = 15f; //how strong the dash is
+    private float doubleTapTimer = 0f; //the leniency for double tapping shift to dash
+    private float doubleTapLeniency = .25f; //the input window for double tapping shift (higher = more lenient)
+
+    //Other variables
+    private float explosionRecoilRecoveryRate = 10; //higher = faster recovery
+   
     Vector2 velocity;
 
+    //Bools
+    bool canDash = true;
     bool grounded;
+    bool sprintHeld = false;
     bool jumpHeld = false;
+    bool facingRight = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,36 +53,86 @@ public class PlayerMovement : MonoBehaviour
     {
         jumpHeld = Input.GetKeyDown(KeyCode.Space);
 
+        if (canDash == true && doubleTapTimer > 0 && Input.GetKeyDown(KeyCode.LeftShift)) //initiate dash
+        {
+            canDash = false;
+            dashTimer = dashCooldown;
+            print("Player dashed");
+            StartTrail();
+
+            if (facingRight == true) //Right side dash
+            {
+                velocity.x += dashStrength;
+            }
+            else if (facingRight == false) //left side dash
+            {
+                velocity.x -= dashStrength;
+            }
+        }
+
+        if (dashTimer > 0) //if dash is on cooldown, decrease cooldown over time
+        {
+            dashTimer = dashTimer - Time.deltaTime;
+        }
+        else if (dashTimer < 0) //if dash is not on cooldown, set can dash to true
+        {
+            dashTimer = 0;
+            canDash = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            sprintHeld = true;
+            if(canDash == true)
+            {
+                doubleTapTimer = doubleTapLeniency; //initiate input window for dash
+            }
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            sprintHeld = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.A) && !Input.GetKeyDown(KeyCode.D)) { facingRight = false; }
+        else if (Input.GetKeyDown(KeyCode.D) && !Input.GetKey(KeyCode.A)) { facingRight = true; }
+
+        if (doubleTapTimer > 0f)
+        {
+            doubleTapTimer -= Time.deltaTime;
+        }
+        else if (doubleTapTimer < 0f)
+        {
+            doubleTapTimer = 0;
+        }
+
         grounded = controller.isGrounded;
 
-        if (jumpCooldown < 0)
+        if (jumpCooldown < 0) //Single jump cooldown
         {
             jumpCooldown = 0;
         }
-        else if (jumpCooldown > 0)
+        else if (jumpCooldown > 0) 
         {
             jumpCooldown -= Time.deltaTime;
         }
 
-        if (multiJumpCooldown < 0)
+        if (multiJumpCooldown < 0) //Double jump cooldown
         {
             multiJumpCooldown = 0;
         }
-        else if (multiJumpCooldown > 0)
+        else if (multiJumpCooldown > 0) 
         {
             multiJumpCooldown -= Time.deltaTime;
         }
 
 
-        if (grounded && velocity.y < 0)
+        if (grounded && velocity.y < 0) //If the player lands, they can jump again
         {
             velocity.y = -.5f;
             jumpsLeft = 2;
         }
-        Vector2 move = new Vector2(Input.GetAxis("Horizontal"), 0);
-        controller.Move(move * Time.deltaTime * playerSpeed);
 
-        if ((jumpHeld && grounded && jumpCooldown <= 0) || (jumpHeld && jumpsLeft > 0 && multiJumpCooldown <= 0))
+        if ((jumpHeld && grounded && jumpCooldown <= 0) || (jumpHeld && jumpsLeft > 0 && multiJumpCooldown <= 0)) //Is the player able to double jump again
         {
             velocity.y += jumpStrength;
             if (velocity.y > verticalVeloCap)
@@ -73,7 +143,7 @@ public class PlayerMovement : MonoBehaviour
             jumpsLeft -= 1;
         }
 
-        if (velocity.x > .1f)
+        if (velocity.x > .1f) //Velocity is from rocket jumping, so this is slowing the effects of rocket jumping on the player
         {
             velocity.x -= Time.deltaTime * explosionRecoilRecoveryRate;
         }
@@ -87,16 +157,29 @@ public class PlayerMovement : MonoBehaviour
             velocity.x = 0;
         }
 
-        if (velocity.x > horizontalVeloCap)
+        if (velocity.x > horizontalVeloCap) //if player is moving too fast to the right, cap the players velocity
         {
             velocity.x = horizontalVeloCap;
         }
-        else if (velocity.x < -horizontalVeloCap)
+        else if (velocity.x < -horizontalVeloCap) //if player is moving too fast to the left, cap the players velocity
         {
             velocity.x = -horizontalVeloCap;
         }
 
+        if (velocity.y < -verticalVeloCap*1.5f) //if player is moving too fast downwards, cap the player's velocity
+        {
+            velocity.y = -verticalVeloCap*1.5f;
+        }
 
+        Vector2 move = new Vector2(Input.GetAxis("Horizontal"), 0); //horizontal movement
+        if (sprintHeld) //if sprinting, move at sprint speed
+        {
+            controller.Move(move * Time.deltaTime * playerSprintSpeed);
+        }
+        else //if not sprinting, move at normal speed
+        {
+            controller.Move(move * Time.deltaTime * playerSpeed);
+        }
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
@@ -104,7 +187,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("ground") == true)
+        if (other.CompareTag("ground") == true) //grounded check
         {
             grounded = true;
         }
@@ -122,10 +205,24 @@ public class PlayerMovement : MonoBehaviour
 
         explosionVec /= distance; // normalize the vector
         this.velocity += explosionVec * explosionForce * forceMult; // add explosion impulse to velocity
-        print("swaws");
         if (velocity.y > verticalVeloCap)
         {
             velocity.y = verticalVeloCap;
         }
+        if ((explosionVec * explosionForce * forceMult).magnitude > 10f) //edit right side to change the threshold for which trail to start appearing after an explosion of variable strength
+        {
+            StartTrail();
+        }
+    }
+
+    public void StartTrail()
+    {
+        Invoke("StopTrail", .25f);
+        trail.emitting = true;
+    }
+
+    void StopTrail() //invoke to stop the trail 
+    {
+        trail.emitting = false;
     }
 }

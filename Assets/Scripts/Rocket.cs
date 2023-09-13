@@ -53,7 +53,6 @@ public class Rocket : MonoBehaviour
             {
                 Rigidbody rb = obj.GetComponent<Rigidbody>();
                 rb.AddExplosionForce(900f, transform.position, explosionRadius);
-                print("swaws");
             }
             if (obj.gameObject.tag == "Player")
             {
@@ -81,6 +80,5 @@ public class Rocket : MonoBehaviour
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, 5f);
-        print("swaws");
     }
 }
