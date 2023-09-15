@@ -12,17 +12,23 @@ public class PlayerMovement : MonoBehaviour
     public static PlayerMovement Instance;
     
     //Horizontal variables
-    private float horizontalVeloCap = 7.5f;
+    private float horizontalVeloCap = 10f;
+    private float groundedPlayerSpeed = 6.5f;
+    private float aerialPlayerSpeed = 5f;
     private float playerSpeed = 6.5f;
     private float playerSprintSpeed = 10f;
 
     //Vertical/Jump variables
-    private float gravity = -15f;
+    private float gravity = -17f;
+    private float defaultGravity = -17f;
+    private float rocketJumpingGravity = -15f;
     private float jumpStrength = 7.5f;
     private float jumpCooldown = 0;
     private float multiJumpCooldown = .1f;
     private float jumpsLeft = 2;
     private float verticalVeloCap = 10f;
+    private float defaultVerticalVeloCap = 10f;
+    private float rocketJumpingVerticalVeloCap = 12f;
 
     //Dash variables
     private float dashCooldown = 3; //the set limit cooldown of dash
@@ -42,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
     bool sprintHeld = false;
     bool jumpHeld = false;
     bool facingRight = true;
+    bool isRocketJumping = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -106,6 +113,10 @@ public class PlayerMovement : MonoBehaviour
         }
 
         grounded = controller.isGrounded;
+        if (grounded && playerSpeed != groundedPlayerSpeed && isRocketJumping == false)
+        {
+            SetNormalAerialValues();
+        }
 
         if (jumpCooldown < 0) //Single jump cooldown
         {
@@ -166,31 +177,32 @@ public class PlayerMovement : MonoBehaviour
             velocity.x = -horizontalVeloCap;
         }
 
-        if (velocity.y < -verticalVeloCap*1.5f) //if player is moving too fast downwards, cap the player's velocity
+        if (velocity.y < -verticalVeloCap*1.25f) //if player is moving too fast downwards, cap the player's velocity
         {
-            velocity.y = -verticalVeloCap*1.5f;
+            velocity.y = -verticalVeloCap*1.25f;
         }
 
         Vector2 move = new Vector2(Input.GetAxis("Horizontal"), 0); //horizontal movement
-        if (sprintHeld) //if sprinting, move at sprint speed
+        if (sprintHeld && grounded) //if sprinting, move at sprint speed
         {
             controller.Move(move * Time.deltaTime * playerSprintSpeed);
         }
-        else //if not sprinting, move at normal speed
+        else if (!sprintHeld && grounded)//if not sprinting, move at normal speed
         {
             controller.Move(move * Time.deltaTime * playerSpeed);
+        }
+        else if (sprintHeld && !grounded)
+        {
+            controller.Move(move * Time.deltaTime * playerSprintSpeed/2);
+        }
+        else if (!sprintHeld && !grounded)
+        {
+            controller.Move(move * Time.deltaTime * playerSpeed/2);
+
         }
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("ground") == true) //grounded check
-        {
-            grounded = true;
-        }
     }
 
     public void AddExplosionForce(Vector2 explosionPos, float explosionRadius, float explosionForce)
@@ -204,15 +216,50 @@ public class PlayerMovement : MonoBehaviour
         float forceMult = 1f - (distance / explosionRadius); // 1.0 at explosion center, 0.0 at explosion radius
 
         explosionVec /= distance; // normalize the vector
-        this.velocity += explosionVec * explosionForce * forceMult; // add explosion impulse to velocity
+        this.velocity.y += (explosionVec * explosionForce * forceMult).y; // add explosion impulse to velocity
+        this.velocity.x += (explosionVec * explosionForce * forceMult).x * 1.5f;
+        if ((explosionVec * explosionForce * forceMult).magnitude > 10f) //edit right side to change the threshold for which trail to start appearing after an explosion of variable strength
+        {
+            StartTrail();
+            SetRocketJumpAerialValues();
+            setRocketJumpingOn();
+        }
         if (velocity.y > verticalVeloCap)
         {
             velocity.y = verticalVeloCap;
         }
-        if ((explosionVec * explosionForce * forceMult).magnitude > 10f) //edit right side to change the threshold for which trail to start appearing after an explosion of variable strength
-        {
-            StartTrail();
-        }
+    }
+
+    public void setRocketJumpingOn()
+    {
+        isRocketJumping = true;
+        playerSpeed = 0f;
+        Invoke("setRocketJumpingOff", .25f);
+    }
+
+    private void setRocketJumpingOff()
+    {
+        if (grounded)
+            playerSpeed = groundedPlayerSpeed;
+        else
+            playerSpeed = aerialPlayerSpeed;
+        isRocketJumping = false;
+    }
+
+    public void SetNormalAerialValues() //call when landing
+    {
+        playerSpeed = groundedPlayerSpeed;
+        gravity = defaultGravity;
+        verticalVeloCap = defaultVerticalVeloCap;
+        isRocketJumping = false;
+    }
+
+    public void SetRocketJumpAerialValues() // call when being hit by an explosion
+    {
+        playerSpeed = aerialPlayerSpeed;
+        gravity = rocketJumpingGravity;
+        verticalVeloCap = rocketJumpingVerticalVeloCap;
+        isRocketJumping = true;
     }
 
     public void StartTrail()
