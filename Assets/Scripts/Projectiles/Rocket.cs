@@ -44,7 +44,7 @@ public class Rocket : MonoBehaviour
         }
     }
 
-    void Explode()
+    public void Explode()
     {
         var cols = Physics.OverlapSphere(this.transform.position, 5f);
         foreach (Collider obj in cols)

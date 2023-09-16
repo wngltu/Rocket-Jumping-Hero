@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -10,7 +12,12 @@ public class PlayerMovement : MonoBehaviour
     public BoxCollider jumpCheck;
     public TrailRenderer trail;
     public static PlayerMovement Instance;
-    
+    public TMP_Text rocketText;
+    public TMP_Text slowmoStatusText;
+    public Slider rocketReloadSlider;
+    public weaponManager weaponManager;
+    public PlayerRocketLauncher rocketLauncher;
+
     //Horizontal variables
     private float horizontalVeloCap = 10f;
     private float groundedPlayerSpeed = 6.5f;
@@ -34,25 +41,36 @@ public class PlayerMovement : MonoBehaviour
     private float dashCooldown = 3; //the set limit cooldown of dash
     private float dashTimer = 0f; //the current cooldown of the player's dash
     private float dashStrength = 15f; //how strong the dash is
-    private float doubleTapTimer = 0f; //the leniency for double tapping shift to dash
-    private float doubleTapLeniency = .25f; //the input window for double tapping shift (higher = more lenient)
+    private float doubleTapATimer = 0f; //the leniency for double tapping a to dash
+    private float doubleTapALeniency = .25f; //the input window for double tapping a (higher = more lenient)
+    private float doubleTapDTimer = 0f; //the leniency for double tapping d to dash
+    private float doubleTapDLeniency = .25f; //the input window for double tapping d (higher = more lenient)
+
+    //Rocket Launcher variables
+    private int rockets = 4;
+    private int maxRockets = 4;
+    private float rocketRegenCooldown = 1.5f;
+    private float rocketRegenTimer = 0f;
 
     //Other variables
     private float explosionRecoilRecoveryRate = 10; //higher = faster recovery
-   
+
     Vector2 velocity;
 
     //Bools
     bool canDash = true;
-    bool grounded;
+    public bool grounded;
     bool sprintHeld = false;
     bool jumpHeld = false;
     bool facingRight = true;
     bool isRocketJumping = false;
+    public bool isJumping;
+    public bool slowmoEnabled = false;
     // Start is called before the first frame update
     void Start()
     {
         Instance = this;
+        rocketText.text = rockets.ToString();
     }
 
     // Update is called once per frame
@@ -60,21 +78,24 @@ public class PlayerMovement : MonoBehaviour
     {
         jumpHeld = Input.GetKeyDown(KeyCode.Space);
 
-        if (canDash == true && doubleTapTimer > 0 && Input.GetKeyDown(KeyCode.LeftShift)) //initiate dash
+        if (canDash == true && doubleTapATimer > 0 && Input.GetKeyDown(KeyCode.A)) //initiate dash
         {
             canDash = false;
             dashTimer = dashCooldown;
-            print("Player dashed");
+            print("Player dashed left");
             StartTrail();
 
-            if (facingRight == true) //Right side dash
-            {
-                velocity.x += dashStrength;
-            }
-            else if (facingRight == false) //left side dash
-            {
-                velocity.x -= dashStrength;
-            }
+            velocity.x -= dashStrength;
+        }
+
+        if (canDash == true && doubleTapDTimer > 0 && Input.GetKeyDown(KeyCode.D))
+        {
+            canDash = false;
+            dashTimer = dashCooldown;
+            print("Player dashed right");
+            StartTrail();
+
+            velocity.x += dashStrength;
         }
 
         if (dashTimer > 0) //if dash is on cooldown, decrease cooldown over time
@@ -87,32 +108,35 @@ public class PlayerMovement : MonoBehaviour
             canDash = true;
         }
 
+        if (Input.GetKeyDown(KeyCode.A) && canDash == true) //left dash
+        {
+            doubleTapATimer = doubleTapALeniency; //initiate input window for dash
+        }
+        else if (Input.GetKeyDown(KeyCode.D) && canDash == true) //right dash
+        {
+            doubleTapDTimer = doubleTapDLeniency;
+        }
+
         if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
             sprintHeld = true;
-            if(canDash == true)
-            {
-                doubleTapTimer = doubleTapLeniency; //initiate input window for dash
-            }
-        }
         else if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
             sprintHeld = false;
-        }
 
         if (Input.GetKeyDown(KeyCode.A) && !Input.GetKeyDown(KeyCode.D)) { facingRight = false; }
         else if (Input.GetKeyDown(KeyCode.D) && !Input.GetKey(KeyCode.A)) { facingRight = true; }
 
-        if (doubleTapTimer > 0f)
-        {
-            doubleTapTimer -= Time.deltaTime;
-        }
-        else if (doubleTapTimer < 0f)
-        {
-            doubleTapTimer = 0;
-        }
+        if (doubleTapATimer > 0f)
+            doubleTapATimer -= Time.deltaTime;
+        else if (doubleTapATimer < 0f)
+            doubleTapATimer = 0;
+
+        if (doubleTapDTimer > 0f)
+            doubleTapDTimer -= Time.deltaTime;
+        else if (doubleTapDTimer < 0f)
+            doubleTapDTimer = 0;
 
         grounded = controller.isGrounded;
+
         if (grounded && playerSpeed != groundedPlayerSpeed && isRocketJumping == false)
         {
             SetNormalAerialValues();
@@ -122,7 +146,7 @@ public class PlayerMovement : MonoBehaviour
         {
             jumpCooldown = 0;
         }
-        else if (jumpCooldown > 0) 
+        else if (jumpCooldown > 0)
         {
             jumpCooldown -= Time.deltaTime;
         }
@@ -131,7 +155,7 @@ public class PlayerMovement : MonoBehaviour
         {
             multiJumpCooldown = 0;
         }
-        else if (multiJumpCooldown > 0) 
+        else if (multiJumpCooldown > 0)
         {
             multiJumpCooldown -= Time.deltaTime;
         }
@@ -177,9 +201,9 @@ public class PlayerMovement : MonoBehaviour
             velocity.x = -horizontalVeloCap;
         }
 
-        if (velocity.y < -verticalVeloCap*1.25f) //if player is moving too fast downwards, cap the player's velocity
+        if (velocity.y < -verticalVeloCap * 1.25f) //if player is moving too fast downwards, cap the player's velocity
         {
-            velocity.y = -verticalVeloCap*1.25f;
+            velocity.y = -verticalVeloCap * 1.25f;
         }
 
         Vector2 move = new Vector2(Input.GetAxis("Horizontal"), 0); //horizontal movement
@@ -193,16 +217,51 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (sprintHeld && !grounded)
         {
-            controller.Move(move * Time.deltaTime * playerSprintSpeed/2);
+            controller.Move(move * Time.deltaTime * playerSprintSpeed / 2);
         }
         else if (!sprintHeld && !grounded)
         {
-            controller.Move(move * Time.deltaTime * playerSpeed/2);
+            controller.Move(move * Time.deltaTime * playerSpeed / 2);
 
         }
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+
+        if (Input.GetKey(KeyCode.Mouse1)) //if player starts holding right click, start rocket "aim mode"
+        {
+            weaponManager.UnequipAll();
+            rocketLauncher.Equip();
+            if (slowmoEnabled == true)
+                Time.timeScale = .3f;
+            if (Input.GetKeyDown(KeyCode.Mouse0) && rockets > 0) //shoot rocket upon clicking left click
+            {
+                rocketLauncher.Shoot();
+                rockets--;
+                rocketText.text = rockets.ToString();
+                rocketReloadSlider.value = rocketRegenTimer / rocketRegenCooldown;
+            }
+        }
+        else if (Input.GetKeyUp(KeyCode.Mouse1))
+        {
+            rocketLauncher.Unequip();
+            weaponManager.EquipCurrentWeapon();
+            if(slowmoEnabled == true)
+                Time.timeScale = 1f;
+        }
+                
+
+        if (grounded && rockets < maxRockets) //"reload"/regenerate rockets while standing on the ground
+        {
+            rocketRegenTimer += Time.deltaTime;
+            rocketReloadSlider.value = rocketRegenTimer / rocketRegenCooldown;
+            if (rocketRegenTimer > rocketRegenCooldown)
+            {
+                rockets++;
+                rocketText.text = rockets.ToString();
+                rocketRegenTimer = 0;
+            }
+        }
     }
 
     public void AddExplosionForce(Vector2 explosionPos, float explosionRadius, float explosionForce)
@@ -272,4 +331,28 @@ public class PlayerMovement : MonoBehaviour
     {
         trail.emitting = false;
     }
+
+    public void toggleSlowMotionAim()
+    {
+        slowmoEnabled = !slowmoEnabled;
+        if (slowmoEnabled == true)
+            slowmoStatusText.text = "on";
+        if (slowmoEnabled == false)
+        {
+            slowmoStatusText.text = "off";
+            Time.timeScale = 1f;
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("platform"))
+        {
+            if (other.GetComponent<Platform>().col.enabled == true && Input.GetKey(KeyCode.S)) //Drop through platforms
+            {
+                other.GetComponent<Platform>().disablePlayerCollisions();
+            }
+        }
+    }
+
 }
