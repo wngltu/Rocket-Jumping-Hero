@@ -7,6 +7,7 @@ public class Rocket : MonoBehaviour
     Enemy enemyScript;
     public static Rocket Instance;
     public Transform barrel;
+    public GameObject explodeIndicator;
     Rigidbody rigidbody;
     float damage = 50f;
     float timer = 0f;
@@ -46,13 +47,14 @@ public class Rocket : MonoBehaviour
 
     public void Explode()
     {
-        var cols = Physics.OverlapSphere(this.transform.position, 5f);
+        var cols = Physics.OverlapSphere(this.transform.position, explosionRadius);
         foreach (Collider obj in cols)
         {
             if (obj.gameObject.tag == "enemy")
             {
                 Rigidbody rb = obj.GetComponent<Rigidbody>();
                 rb.AddExplosionForce(900f, transform.position, explosionRadius);
+                obj.GetComponent<Enemy>().takeDamage(damage * (explosionRadius - (this.transform.position - obj.transform.position).magnitude)/5);
             }
             if (obj.gameObject.tag == "Player")
             {
@@ -70,6 +72,8 @@ public class Rocket : MonoBehaviour
                 print(transform.position);
             }
         }
+        GameObject newObject = Instantiate(explodeIndicator, transform.position, Quaternion.identity); //spawn a circle showing blast radius
+        newObject.GetComponent<ExplosiveRadius>().explosionRadius = this.explosionRadius;
         Delete();
     }
     void Delete()

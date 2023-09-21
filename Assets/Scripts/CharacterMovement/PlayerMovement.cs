@@ -336,10 +336,10 @@ public class PlayerMovement : MonoBehaviour
     {
         slowmoEnabled = !slowmoEnabled;
         if (slowmoEnabled == true)
-            slowmoStatusText.text = "on";
+            slowmoStatusText.text = "On";
         if (slowmoEnabled == false)
         {
-            slowmoStatusText.text = "off";
+            slowmoStatusText.text = "Off";
             Time.timeScale = 1f;
         }
     }

@@ -16,7 +16,6 @@ public class weaponScript : MonoBehaviour
     protected virtual void Start()
     {
         Instance = this;
-        AddWeapon();
     }
 
     // Update is called once per frame
@@ -45,6 +44,6 @@ public class weaponScript : MonoBehaviour
     }
     public virtual void AddWeapon()
     {
-        weaponManager.Instance.weaponInventory.Add(this);
+        weaponManager.Instance.weaponInventory.Add(Instance);
     }
 }

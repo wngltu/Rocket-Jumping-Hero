@@ -12,8 +12,6 @@ public class weaponManager : MonoBehaviour
     void Start()
     {
         Instance = this;
-        Invoke("UnequipAll", .1f);
-        Invoke("EquipCurrentWeapon", .1f);
     }
 
     // Update is called once per frame
