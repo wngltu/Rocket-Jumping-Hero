@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 4868551514160495221}
   - component: {fileID: 5476573908843251585}
   - component: {fileID: 8187472061766961250}
+  - component: {fileID: 4355713923257352318}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -281,9 +282,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f3eb0977c5461046a62fa8801588527, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponInventory: []
+  weaponInventory:
+  - {fileID: 8505210287930675512}
+  - {fileID: 1847679498995511688}
   equippedNum: 0
-  equippedWeapon: {fileID: 0}
+  equippedWeapon: {fileID: 8505210287930675512}
+--- !u!114 &4355713923257352318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1746521414008095553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e48abba03867f342ae150df26503f64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCam: {fileID: 7680093933480077685}
 --- !u!1 &2740570841010447172
 GameObject:
   m_ObjectHideFlags: 0
@@ -559,6 +575,7 @@ MonoBehaviour:
   bullet: {fileID: 5373034997172829452, guid: 13e14cf096168be438995f3f49a68eac, type: 3}
   barrel: {fileID: 4626794216113460670}
   equipped: 0
+  pointerPos: {x: 0, y: 0}
 --- !u!1 &4898033099576432451
 GameObject:
   m_ObjectHideFlags: 0
@@ -1070,7 +1087,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &515677575073871820
 Transform:
   m_ObjectHideFlags: 0
@@ -1103,3 +1120,4 @@ MonoBehaviour:
   bullet: {fileID: 975312783370038833, guid: 62a2673fbcd53744196280ca9af8da54, type: 3}
   barrel: {fileID: 6460930614444577550}
   equipped: 0
+  pointerPos: {x: 0, y: 0}

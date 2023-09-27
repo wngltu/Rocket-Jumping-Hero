@@ -8,6 +8,10 @@ TagManager:
   - enemy
   - platform
   - playerrocket
+  - door
+  - pressureplate
+  - lever
+  - rdoor
   layers:
   - Default
   - TransparentFX
@@ -15,7 +19,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Interactable
   - 
   - 
   - 
@@ -62,4 +66,7 @@ TagManager:
     locked: 0
   - name: UI
     uniqueID: 3583846157
+    locked: 0
+  - name: PlayerUI
+    uniqueID: 2049733755
     locked: 0

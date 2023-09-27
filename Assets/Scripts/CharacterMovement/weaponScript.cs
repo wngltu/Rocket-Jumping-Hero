@@ -11,7 +11,7 @@ public class weaponScript : MonoBehaviour
 
     public bool equipped = false;
 
-    Vector2 pointerPos;
+    public Vector2 pointerPos;
     // Start is called before the first frame update
     protected virtual void Start()
     {
