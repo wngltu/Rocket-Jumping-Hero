@@ -8,6 +8,7 @@ public class weaponManager : MonoBehaviour
     public List<weaponScript> weaponInventory = new List<weaponScript>();
     public int equippedNum = 0;
     public weaponScript equippedWeapon;
+    public PauseMenu pauseManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +18,7 @@ public class weaponManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetAxis("Mouse ScrollWheel") > 0 && weaponInventory.Count > 1)
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && weaponInventory.Count > 1 && pauseManager.paused == false)
         {
             if (equippedNum > 0)
             {
@@ -30,7 +31,7 @@ public class weaponManager : MonoBehaviour
             equippedWeapon = weaponInventory[equippedNum];
             EquipCurrentWeapon();
         }
-        if (Input.GetAxis("Mouse ScrollWheel") < 0 && weaponInventory.Count > 1)
+        if (Input.GetAxis("Mouse ScrollWheel") < 0 && weaponInventory.Count > 1 && pauseManager.paused == false)
         {
             if (equippedNum < weaponInventory.Count-1)
             {
@@ -43,12 +44,12 @@ public class weaponManager : MonoBehaviour
             equippedWeapon = weaponInventory[equippedNum];
             EquipCurrentWeapon();
         }
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1) && pauseManager.paused == false)
         {
             equippedNum = 0;
             EquipCurrentWeapon();
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.Alpha2) && pauseManager.paused == false)
         {
             equippedNum = 1;
             EquipCurrentWeapon();

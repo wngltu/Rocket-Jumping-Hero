@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     public Slider rocketReloadSlider;
     public weaponManager weaponManager;
     public PlayerRocketLauncher rocketLauncher;
+    public PauseMenu pauseManager; 
 
     //Horizontal variables
     private float horizontalVeloCap = 10f;
@@ -51,6 +52,8 @@ public class PlayerMovement : MonoBehaviour
     private int maxRockets = 4;
     private float rocketRegenCooldown = 1.5f;
     private float rocketRegenTimer = 0f;
+    private float rocketTapWindow = .15f;
+    private float rocketTapTimer = 0f;
 
     //Other variables
     private float explosionRecoilRecoveryRate = 10; //higher = faster recovery
@@ -228,7 +231,7 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
 
-        if (Input.GetKey(KeyCode.Mouse1)) //if player starts holding right click, start rocket "aim mode"
+        if (Input.GetKey(KeyCode.Mouse1) && pauseManager.paused == false) //if player starts holding right click, start rocket "aim mode"
         {
             weaponManager.UnequipAll();
             rocketLauncher.Equip();
@@ -240,15 +243,31 @@ public class PlayerMovement : MonoBehaviour
                 rockets--;
                 rocketText.text = rockets.ToString();
                 rocketReloadSlider.value = rocketRegenTimer / rocketRegenCooldown;
+                rocketTapTimer = 0f; //make sure player can't tap shoot after shooting a held rocket
             }
         }
+        if (Input.GetKeyDown(KeyCode.Mouse1)) //when player clicks button, start rocket tap input window
+            rocketTapTimer = rocketTapWindow;
         else if (Input.GetKeyUp(KeyCode.Mouse1))
         {
             rocketLauncher.Unequip();
             weaponManager.EquipCurrentWeapon();
-            if(slowmoEnabled == true)
+            if (slowmoEnabled == true)
                 Time.timeScale = 1f;
         }
+
+        if (Input.GetKeyUp(KeyCode.Mouse1) && rocketTapTimer > 0) //if rocket tap input window did not elapse and player "taps" and lets go, execute rocket shoot
+        {
+            rocketLauncher.Shoot();
+            rocketTapTimer = 0;
+        }
+
+        if (rocketTapTimer > 0)
+            rocketTapTimer -= Time.deltaTime;
+        else if (rocketTapTimer < 0)
+            rocketTapTimer = 0f;
+
+
                 
 
         if (grounded && rockets < maxRockets) //"reload"/regenerate rockets while standing on the ground

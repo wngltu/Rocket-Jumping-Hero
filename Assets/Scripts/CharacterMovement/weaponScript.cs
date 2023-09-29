@@ -8,8 +8,10 @@ public class weaponScript : MonoBehaviour
     public Camera playerCam;
     public GameObject bullet;
     public GameObject barrel;
+    public PauseMenu pauseManager;
 
     public bool equipped = false;
+   
 
     public Vector2 pointerPos;
     // Start is called before the first frame update
@@ -21,16 +23,16 @@ public class weaponScript : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && pauseManager.paused == false)
         {
             GameObject clone = Instantiate(bullet, barrel.transform.position, barrel.transform.rotation);
         }
 
         pointerPos = Input.mousePosition;
-        
         pointerPos = playerCam.ScreenToWorldPoint(pointerPos);
         pointerPos = pointerPos - (Vector2)transform.position;
-        transform.right = pointerPos;
+        if (!pauseManager.paused)
+            transform.right = pointerPos;
         //transform.right = (pointerPos - (Vector2)transform.position).normalized; //used for enemy tracking?
     }
 
