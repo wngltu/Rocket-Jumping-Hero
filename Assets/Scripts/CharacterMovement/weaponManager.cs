@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class weaponManager : MonoBehaviour
@@ -9,6 +10,8 @@ public class weaponManager : MonoBehaviour
     public int equippedNum = 0;
     public weaponScript equippedWeapon;
     public PauseMenu pauseManager;
+    public TextMeshProUGUI magText;
+    public TextMeshProUGUI reserveText;
     // Start is called before the first frame update
     void Start()
     {
@@ -61,12 +64,19 @@ public class weaponManager : MonoBehaviour
         foreach (weaponScript weapon in weaponInventory)
         {
             weapon.Unequip();
+            weapon.enabled = false;
         }
     }
     public void EquipCurrentWeapon()
     {
         equippedWeapon = weaponInventory[equippedNum];
         UnequipAll();
+        equippedWeapon.enabled = true;
         equippedWeapon.Equip();
+    }
+
+    public void addWeapon(weaponScript weapon)
+    {
+        weaponInventory.Add(weapon);
     }
 }

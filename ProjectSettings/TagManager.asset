@@ -12,6 +12,7 @@ TagManager:
   - pressureplate
   - lever
   - rdoor
+  - droppedweapon
   layers:
   - Default
   - TransparentFX

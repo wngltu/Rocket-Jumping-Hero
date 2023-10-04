@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
     private float jumpStrength = 7.5f;
     private float jumpCooldown = 0;
     private float multiJumpCooldown = .1f;
-    private float jumpsLeft = 2;
+    private float jumpsLeft = 1;
     private float verticalVeloCap = 10f;
     private float defaultVerticalVeloCap = 10f;
     private float rocketJumpingVerticalVeloCap = 12f;
@@ -167,12 +167,16 @@ public class PlayerMovement : MonoBehaviour
         if (grounded && velocity.y < 0) //If the player lands, they can jump again
         {
             velocity.y = -.5f;
-            jumpsLeft = 2;
+            jumpsLeft = 1;
         }
 
         if ((jumpHeld && grounded && jumpCooldown <= 0) || (jumpHeld && jumpsLeft > 0 && multiJumpCooldown <= 0)) //Is the player able to double jump again
         {
-            velocity.y += jumpStrength;
+            if (velocity.y < 0)
+                velocity.y = jumpStrength;
+            else 
+                velocity.y += jumpStrength;
+
             if (velocity.y > verticalVeloCap)
             {
                 velocity.y = verticalVeloCap;
@@ -246,9 +250,9 @@ public class PlayerMovement : MonoBehaviour
                 rocketTapTimer = 0f; //make sure player can't tap shoot after shooting a held rocket
             }
         }
-        if (Input.GetKeyDown(KeyCode.Mouse1)) //when player clicks button, start rocket tap input window
+        if (Input.GetKeyDown(KeyCode.Mouse1) && pauseManager.paused == false) //when player clicks button, start rocket tap input window
             rocketTapTimer = rocketTapWindow;
-        else if (Input.GetKeyUp(KeyCode.Mouse1))
+        else if (Input.GetKeyUp(KeyCode.Mouse1) && pauseManager.paused == false)
         {
             rocketLauncher.Unequip();
             weaponManager.EquipCurrentWeapon();
@@ -256,9 +260,12 @@ public class PlayerMovement : MonoBehaviour
                 Time.timeScale = 1f;
         }
 
-        if (Input.GetKeyUp(KeyCode.Mouse1) && rocketTapTimer > 0) //if rocket tap input window did not elapse and player "taps" and lets go, execute rocket shoot
+        if (Input.GetKeyUp(KeyCode.Mouse1) && rocketTapTimer > 0 && rockets > 0 && pauseManager.paused == false) //if rocket tap input window did not elapse and player "taps" and lets go, execute rocket shoot
         {
             rocketLauncher.Shoot();
+            rockets--;
+            rocketText.text = rockets.ToString();
+            rocketReloadSlider.value = rocketRegenTimer / rocketRegenCooldown;
             rocketTapTimer = 0;
         }
 

@@ -56,7 +56,7 @@ public class Rocket : MonoBehaviour
                 rb.AddExplosionForce(900f, transform.position, explosionRadius);
                 obj.GetComponent<Enemy>().takeDamage(damage * (explosionRadius - (this.transform.position - obj.transform.position).magnitude)/5);
             }
-            if (obj.gameObject.tag == "Player")
+            else if (obj.gameObject.tag == "Player")
             {
                 /*
                 CharacterController cc = obj.GetComponent<CharacterController>();
@@ -70,6 +70,11 @@ public class Rocket : MonoBehaviour
                 PlayerMovement playercontroller = obj.GetComponent<PlayerMovement>();
                 playercontroller.AddExplosionForce(transform.position, explosionRadius, explosionForce);
                 print(transform.position);
+            }
+            else if (obj.GetComponent<Rigidbody>() != null) //component must have rigidbody to be displaced
+            {
+                Rigidbody rb = obj.GetComponent<Rigidbody>();
+                rb.AddExplosionForce(900f, transform.position, explosionRadius);
             }
         }
         GameObject newObject = Instantiate(explodeIndicator, transform.position, Quaternion.identity); //spawn a circle showing blast radius
