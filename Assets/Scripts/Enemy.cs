@@ -12,6 +12,8 @@ public class Enemy : MonoBehaviour
     public PrefabLoot prefabLoot;
     public Slider healthBar;
 
+    public bool Died = false; //bool to make sure drops dont duplicate
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,9 +39,12 @@ public class Enemy : MonoBehaviour
     }
     void Die()
     {
-        print("die");
-        GameObject loot = Instantiate(prefabLoot.pistolDrop, this.transform);
-        loot.gameObject.transform.SetParent(null);
-        Destroy(this.gameObject);
+        if (Died != true)
+        {
+            GameObject loot = Instantiate(prefabLoot.pistolDrop, this.transform);
+            loot.gameObject.transform.SetParent(null);
+            Died = true;
+            Destroy(this.gameObject);
+        }
     }
 }

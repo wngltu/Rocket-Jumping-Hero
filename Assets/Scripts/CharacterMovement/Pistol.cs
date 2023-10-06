@@ -9,6 +9,8 @@ public class Pistol : weaponScript
     public float explosionRadius = .35f;
     public float range = 8f;
     Vector2 interactDirection;
+
+    int layerMask = ~((1 << 3) | (1 << 8));
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +29,11 @@ public class Pistol : weaponScript
             if (canShoot)
                 Shoot();
         }
+        else if (Input.GetKeyDown(KeyCode.Mouse0) && pauseManager.paused == false && currentMag <= 0)
+        {
+            if (canReload)
+                Reload();
+        }
         if (Input.GetKeyDown(KeyCode.R) && pauseManager.paused == false && currentMag != maxMag)
             Reload();
     }
@@ -35,7 +42,7 @@ public class Pistol : weaponScript
     {
         interactDirection = playerCam.ScreenToWorldPoint(Input.mousePosition) - playerCam.transform.position;
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, interactDirection, out hit, range)) //shoot ray from barrel of gun
+        if (Physics.Raycast(transform.position, interactDirection, out hit, range, layerMask)) //shoot ray from barrel of gun
         {
             Debug.DrawRay(transform.position, interactDirection);
             Debug.Log(hit.collider.gameObject.name.ToString());

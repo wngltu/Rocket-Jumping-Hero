@@ -64,12 +64,15 @@ public class weaponManager : MonoBehaviour
         {
             if (equippedNum > 0)
             {
+                DropWeapon(equippedWeapon);
                 equippedNum--;
                 EquipCurrentWeapon();
             }
-            else if (equippedNum == 0 && weaponInventory.Count < 2) //if this is the last weapon in inventory dont try to switch
+            else if (equippedNum == 0 && weaponInventory.Count <= 2) //if this is the last weapon in inventory dont try to switch
             {
                 DropWeapon(equippedWeapon);
+                equippedNum = 0;
+                EquipCurrentWeapon();
             }
         }
     }
