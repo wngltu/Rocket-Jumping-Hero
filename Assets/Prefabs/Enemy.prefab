@@ -316,6 +316,7 @@ GameObject:
   - component: {fileID: 6451428982715898520}
   - component: {fileID: 7196023527681421943}
   - component: {fileID: 1138299751575237188}
+  - component: {fileID: 1306964508004801533}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: enemy
@@ -405,8 +406,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 100
   maxHealth: 100
+  prefabLoot: {fileID: 0}
   healthBar: {fileID: 5727347076813801368}
-  canvas: {fileID: 0}
 --- !u!65 &7196023527681421943
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -426,8 +427,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 0.2}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 0.857919}
+  m_Center: {x: 0, y: 0, z: 0.04196246}
 --- !u!54 &1138299751575237188
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -455,6 +456,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 0
+--- !u!65 &1306964508004801533
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4418829945125945176}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7356615411649235323
 GameObject:
   m_ObjectHideFlags: 0

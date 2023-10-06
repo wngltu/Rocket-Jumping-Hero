@@ -14,7 +14,7 @@ public class PauseMenu : MonoBehaviour
     public static PauseMenu instance;
 
     public bool paused = false;
-    bool instructionsToggled = true;
+    bool instructionsToggled = false;
     // Start is called before the first frame update
     void Start()
     {

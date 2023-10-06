@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class weaponManager : MonoBehaviour
@@ -12,6 +13,7 @@ public class weaponManager : MonoBehaviour
     public PauseMenu pauseManager;
     public TextMeshProUGUI magText;
     public TextMeshProUGUI reserveText;
+    public GameObject playerItemDrop;
     // Start is called before the first frame update
     void Start()
     {
@@ -57,6 +59,19 @@ public class weaponManager : MonoBehaviour
             equippedNum = 1;
             EquipCurrentWeapon();
         }
+
+        if (Input.GetKeyDown(KeyCode.G) && pauseManager.paused == false) //drop weapon
+        {
+            if (equippedNum > 0)
+            {
+                equippedNum--;
+                EquipCurrentWeapon();
+            }
+            else if (equippedNum == 0 && weaponInventory.Count < 2) //if this is the last weapon in inventory dont try to switch
+            {
+                DropWeapon(equippedWeapon);
+            }
+        }
     }
 
     public void UnequipAll()
@@ -69,14 +84,31 @@ public class weaponManager : MonoBehaviour
     }
     public void EquipCurrentWeapon()
     {
-        equippedWeapon = weaponInventory[equippedNum];
-        UnequipAll();
-        equippedWeapon.enabled = true;
-        equippedWeapon.Equip();
+        if (weaponInventory.Count > 0)
+        {
+            equippedWeapon = weaponInventory[equippedNum];
+            UnequipAll();
+            equippedWeapon.enabled = true;
+            equippedWeapon.Equip();
+        }
     }
 
     public void addWeapon(weaponScript weapon)
     {
         weaponInventory.Add(weapon);
+    }
+
+    public void DropWeapon(weaponScript weapon)
+    {
+        weaponInventory[equippedNum].GetComponent<Rigidbody>().isKinematic = false;
+        weaponInventory[equippedNum].transform.SetParent(null);
+        //weapon.transform.position = weapon.barrel.transform.position;
+        weaponInventory[equippedNum].GetComponent<weaponScript>().enabled = false;
+        weapon.GetComponent<Collider>().enabled = true;
+        if (weapon.reloadInterrupted == false)
+            weapon.reloadInterrupted = true;
+        weaponInventory.Remove(weapon);
+        magText.text = " ";
+        reserveText.text = " ";
     }
 }

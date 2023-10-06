@@ -33,16 +33,8 @@ public class Rocket : MonoBehaviour
     // Update is called once per frame
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "enemy")
-        {
-            enemyScript = other.GetComponent<Enemy>();
-            enemyScript.takeDamage(damage);
+        if (other.tag == "enemy" || other.tag == "door" || other.tag == "ground")
             Explode();
-        }
-        if (other.tag == "ground")
-        {
-            Explode();
-        }
     }
 
     public void Explode()
@@ -52,9 +44,12 @@ public class Rocket : MonoBehaviour
         {
             if (obj.gameObject.tag == "enemy")
             {
-                Rigidbody rb = obj.GetComponent<Rigidbody>();
-                rb.AddExplosionForce(900f, transform.position, explosionRadius);
-                obj.GetComponent<Enemy>().takeDamage(damage * (explosionRadius - (this.transform.position - obj.transform.position).magnitude)/5);
+                if (obj.isTrigger == false)
+                {
+                    Rigidbody rb = obj.GetComponent<Rigidbody>();
+                    rb.AddExplosionForce(900f, transform.position, explosionRadius);
+                    obj.GetComponent<Enemy>().takeDamage(damage * (explosionRadius - (this.transform.position - obj.transform.position).magnitude) / 5);
+                }
             }
             else if (obj.gameObject.tag == "Player")
             {

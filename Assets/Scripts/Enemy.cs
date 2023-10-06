@@ -9,11 +9,13 @@ public class Enemy : MonoBehaviour
     public float currentHealth = 100f;
     public float maxHealth = 100f;
 
+    public PrefabLoot prefabLoot;
     public Slider healthBar;
 
     // Start is called before the first frame update
     void Start()
     {
+        prefabLoot = FindObjectOfType<PrefabLoot>();
         Instance = this;
         currentHealth = maxHealth;
         healthBar.value = currentHealth / maxHealth;
@@ -35,6 +37,9 @@ public class Enemy : MonoBehaviour
     }
     void Die()
     {
+        print("die");
+        GameObject loot = Instantiate(prefabLoot.pistolDrop, this.transform);
+        loot.gameObject.transform.SetParent(null);
         Destroy(this.gameObject);
     }
 }

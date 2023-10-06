@@ -27,6 +27,7 @@ public class weaponScript : MonoBehaviour
 
 
     public Vector2 pointerPos;
+    public Vector2 targetPos;
     // Start is called before the first frame update
     protected void Start()
     {
@@ -42,6 +43,7 @@ public class weaponScript : MonoBehaviour
             pointerPos = Input.mousePosition;
             pointerPos = playerCam.ScreenToWorldPoint(pointerPos);
             pointerPos = pointerPos - (Vector2)transform.position;
+        targetPos = pointerPos;
             if (!pauseManager.paused)
                 transform.right = pointerPos;
             //transform.right = (pointerPos - (Vector2)transform.position).normalized; //used for enemy tracking?
