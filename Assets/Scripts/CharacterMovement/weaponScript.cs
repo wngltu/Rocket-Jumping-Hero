@@ -24,6 +24,8 @@ public class weaponScript : MonoBehaviour
     protected float maxReserve;
     protected float baseDamage;
     protected float reloadTime = 1;
+    protected float fireRate;
+    protected float fireCooldown;
 
 
     public Vector2 pointerPos;

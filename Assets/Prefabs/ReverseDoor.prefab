@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3063430568802557346}
   - component: {fileID: 3189732457599918625}
   - component: {fileID: 2169063229689491567}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: ReverseDoor
   m_TagString: rdoor
   m_Icon: {fileID: 0}

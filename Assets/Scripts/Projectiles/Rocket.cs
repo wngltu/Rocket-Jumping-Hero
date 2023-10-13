@@ -29,11 +29,11 @@ public class Rocket : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-    }
-    // Update is called once per frame
-    private void OnTriggerEnter(Collider other)
+    }   
+
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.tag == "enemy" || other.tag == "door" || other.tag == "ground")
+        if (collision.gameObject.tag == "enemy" || collision.gameObject.tag == "door" || collision.gameObject.tag == "ground")
             Explode();
     }
 
@@ -66,6 +66,8 @@ public class Rocket : MonoBehaviour
                 playercontroller.AddExplosionForce(transform.position, explosionRadius, explosionForce);
                 print(transform.position);
             }
+            else if (obj.gameObject.tag == "lever")
+                obj.gameObject.GetComponentInParent<LeverScript>().triggerDoorMaster();
             else if (obj.GetComponent<Rigidbody>() != null) //component must have rigidbody to be displaced
             {
                 Rigidbody rb = obj.GetComponent<Rigidbody>();

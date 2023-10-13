@@ -10,7 +10,7 @@ public class Pistol : weaponScript
     public float range = 8f;
     Vector2 interactDirection;
 
-    int layerMask = ~((1 << 3) | (1 << 8));
+    int layerMask = ~((1 << 3) | (1 << 8) | (1 << 9) | (1 << 11));
     // Start is called before the first frame update
     void Start()
     {
@@ -20,11 +20,12 @@ public class Pistol : weaponScript
         currentMag = maxMag;
         currentReserve = maxReserve;
         baseDamage = 25;
+        fireRate = .1f;
     }
     void Update()
     {
         base.Update();
-        if (Input.GetKeyDown(KeyCode.Mouse0) && pauseManager.paused == false && currentMag > 0)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && pauseManager.paused == false && currentMag > 0 && fireCooldown == 0)
         {
             if (canShoot)
                 Shoot();
@@ -36,10 +37,18 @@ public class Pistol : weaponScript
         }
         if (Input.GetKeyDown(KeyCode.R) && pauseManager.paused == false && currentMag != maxMag)
             Reload();
+
+        if (fireCooldown > 0)
+            fireCooldown -= Time.deltaTime;
+        else if (fireCooldown < 0)
+            fireCooldown = 0;
     }
 
     public void Shoot()
     {
+        fireCooldown = fireRate;
+        currentMag--;
+        UpdateHUDValues();
         interactDirection = playerCam.ScreenToWorldPoint(Input.mousePosition) - playerCam.transform.position;
         RaycastHit hit;
         if (Physics.Raycast(transform.position, interactDirection, out hit, range, layerMask)) //shoot ray from barrel of gun
@@ -51,6 +60,9 @@ public class Pistol : weaponScript
             {
                 hit.collider.gameObject.GetComponent<Enemy>().takeDamage(baseDamage);
             }
+
+            if (hit.collider.gameObject.CompareTag("lever"))
+                hit.collider.gameObject.GetComponentInParent<LeverScript>().triggerDoorMaster();
         }
         TrailRenderer trail = Instantiate(bulletTrail, barrel.transform.position, Quaternion.identity);
 
@@ -63,7 +75,6 @@ public class Pistol : weaponScript
             StartCoroutine(SpawnTrail(trail, new Vector2(playerCam.transform.position.x, playerCam.transform.position.y) + targetPos.normalized*range));
         }
         //GameObject clone = Instantiate(bullet, barrel.transform.position, barrel.transform.rotation);
-        currentMag--;
         UpdateHUDValues();
     }
 

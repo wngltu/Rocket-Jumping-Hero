@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6601920253279482926}
   - component: {fileID: 4271854842665384492}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Circle (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6733014430557018710}
   - component: {fileID: 5281043898645433366}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Circle (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 2968009304128455314}
   - component: {fileID: 5238833869741518940}
   - component: {fileID: 5315695734750354339}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: Lever (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285,7 +285,7 @@ GameObject:
   - component: {fileID: 4186382754904369626}
   - component: {fileID: 3559067882693016940}
   - component: {fileID: 2100755584159605717}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: LeverBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -389,7 +389,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5782525560139297581}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Inactivate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -424,7 +424,7 @@ GameObject:
   - component: {fileID: 5934488436820383391}
   - component: {fileID: 2752591245917993624}
   - component: {fileID: 1031718567744039593}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: Lever (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -528,7 +528,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3196885727572237693}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Activated
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -562,7 +562,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5357414122041080422}
   - component: {fileID: 7377047036654785014}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Lever
   m_TagString: lever
   m_Icon: {fileID: 0}

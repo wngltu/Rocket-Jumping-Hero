@@ -37,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     private float verticalVeloCap = 10f;
     private float defaultVerticalVeloCap = 10f;
     private float rocketJumpingVerticalVeloCap = 12f;
+    private float ceilingVelocity = 2f;
 
     //Dash variables
     private float dashCooldown = 3; //the set limit cooldown of dash
@@ -54,6 +55,8 @@ public class PlayerMovement : MonoBehaviour
     private float rocketRegenTimer = 0f;
     private float rocketTapWindow = .15f;
     private float rocketTapTimer = 0f;
+    public float rocketFireRate = .15f;
+    public float rocketFireCooldownTimer = .0f;
 
     //Other variables
     private float explosionRecoilRecoveryRate = 10; //higher = faster recovery
@@ -70,8 +73,12 @@ public class PlayerMovement : MonoBehaviour
     public bool isJumping;
     public bool slowmoEnabled = false;
     // Start is called before the first frame update
+
     void Start()
     {
+        controller.enabled = false; //unity character controller is.... VERY INCONVENIENT.
+        transform.position = new Vector3(SaveData.checkpointX, SaveData.checkpointY, 0);
+        controller.enabled = true;
         Instance = this;
         rocketText.text = rockets.ToString();
     }
@@ -235,13 +242,19 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
 
+        if (rocketFireCooldownTimer > 0)
+            rocketFireCooldownTimer -= Time.deltaTime;
+        else if (rocketFireCooldownTimer < 0)
+            rocketFireCooldownTimer = 0;
+
+
         if (Input.GetKey(KeyCode.Mouse1) && pauseManager.paused == false) //if player starts holding right click, start rocket "aim mode"
         {
             weaponManager.UnequipAll();
             rocketLauncher.Equip();
             if (slowmoEnabled == true)
                 Time.timeScale = .3f;
-            if (Input.GetKeyDown(KeyCode.Mouse0) && rockets > 0) //shoot rocket upon clicking left click
+            if (Input.GetKeyDown(KeyCode.Mouse0) && rockets > 0 && rocketFireCooldownTimer == 0) //shoot rocket upon clicking left click
             {
                 rocketLauncher.Shoot();
                 rockets--;
@@ -260,7 +273,7 @@ public class PlayerMovement : MonoBehaviour
                 Time.timeScale = 1f;
         }
 
-        if (Input.GetKeyUp(KeyCode.Mouse1) && rocketTapTimer > 0 && rockets > 0 && pauseManager.paused == false) //if rocket tap input window did not elapse and player "taps" and lets go, execute rocket shoot
+        if (Input.GetKeyUp(KeyCode.Mouse1) && rocketTapTimer > 0 && rockets > 0 && pauseManager.paused == false && rocketFireCooldownTimer == 0) //if rocket tap input window did not elapse and player "taps" and lets go, execute rocket shoot
         {
             rocketLauncher.Shoot();
             rockets--;
@@ -273,8 +286,7 @@ public class PlayerMovement : MonoBehaviour
             rocketTapTimer -= Time.deltaTime;
         else if (rocketTapTimer < 0)
             rocketTapTimer = 0f;
-
-
+            rocketTapTimer = 0f;
                 
 
         if (grounded && rockets < maxRockets) //"reload"/regenerate rockets while standing on the ground
@@ -380,5 +392,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-
+    private void OnTriggerEnter(Collider other)
+    {
+    }
 }

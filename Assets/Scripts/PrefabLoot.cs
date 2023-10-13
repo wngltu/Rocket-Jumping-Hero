@@ -5,4 +5,5 @@ using UnityEngine;
 public class PrefabLoot : MonoBehaviour
 {
     public GameObject pistolDrop;
+    public GameObject meleeDrop;
 }

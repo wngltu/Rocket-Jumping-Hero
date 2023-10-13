@@ -8,6 +8,7 @@ public class PlayerRocketLauncher : MonoBehaviour
     public Camera playerCam;
     public GameObject bullet;
     public GameObject barrel;
+    public PlayerMovement playerMovement;
 
     public bool equipped = false;
 
@@ -16,6 +17,7 @@ public class PlayerRocketLauncher : MonoBehaviour
     protected virtual void Start()
     {
         Instance = this;
+        playerMovement = this.gameObject.GetComponentInParent<PlayerMovement>();
     }
 
     // Update is called once per frame
@@ -43,6 +45,6 @@ public class PlayerRocketLauncher : MonoBehaviour
     public void Shoot()
     {
         GameObject clone = Instantiate(bullet, barrel.transform.position, barrel.transform.rotation);
-        
+        playerMovement.rocketFireCooldownTimer = playerMovement.rocketFireRate;
     }
 }

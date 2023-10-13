@@ -11,6 +11,9 @@ public class DoorMaster : MonoBehaviour
     public List<GameObject> reverseDoors;
     public float openTime = 5f;
     public float doorTimer;
+
+    public float toggleCooldown = .1f;
+    public float toggleCooldownTimer = 0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,11 +35,15 @@ public class DoorMaster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (toggleCooldownTimer > 0)
+            toggleCooldownTimer -= Time.deltaTime;
+        else if (toggleCooldownTimer < 0)
+            toggleCooldownTimer = 0;
     }
 
     public void openDoor()
     {
+        toggleCooldownTimer = toggleCooldown;
         foreach (GameObject door in doors)
         {
             door.SetActive(false);
@@ -60,10 +67,14 @@ public class DoorMaster : MonoBehaviour
 
     public void toggleDoorLever(bool active)
     {
-        if (active)
-            closeDoorLever();
-        else if (!active)
-            openDoorLever();
+        if (toggleCooldownTimer == 0)
+        {
+            toggleCooldownTimer = toggleCooldown;
+            if (active)
+                closeDoorLever();
+            else if (!active)
+                openDoorLever();
+        }
     }
 
     public void openDoorLever()
