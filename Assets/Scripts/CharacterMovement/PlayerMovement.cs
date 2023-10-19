@@ -181,7 +181,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (velocity.y < 0)
                 velocity.y = jumpStrength;
-            else 
+            else
                 velocity.y += jumpStrength;
 
             if (velocity.y > verticalVeloCap)

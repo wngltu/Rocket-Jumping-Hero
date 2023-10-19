@@ -13,6 +13,7 @@ public class Rocket : MonoBehaviour
     float timer = 0f;
     float explosionRadius = 5f;
     float explosionForce = 30f;
+    int layerMask = ~((1 << 9) | (1 << 11) | (1 << 13));
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +34,8 @@ public class Rocket : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "enemy" || collision.gameObject.tag == "door" || collision.gameObject.tag == "ground")
+        print(collision.gameObject.name.ToString());
+        if (collision.gameObject.tag == "enemy" || collision.gameObject.tag == "door" || collision.gameObject.tag == "ground" || collision.gameObject.tag == "platform")
             Explode();
     }
 
@@ -42,36 +44,44 @@ public class Rocket : MonoBehaviour
         var cols = Physics.OverlapSphere(this.transform.position, explosionRadius);
         foreach (Collider obj in cols)
         {
-            if (obj.gameObject.tag == "enemy")
+            RaycastHit hit;
+            Vector3 interactDirection = (obj.gameObject.transform.position - this.transform.position);
+            if (Physics.Raycast(transform.position, interactDirection, out hit, explosionRadius, layerMask)) //shoot ray from barrel of gun
             {
-                if (obj.isTrigger == false)
+                if (hit.collider.gameObject == obj.gameObject) //does explosion have line of sight?
                 {
-                    Rigidbody rb = obj.GetComponent<Rigidbody>();
-                    rb.AddExplosionForce(900f, transform.position, explosionRadius);
-                    obj.GetComponent<Enemy>().takeDamage(damage * (explosionRadius - (this.transform.position - obj.transform.position).magnitude) / 5);
+                    if (obj.gameObject.tag == "enemy")
+                    {
+                        if (obj.isTrigger == false)
+                        {
+                            Rigidbody rb = obj.GetComponent<Rigidbody>();
+                            rb.AddExplosionForce(900f, transform.position, explosionRadius);
+                            obj.GetComponent<Enemy>().takeDamage(damage * (explosionRadius - (this.transform.position - obj.transform.position).magnitude) / 5);
+                        }
+                    }
+                    else if (obj.gameObject.tag == "Player")
+                    {
+                        /*
+                        CharacterController cc = obj.GetComponent<CharacterController>();
+                        cc.enabled = false;
+                        Rigidbody rb = obj.GetComponent<Rigidbody>();
+                        rb.isKinematic = false;
+                        rb.AddExplosionForce(900f, transform.position, explosionRadius);
+                        cc.enabled = true;
+                        cc.
+                        */
+                        PlayerMovement playercontroller = obj.GetComponent<PlayerMovement>();
+                        playercontroller.AddExplosionForce(transform.position, explosionRadius, explosionForce);
+                        print(transform.position);
+                    }
+                    else if (obj.gameObject.tag == "lever")
+                        obj.gameObject.GetComponentInParent<LeverScript>().triggerDoorMaster();
+                    else if (obj.GetComponent<Rigidbody>() != null) //component must have rigidbody to be displaced
+                    {
+                        Rigidbody rb = obj.GetComponent<Rigidbody>();
+                        rb.AddExplosionForce(900f, transform.position, explosionRadius);
+                    }
                 }
-            }
-            else if (obj.gameObject.tag == "Player")
-            {
-                /*
-                CharacterController cc = obj.GetComponent<CharacterController>();
-                cc.enabled = false;
-                Rigidbody rb = obj.GetComponent<Rigidbody>();
-                rb.isKinematic = false;
-                rb.AddExplosionForce(900f, transform.position, explosionRadius);
-                cc.enabled = true;
-                cc.
-                */
-                PlayerMovement playercontroller = obj.GetComponent<PlayerMovement>();
-                playercontroller.AddExplosionForce(transform.position, explosionRadius, explosionForce);
-                print(transform.position);
-            }
-            else if (obj.gameObject.tag == "lever")
-                obj.gameObject.GetComponentInParent<LeverScript>().triggerDoorMaster();
-            else if (obj.GetComponent<Rigidbody>() != null) //component must have rigidbody to be displaced
-            {
-                Rigidbody rb = obj.GetComponent<Rigidbody>();
-                rb.AddExplosionForce(900f, transform.position, explosionRadius);
             }
         }
         GameObject newObject = Instantiate(explodeIndicator, transform.position, Quaternion.identity); //spawn a circle showing blast radius

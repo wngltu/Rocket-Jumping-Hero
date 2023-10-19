@@ -41,11 +41,6 @@ public class Platform : MonoBehaviour
         {
             disablePlayerCollisions();
         }
-        if (other.CompareTag("playerrocket") && col.enabled == false)
-        {
-            other.gameObject.GetComponent<Rocket>().Explode();
-        }
-        
     }
 
 

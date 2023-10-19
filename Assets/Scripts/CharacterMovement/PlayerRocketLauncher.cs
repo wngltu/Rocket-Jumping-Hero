@@ -8,6 +8,7 @@ public class PlayerRocketLauncher : MonoBehaviour
     public Camera playerCam;
     public GameObject bullet;
     public GameObject barrel;
+    public GameObject model;
     public PlayerMovement playerMovement;
 
     public bool equipped = false;
@@ -30,6 +31,15 @@ public class PlayerRocketLauncher : MonoBehaviour
         pointerPos = playerCam.ScreenToWorldPoint(pointerPos);
         pointerPos = pointerPos - (Vector2)transform.position;
         transform.right = pointerPos;
+
+        if (Input.mousePosition.x < Screen.width / 2f) //if mouse on left half of screen
+        {
+            model.transform.localScale = new Vector3(1, -1, 1);
+        }
+        else //if mouse on right half of screen
+        {
+            model.transform.localScale = Vector3.one;
+        }
         //transform.right = (pointerPos - (Vector2)transform.position).normalized; //used for enemy tracking?
     }
 
@@ -44,7 +54,14 @@ public class PlayerRocketLauncher : MonoBehaviour
 
     public void Shoot()
     {
-        GameObject clone = Instantiate(bullet, barrel.transform.position, barrel.transform.rotation);
+        if (Input.mousePosition.x < Screen.width / 2f) //if mouse on left half of screen
+        {
+            GameObject clone = Instantiate(bullet, barrel.transform.position, barrel.transform.rotation * new Quaternion(0,0,-1,0));
+        }
+        else //if mouse on right half of screen
+        {
+            GameObject clone = Instantiate(bullet, barrel.transform.position, barrel.transform.rotation);
+        }
         playerMovement.rocketFireCooldownTimer = playerMovement.rocketFireRate;
     }
 }
