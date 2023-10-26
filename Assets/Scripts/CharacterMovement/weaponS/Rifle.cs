@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 
 public class Rifle : weaponScript
@@ -64,6 +62,15 @@ public class Rifle : weaponScript
             if (hit.collider.gameObject.CompareTag("enemy"))
             {
                 hit.collider.gameObject.GetComponent<Enemy>().takeDamage(baseDamage);
+                foreach (StickyGrenadeProjectile stickyGrenade in hit.collider.gameObject.GetComponentsInChildren<StickyGrenadeProjectile>())
+                {
+                    stickyGrenade.Explode();
+                }
+            }
+
+            if (hit.collider.gameObject.CompareTag("explodewhenshot"))
+            {
+                hit.collider.gameObject.GetComponentInParent<StickyGrenadeProjectile>().Explode();
             }
 
             if (hit.collider.gameObject.CompareTag("lever"))

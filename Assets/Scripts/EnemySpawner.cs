@@ -14,7 +14,7 @@ public class EnemySpawner : MonoBehaviour
     {
         GameObject enemy = Instantiate(enemyPrefab, transform);
         enemy.transform.SetParent(transform);
-        enemy.GetComponent<MeleeGrunt>().prefabLoot = null;
+        enemy.GetComponent<MeleeGruntFSM>().prefabLoot = null;
     }
 
     // Update is called once per frame
@@ -29,7 +29,7 @@ public class EnemySpawner : MonoBehaviour
         {
             GameObject enemy = Instantiate(enemyPrefab, transform);
             enemy.transform.SetParent(transform);
-            enemy.GetComponent<MeleeGrunt>().prefabLoot = null;
+            enemy.GetComponent<MeleeGruntFSM>().prefabLoot = null;
             respawnTimer = respawnCooldown;
         }
     }

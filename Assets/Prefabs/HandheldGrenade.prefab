@@ -172,7 +172,7 @@ MonoBehaviour:
   pointerPos: {x: 0, y: 0}
   targetPos: {x: 0, y: 0}
   explodeIndicator: {fileID: 210786055253976368, guid: 427bcb42b61ae844daa3251c344f0a05, type: 3}
-  explosionRadius: 0.35
+  explosionRadius: 5
   range: 10
 --- !u!1001 &1676681676745865078
 PrefabInstance:

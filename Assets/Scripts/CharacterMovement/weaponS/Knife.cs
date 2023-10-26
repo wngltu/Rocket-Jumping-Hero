@@ -46,6 +46,15 @@ public class Knife : weaponScript
                 hit.collider.gameObject.GetComponent<Enemy>().takeDamage(baseDamage);
                 GameObject newExplosiveIndicator = Instantiate(explodeIndicator, hit.point, Quaternion.identity);
                 newExplosiveIndicator.GetComponent<ExplosiveRadius>().explosionRadius = .5f;
+                foreach (StickyGrenadeProjectile stickyGrenade in hit.collider.gameObject.GetComponentsInChildren<StickyGrenadeProjectile>())
+                {
+                    stickyGrenade.Explode();
+                }
+            }
+
+            if (hit.collider.gameObject.CompareTag("explodewhenshot"))
+            {
+                hit.collider.gameObject.GetComponentInParent<StickyGrenadeProjectile>().Explode();
             }
         }
         //GameObject clone = Instantiate(bullet, barrel.transform.position, barrel.transform.rotation);

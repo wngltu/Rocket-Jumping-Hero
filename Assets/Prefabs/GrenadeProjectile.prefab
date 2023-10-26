@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5395264643545042881}
   - component: {fileID: -4954749075288205512}
   - component: {fileID: 3109096917144011479}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GrenadeProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: cecca25c94780ca428d51ab9f5894270, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: cecca25c94780ca428d51ab9f5894270, type: 3}
       propertyPath: m_LocalScale.x

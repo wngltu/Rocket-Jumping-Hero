@@ -1,10 +1,11 @@
-
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class GrenadeProjectile : MonoBehaviour
+public class StickyGrenadeProjectile : MonoBehaviour
 {
     Enemy enemyScript;
-    public static GrenadeProjectile Instance;
+    public static StickyGrenadeProjectile Instance;
     public Transform barrel;
     public GameObject explodeIndicator;
     Rigidbody rigidbody;
@@ -18,18 +19,8 @@ public class GrenadeProjectile : MonoBehaviour
     {
         Instance = this;
         rigidbody = GetComponent<Rigidbody>();
-        rigidbody.AddRelativeForce(new Vector3(0,100, -300));
-        timer = 1.5f;
+        rigidbody.AddRelativeForce(new Vector3(0, 100, -300));
     }
-
-    private void Update()
-    {
-        if (timer > 0)
-            timer -= Time.deltaTime;
-        if (timer < 0)
-            Explode();
-    }
-
     public void Explode()
     {
         var cols = Physics.OverlapSphere(this.transform.position, explosionRadius);
@@ -87,5 +78,21 @@ public class GrenadeProjectile : MonoBehaviour
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, 5f);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("enemy"))
+        {
+            rigidbody.isKinematic = true;
+            this.gameObject.transform.SetParent(collision.transform, true);
+            this.gameObject.GetComponent<SphereCollider>().enabled = false;
+        }
+        else
+        {
+            rigidbody.isKinematic = true;
+            this.gameObject.GetComponent<SphereCollider>().enabled = false;
+            this.gameObject.GetComponent<BoxCollider>().enabled = true;
+        }
     }
 }
