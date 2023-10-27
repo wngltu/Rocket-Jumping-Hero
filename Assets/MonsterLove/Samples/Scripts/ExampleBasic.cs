@@ -35,40 +35,29 @@ public class ExampleBasic : MonoBehaviour
 		fsm.Driver.Update.Invoke();
 	}
 
-	void OnGUI()
-	{
-		GUILayout.BeginArea(new Rect(50,50,120,40));
-
-		fsm.Driver.OnGUI.Invoke();
-		
-		GUILayout.EndArea();
-	}
-
 	void Init_Enter()
 	{
-		Debug.Log("Waiting for start button to be pressed");
-	}
+		Debug.Log("init enter");
+        fsm.ChangeState(States.Countdown);
+    }
 
-	void Init_OnGUI()
+	void Init_Exit()
 	{
-		if(GUILayout.Button("Start"))
-		{
-			fsm.ChangeState(States.Countdown);
-		}
+		Debug.Log("init exit");
 	}
 
 	//We can return a coroutine, this is useful animations and the like
-	IEnumerator Countdown_Enter()
+	void Countdown_Enter()
 	{
 		health = startHealth;
-
+		/*
 		Debug.Log("Starting in 3...");
 		yield return new WaitForSeconds(0.5f);
 		Debug.Log("Starting in 2...");
 		yield return new WaitForSeconds(0.5f);
 		Debug.Log("Starting in 1...");
-		yield return new WaitForSeconds(0.5f);
-
+		yield return new WaitForSeconds(0.5f);*/
+		Debug.Log("countdownenter");
 		fsm.ChangeState(States.Play);
 	}
 
@@ -79,11 +68,12 @@ public class ExampleBasic : MonoBehaviour
 
 	void Play_Enter()
 	{
-		Debug.Log("FIGHT!");
+		Debug.Log("enter play");
 	}
 
 	void Play_Update()
 	{
+		Debug.Log("playupdate");
 		health -= damage * Time.deltaTime;
 	
 		if(health < 0)

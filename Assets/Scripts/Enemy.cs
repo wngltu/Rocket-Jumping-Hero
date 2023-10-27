@@ -15,9 +15,12 @@ public class Enemy : MonoBehaviour
     protected Rigidbody rb;
     public PlayerMovement player;
     public AIPath aiPath;
+    public GameObject weaponLoot;
 
     public bool Died = false; //bool to make sure drops dont duplicate
     public bool aggroed = false;
+    public bool playerToTheRight; //which direction in reference to the game object is the player currently?
+
 
     // Start is called before the first frame update
     protected void Start()
@@ -40,44 +43,26 @@ public class Enemy : MonoBehaviour
             Die();
         }
     }
-
-    public void AggroEnemy()
-    {
-        aggroed = true;
-        aiPath.enabled = true;
-    }
-
-    public void DeaggroEnemy()
-    {
-        aggroed = false;
-        aiPath.enabled = false;
-    }
     protected virtual void Die()
     {
         if (Died != true)
         {
-            GameObject loot = Instantiate(prefabLoot.meleeDrop, this.transform);
+            GameObject loot = Instantiate(weaponLoot, this.transform);
             loot.gameObject.transform.SetParent(null);
             Died = true;
             Destroy(this.gameObject);
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected virtual void UpdatePlayerDirection()
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (player.gameObject.transform.position.x > this.gameObject.transform.position.x)
         {
-            if (aggroed == false)
-                AggroEnemy();
+            playerToTheRight = true;
         }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
+        else if (player.gameObject.transform.position.x < this.gameObject.transform.position.x)
         {
-            if (aggroed == true)
-                DeaggroEnemy();
+            playerToTheRight = false;
         }
     }
 }

@@ -19,7 +19,6 @@ public class DoorMaster : MonoBehaviour
     {
         foreach(Transform child in transform)
         {
-            print("test");
             if (child.CompareTag("door")) //object is a door
                 doors.Add(child.gameObject);
             else if (child.CompareTag("pressureplate")) //object is a pressure plate

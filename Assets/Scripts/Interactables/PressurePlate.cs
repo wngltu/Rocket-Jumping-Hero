@@ -18,7 +18,6 @@ public class PressurePlate : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        print(collision);
         if (collision.gameObject.CompareTag("Player"))
         {
             doorMaster.openDoor();
@@ -28,7 +27,6 @@ public class PressurePlate : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        print(other);
         if (other.gameObject.CompareTag("Player"))
         {
             if (interactable)

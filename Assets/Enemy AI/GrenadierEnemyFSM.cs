@@ -3,27 +3,30 @@ using MonsterLove.StateMachine; //use _Enter, _Exit, _Finally for functions afte
 using System.Linq;
 using Pathfinding;
 using System.Collections.Generic;
+using static UnityEngine.GraphicsBuffer;
 
-public class MeleeGruntFSM : Enemy
-{
-    public static MeleeGruntFSM GruntInstance;
+public class GrenadierEnemyFSM : Enemy
+{ 
+    public static GrenadierEnemyFSM GruntInstance;
     float attackWindup = .75f;
     float attackTime = 1f;
-    float attackCooldown = 2f;
-    float attackRange = 3.5f;
+    float attackCooldown = 3f;
+    float attackRange = 7.5f;
     float baseDamage = 10f;
 
-    float idleTime = 3f;
-    float patrolTime = 5f;
+    float idleTime = 1f;
+    float patrolTime = 2f;
 
 
     float distanceFromPlayer;
     float timer;
 
     public bool recoiledRecently = false;
-    bool isAttacking = true; //this is to make sure the enemy does not hit the player more than once in one attack
 
     public GameObject explodeIndicator;
+    public GameObject weaponModel;
+    public GameObject barrel;
+    public GameObject bullet;
     public AIDestinationSetter aiDestinationSetter;
     public States currentState;
 
@@ -31,11 +34,6 @@ public class MeleeGruntFSM : Enemy
 
     Vector3 attackDirection;
 
-    void Test_Update()
-    {
-        Debug.Log("Test UPDATE");
-    }
-    
     public enum States
     {
         Init,
@@ -56,10 +54,9 @@ public class MeleeGruntFSM : Enemy
     {
         fsm = new StateMachine<States, StateDriverUnity>(this);
         fsm.ChangeState(States.Init, StateTransition.Safe);
-
-
+        base.maxHealth = 175;
         base.Start();
-        base.weaponLoot = base.prefabLoot.meleeDrop;
+        base.weaponLoot = base.prefabLoot.grenadeDrop;
         GruntInstance = this;
 
         if (aiDestinationSetter == null)
@@ -71,13 +68,12 @@ public class MeleeGruntFSM : Enemy
     }
 
     private StateMachine<States, StateDriverUnity> fsm;
-    // Start is called before the first frame update
-    
-    // Update is called once per frame
+
     void Update()
     {
         fsm.Driver.Update.Invoke();
         currentState = fsm.State;
+        print(currentState);
     }
 
     void Init_Enter()
@@ -89,7 +85,7 @@ public class MeleeGruntFSM : Enemy
     {
         Debug.Log("exit init state");
     }
-    
+
     void Idle_Enter()
     {
         aiPath.enabled = false;
@@ -109,15 +105,15 @@ public class MeleeGruntFSM : Enemy
     {
         aiPath.enabled = true;
     }
-    
+
     void Patrol_Enter()
     {
         stateTime = 0;
         WalkToRandomNearbyNode();
-        Debug.Log("enter patrol state");   
+        Debug.Log("enter patrol state");
     }
 
-    
+
     void Patrol_Update()
     {
         stateTime += Time.deltaTime;
@@ -149,6 +145,10 @@ public class MeleeGruntFSM : Enemy
         {
             fsm.ChangeState(States.AttackWindup, StateTransition.Safe);
         }
+        Vector3 relativePos = player.transform.position - transform.position;
+
+        Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
+        weaponModel.transform.rotation = rotation;
     }
 
     void Chasing_Exit()
@@ -160,10 +160,16 @@ public class MeleeGruntFSM : Enemy
     void AttackWindup_Enter()
     {
         UpdatePlayerDirection();
+        
         if (playerToTheRight == true)
-            rb.AddForce(new Vector2(-1, .5f), ForceMode.Impulse);
+        {
+            weaponModel.transform.localScale = new Vector3(1, 1, 1);
+        }
         else
-            rb.AddForce(new Vector2(1, .5f), ForceMode.Impulse);
+        {
+            weaponModel.transform.localScale = new Vector3(-1, 1, 1);
+        }   
+
         Debug.Log("start attack windup");
         aiPath.enabled = false;
         timer = attackWindup;
@@ -182,13 +188,14 @@ public class MeleeGruntFSM : Enemy
     {
         timer = 0f;
         timer = attackTime;
-        isAttacking = true;
         Debug.Log("start attacK");
         UpdatePlayerDirection();
+        GameObject grenadeInstance = Instantiate(bullet, barrel.transform, false);
+        UpdatePlayerDirection();
         if (playerToTheRight == true)
-            rb.AddForce(new Vector2(2+distanceFromPlayer, 5+(player.transform.position.y-transform.position.y)), ForceMode.Impulse);
+            grenadeInstance.GetComponent<Rigidbody>().AddForce(new Vector2(distanceFromPlayer/3, 2 +(player.transform.position.y - transform.position.y)), ForceMode.Impulse);
         else
-            rb.AddForce(new Vector2(-2-distanceFromPlayer, 5+(player.transform.position.y - transform.position.y)), ForceMode.Impulse);
+            grenadeInstance.GetComponent<Rigidbody>().AddForce(new Vector2(-distanceFromPlayer/3, 2 +(player.transform.position.y - transform.position.y)), ForceMode.Impulse);
     }
     void Attack_Update()
     {
@@ -202,7 +209,6 @@ public class MeleeGruntFSM : Enemy
 
     void Attack_Exit()
     {
-        isAttacking = false;
     }
 
     void AttackCooldown_Enter()
@@ -259,7 +265,7 @@ public class MeleeGruntFSM : Enemy
             }
         }
         pathingNodes.Append(this.gameObject.GetComponent<Collider>());
-        aiDestinationSetter.target = pathingNodes[Random.Range(0, pathingNodes.Count-1)].transform; //set new target to a random nearby node's position
+        aiDestinationSetter.target = pathingNodes[Random.Range(0, pathingNodes.Count - 1)].transform; //set new target to a random nearby node's position
         Debug.Log("finished calculating");
     }
 
@@ -269,12 +275,4 @@ public class MeleeGruntFSM : Enemy
         Gizmos.DrawWireSphere(transform.position, aggroRange);
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player") && isAttacking == true)
-        {
-            collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(15);
-            fsm.ChangeState(States.AttackCooldown, StateTransition.Safe);
-        }
-    }
 }

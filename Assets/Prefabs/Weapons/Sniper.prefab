@@ -73,8 +73,8 @@ GameObject:
   m_Component:
   - component: {fileID: 9212743971559579026}
   - component: {fileID: 8553922254375577355}
-  - component: {fileID: 7982566882068845710}
   - component: {fileID: 8249205992428225887}
+  - component: {fileID: -7483250256631397610}
   m_Layer: 8
   m_Name: Sniper
   m_TagString: droppedweapon
@@ -127,27 +127,6 @@ MonoBehaviour:
   explodeIndicator: {fileID: 210786055253976368, guid: 427bcb42b61ae844daa3251c344f0a05, type: 3}
   explosionRadius: 0.5
   range: 20
---- !u!65 &7982566882068845710
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9009331981593576864}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.69791794, y: 0.17371547, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &8249205992428225887
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -175,6 +154,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 56
   m_CollisionDetection: 0
+--- !u!65 &-7483250256631397610
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9009331981593576864}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.6914203, y: 0.1760605, z: 1}
+  m_Center: {x: 0.15428984, y: -0.017496824, z: 0}
 --- !u!1001 &5994291652933411076
 PrefabInstance:
   m_ObjectHideFlags: 0

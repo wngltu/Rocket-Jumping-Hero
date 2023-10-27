@@ -6,4 +6,6 @@ public class PrefabLoot : MonoBehaviour
 {
     public GameObject pistolDrop;
     public GameObject meleeDrop;
+    public GameObject grenadeDrop;
+    public GameObject sniperDrop;
 }
