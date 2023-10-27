@@ -8,14 +8,14 @@ using static UnityEngine.GraphicsBuffer;
 public class SniperEnemyFSM : Enemy
 { 
     public static SniperEnemyFSM GruntInstance;
-    float attackWindup = 1.25f;
+    float attackWindup = .5f;
     float attackTime = 1f;
     float attackCooldown = 2.5f;
     float attackRange = 15f;
     float baseDamage = 10f;
 
     float idleTime = 3f;
-    float patrolTime = 1f;
+    float patrolTime = 3f;
 
 
     float distanceFromPlayer;

@@ -12,25 +12,17 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject enemy = Instantiate(enemyPrefab, transform);
-        enemy.transform.SetParent(transform);
-        enemy.GetComponent<MeleeGruntFSM>().prefabLoot = null;
     }
 
     // Update is called once per frame
-    void Update()
+    public void SpawnEnemy()
     {
         if (respawnTimer > 0)
             respawnTimer -= Time.deltaTime;
         else if (respawnTimer < 0)
             respawnTimer = 0;
 
-        if (transform.childCount == 0 && respawnTimer == 0)
-        {
             GameObject enemy = Instantiate(enemyPrefab, transform);
             enemy.transform.SetParent(transform);
-            enemy.GetComponent<MeleeGruntFSM>().prefabLoot = null;
-            respawnTimer = respawnCooldown;
-        }
     }
 }

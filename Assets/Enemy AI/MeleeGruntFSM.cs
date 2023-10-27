@@ -8,7 +8,7 @@ public class MeleeGruntFSM : Enemy
 {
     public static MeleeGruntFSM GruntInstance;
     float attackWindup = .75f;
-    float attackTime = 1f;
+    float attackTime = 1.5f;
     float attackCooldown = 2f;
     float attackRange = 3.5f;
     float baseDamage = 10f;
@@ -222,7 +222,7 @@ public class MeleeGruntFSM : Enemy
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && fsm.State != States.Attack)
         {
             aggroed = true;
             fsm.ChangeState(States.Chasing, StateTransition.Safe);
@@ -231,7 +231,7 @@ public class MeleeGruntFSM : Enemy
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Player") && fsm.State == States.Idle)
+        if (other.gameObject.CompareTag("Player") && fsm.State == States.Idle && fsm.State != States.Attack)
         {
             aggroed = true;
             fsm.ChangeState(States.Chasing, StateTransition.Safe);
@@ -243,7 +243,7 @@ public class MeleeGruntFSM : Enemy
         if (other.gameObject.CompareTag("Player"))
         {
             aggroed = false;
-            fsm.ChangeState(States.Idle, StateTransition.Safe);
+            fsm.ChangeState(States.AttackCooldown, StateTransition.Safe);
         }
     }
 
@@ -273,7 +273,9 @@ public class MeleeGruntFSM : Enemy
     {
         if (collision.gameObject.CompareTag("Player") && isAttacking == true)
         {
+            isAttacking = false;
             collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(15);
+            print(collision.gameObject.name);
             fsm.ChangeState(States.AttackCooldown, StateTransition.Safe);
         }
     }

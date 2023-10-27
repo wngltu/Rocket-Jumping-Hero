@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1017983461161991604}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1558833488511285723}
   - component: {fileID: 5262084517442937460}
-  m_Layer: 13
+  m_Layer: 7
   m_Name: AggroRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2152909422360351220}
-  m_Layer: 13
+  m_Layer: 7
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,8 +113,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1412799876557097053}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 1.048, y: 0.012, z: 0}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: -0, z: 1.048}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -130,7 +130,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4186437464984658935}
   - component: {fileID: 5727347076813801368}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -221,7 +221,7 @@ GameObject:
   - component: {fileID: 4987177596402658208}
   - component: {fileID: 5665730607495151935}
   - component: {fileID: 7570942351686210973}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -297,7 +297,7 @@ GameObject:
   - component: {fileID: 5448281817251104869}
   - component: {fileID: 452377186252354102}
   - component: {fileID: 6431884200494654519}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -404,7 +404,7 @@ GameObject:
   - component: {fileID: 1398821853640706359}
   - component: {fileID: 5369582255035896859}
   - component: {fileID: 8182339558982721529}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SniperEnemy
   m_TagString: enemy
   m_Icon: {fileID: 0}
@@ -447,13 +447,13 @@ MonoBehaviour:
   healthBar: {fileID: 5727347076813801368}
   player: {fileID: 0}
   aiPath: {fileID: 5369582255035896859}
-  weaponLoot: {fileID: 0}
+  weaponLoot: {fileID: 4396707489559520323}
   Died: 0
   aggroed: 0
   playerToTheRight: 0
   recoiledRecently: 0
   explodeIndicator: {fileID: 210786055253976368, guid: 427bcb42b61ae844daa3251c344f0a05, type: 3}
-  weaponModel: {fileID: 9009331981593576864, guid: b6228a858d6002c4391ee307e4d2875c, type: 3}
+  weaponModel: {fileID: 4396707489559520323}
   barrel: {fileID: 1412799876557097053}
   bullet: {fileID: 5373034997172829452, guid: 3109346826b0c0745b594350661667bd, type: 3}
   aiDestinationSetter: {fileID: 1398821853640706359}
@@ -674,7 +674,7 @@ GameObject:
   - component: {fileID: 7096172047769886407}
   - component: {fileID: 376839935820268449}
   - component: {fileID: 8657349039414897584}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -747,7 +747,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2210715312265812179}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -781,33 +781,53 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4058330777963463855}
     m_Modifications:
+    - target: {fileID: -7483250256631397610, guid: b6228a858d6002c4391ee307e4d2875c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 689092173157213878, guid: b6228a858d6002c4391ee307e4d2875c, type: 3}
       propertyPath: m_Layer
-      value: 13
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1444639330518061815, guid: b6228a858d6002c4391ee307e4d2875c, type: 3}
       propertyPath: m_Layer
-      value: 13
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2076550248485704202, guid: b6228a858d6002c4391ee307e4d2875c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.277
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2076550248485704202, guid: b6228a858d6002c4391ee307e4d2875c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.185
+      objectReference: {fileID: 0}
+    - target: {fileID: 2076550248485704202, guid: b6228a858d6002c4391ee307e4d2875c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2076550248485704202, guid: b6228a858d6002c4391ee307e4d2875c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2076550248485704202, guid: b6228a858d6002c4391ee307e4d2875c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5995925485425098908, guid: b6228a858d6002c4391ee307e4d2875c, type: 3}
       propertyPath: m_Layer
-      value: 13
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5995964952564547616, guid: b6228a858d6002c4391ee307e4d2875c, type: 3}
       propertyPath: m_Layer
-      value: 13
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5996012212664569226, guid: b6228a858d6002c4391ee307e4d2875c, type: 3}
       propertyPath: m_Layer
-      value: 13
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5996121230676154002, guid: b6228a858d6002c4391ee307e4d2875c, type: 3}
       propertyPath: m_Layer
-      value: 13
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8249205992428225887, guid: b6228a858d6002c4391ee307e4d2875c, type: 3}
       propertyPath: m_IsKinematic
@@ -819,7 +839,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9009331981593576864, guid: b6228a858d6002c4391ee307e4d2875c, type: 3}
       propertyPath: m_Layer
-      value: 13
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 9009331981593576864, guid: b6228a858d6002c4391ee307e4d2875c, type: 3}
       propertyPath: m_TagString
@@ -878,6 +898,11 @@ PrefabInstance:
       addedObject: {fileID: 2152909422360351220}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b6228a858d6002c4391ee307e4d2875c, type: 3}
+--- !u!1 &4396707489559520323 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9009331981593576864, guid: b6228a858d6002c4391ee307e4d2875c, type: 3}
+  m_PrefabInstance: {fileID: 4612721341400687075}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4600867143404436593 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9212743971559579026, guid: b6228a858d6002c4391ee307e4d2875c, type: 3}
