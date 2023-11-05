@@ -146,10 +146,6 @@ public class SniperEnemyFSM : Enemy
         {
             fsm.ChangeState(States.AttackWindup, StateTransition.Safe);
         }
-        Vector3 relativePos = player.transform.position - transform.position;
-
-        Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
-        weaponModel.transform.rotation = rotation;
     }
 
     void Chasing_Exit()
@@ -161,14 +157,18 @@ public class SniperEnemyFSM : Enemy
     void AttackWindup_Enter()
     {
         UpdatePlayerDirection();
-        
+        Vector2 relativePos = player.transform.position - transform.position;
+
+        weaponModel.transform.right = relativePos;
         if (playerToTheRight == true)
         {
-            weaponModel.transform.localScale = new Vector3(1, 1, 1);
+            weaponModel.transform.localScale = new Vector3(-1, 1, 1);
+            weaponModel.transform.localPosition = new Vector3(.456f, 0, 0);
         }
         else
         {
-            weaponModel.transform.localScale = new Vector3(-1, 1, 1);
+            weaponModel.transform.localScale = new Vector3(1, 1, 1);
+            weaponModel.transform.localPosition = new Vector3(-.456f, 0, 0);
         }   
 
         Debug.Log("start attack windup");
@@ -193,6 +193,7 @@ public class SniperEnemyFSM : Enemy
         UpdatePlayerDirection();
         GameObject bulletInstance = Instantiate(bullet, barrel.transform, false);
         bulletInstance.GetComponent<EnemyBullet>().damage = baseDamage;
+        bulletInstance.transform.SetParent(null);
     }
     void Attack_Update()
     {

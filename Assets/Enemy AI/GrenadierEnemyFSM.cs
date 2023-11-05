@@ -193,6 +193,7 @@ public class GrenadierEnemyFSM : Enemy
         UpdatePlayerDirection();
         GameObject grenadeInstance = Instantiate(bullet, barrel.transform, false);
         UpdatePlayerDirection();
+        grenadeInstance.transform.SetParent(null);
         if (playerToTheRight == true)
             grenadeInstance.GetComponent<Rigidbody>().AddForce(new Vector2(distanceFromPlayer/2, 2 +(player.transform.position.y - transform.position.y)), ForceMode.Impulse);
         else

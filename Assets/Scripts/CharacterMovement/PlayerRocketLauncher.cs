@@ -10,6 +10,7 @@ public class PlayerRocketLauncher : MonoBehaviour
     public GameObject barrel;
     public GameObject model;
     public PlayerMovement playerMovement;
+    public PauseMenu pauseManager;
 
     public bool equipped = false;
 
@@ -24,23 +25,22 @@ public class PlayerRocketLauncher : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-
-
-        pointerPos = Input.mousePosition;
-
-        pointerPos = playerCam.ScreenToWorldPoint(pointerPos);
-        pointerPos = pointerPos - (Vector2)transform.position;
-        transform.right = pointerPos;
-
-        if (Input.mousePosition.x < Screen.width / 2f) //if mouse on left half of screen
+        if (!pauseManager.paused)
         {
-            model.transform.localScale = new Vector3(1, -1, 1);
+            pointerPos = Input.mousePosition;
+            pointerPos = playerCam.ScreenToWorldPoint(pointerPos);
+            pointerPos = pointerPos - (Vector2)transform.position;
+            transform.right = pointerPos;
+
+            if (Input.mousePosition.x < Screen.width / 2f) //if mouse on left half of screen
+            {
+                model.transform.localScale = new Vector3(1, -1, 1);
+            }
+            else //if mouse on right half of screen
+            {
+                model.transform.localScale = Vector3.one;
+            }
         }
-        else //if mouse on right half of screen
-        {
-            model.transform.localScale = Vector3.one;
-        }
-        //transform.right = (pointerPos - (Vector2)transform.position).normalized; //used for enemy tracking?
     }
 
     public virtual void Equip()

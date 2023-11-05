@@ -42,23 +42,23 @@ public class weaponScript : MonoBehaviour
     // Update is called once per frame
     protected void Update()
     {
-
+        if (!pauseManager.paused)
+        {
             pointerPos = Input.mousePosition;
             pointerPos = playerCam.ScreenToWorldPoint(pointerPos);
             pointerPos = pointerPos - (Vector2)transform.position;
-        targetPos = pointerPos;
-            if (!pauseManager.paused)
-                transform.right = pointerPos;
+            targetPos = pointerPos;
+            transform.right = pointerPos;
 
-        if (Input.mousePosition.x < Screen.width / 2f) //if mouse on left half of screen
-        {
-            model.transform.localScale = new Vector3(1, -1, 1);
+            if (Input.mousePosition.x < Screen.width / 2f) //if mouse on left half of screen
+            {
+                model.transform.localScale = new Vector3(1, -1, 1);
+            }
+            else //if mouse on right half of screen
+            {
+                model.transform.localScale = Vector3.one;
+            }
         }
-        else //if mouse on right half of screen
-        {
-            model.transform.localScale = Vector3.one;
-        }
-            //transform.right = (pointerPos - (Vector2)transform.position).normalized; //used for enemy tracking?
     }
 
     public virtual void Equip()
