@@ -82,7 +82,7 @@ public class weaponScript : MonoBehaviour
 
     public virtual void Reload()
     {
-        if (isReloading == false)
+        if (isReloading == false && canShoot)
         {
             if (currentReserve >= maxMag) //if more ammo than max mag
             {

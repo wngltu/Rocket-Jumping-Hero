@@ -3,6 +3,7 @@ using MonsterLove.StateMachine; //use _Enter, _Exit, _Finally for functions afte
 using System.Linq;
 using Pathfinding;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 
 public class MeleeGruntFSM : Enemy
 {
@@ -150,6 +151,15 @@ public class MeleeGruntFSM : Enemy
         {
             fsm.ChangeState(States.AttackWindup, StateTransition.Safe);
         }
+        if (Mathf.Abs(aiPath.velocity.x) < 1f) //this is to allow enemy to basically climb high altitudes
+            rb.useGravity = false;
+        else
+            rb.useGravity = true;
+        if (stateTime > patrolTime)
+        {
+            fsm.ChangeState(States.Idle, StateTransition.Safe);
+            rb.useGravity = true;
+        }
     }
 
     void Chasing_Exit()
@@ -160,6 +170,7 @@ public class MeleeGruntFSM : Enemy
 
     void AttackWindup_Enter()
     {
+        rb.useGravity = true;
         UpdatePlayerDirection();
         if (playerToTheRight == true)
             rb.AddForce(new Vector2(-1, .5f), ForceMode.Impulse);
@@ -181,6 +192,7 @@ public class MeleeGruntFSM : Enemy
 
     void Attack_Enter()
     {
+        rb.useGravity = true;
         attacking = true;
         timer = 0f;
         timer = attackTime;
@@ -225,7 +237,7 @@ public class MeleeGruntFSM : Enemy
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player") && fsm.State != States.Attack)
+        if (other.gameObject.CompareTag("Player") && (fsm.State == States.Idle || fsm.State == States.Patrol))
         {
             RaycastHit hit;
             if (Physics.Raycast(transform.position, GetVectorToPlayer(), out hit, 99, LoSLayerMask))
@@ -241,11 +253,12 @@ public class MeleeGruntFSM : Enemy
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Player") && fsm.State == States.Idle && fsm.State != States.Attack)
+        if (other.gameObject.CompareTag("Player") && (fsm.State == States.Idle || fsm.State == States.Patrol))
         {
             RaycastHit hit;
             if (Physics.Raycast(transform.position, GetVectorToPlayer(), out hit, 99, LoSLayerMask))
             {
+                Debug.DrawLine(transform.position, hit.point, Color.red);
                 if (hit.collider.gameObject.CompareTag("Player"))
                 {
                     aggroed = true;

@@ -12,12 +12,13 @@ public class StickyGrenade : weaponScript
     void Start()
     {
         base.Start();
-        maxMag = 3;
-        maxReserve = 6;
+        maxMag = 1;
+        maxReserve = 8;
         currentMag = maxMag;
         currentReserve = maxReserve;
         baseDamage = 30;
         fireRate = .3f;
+        reloadTime = .5f;
     }
     void Update()
     {
@@ -48,9 +49,8 @@ public class StickyGrenade : weaponScript
         UpdateHUDValues();
         interactDirection = playerCam.ScreenToWorldPoint(Input.mousePosition) - playerCam.transform.position;
         GameObject newobject = Instantiate(bullet, barrel.transform.position, barrel.transform.rotation);
-        print(barrel.transform.position.ToString());
         newobject.transform.SetParent(null);
-
+        Reload();
     }
 
 }

@@ -9,6 +9,7 @@ public class ExplosiveKnife : weaponScript
     public float range = 2f;
     public float explosionForce = 20f;
     public GameObject grenadeVisual;
+    public GameObject explosionObject;
     Vector2 interactDirection;
 
     int layerMask = ~((1 << 3) | (1 << 8) | (1 << 9) | (1 << 11) | (1 << 13));
@@ -43,32 +44,10 @@ public class ExplosiveKnife : weaponScript
         RaycastHit hit;
         if (Physics.Raycast(transform.position, interactDirection, out hit, range, layerMask)) //shoot ray from barrel of gun
         {
-            Debug.DrawRay(transform.position, interactDirection);
-            Debug.Log(hit.collider.gameObject.name.ToString());
-
-            var cols = Physics.OverlapSphere(hit.point, explosionRadius);
-            foreach (Collider obj in cols)
-            {
-                if (obj.gameObject.tag == "enemy")
-                {
-                    if (obj.isTrigger == false)
-                    {
-                        Rigidbody rb = obj.GetComponent<Rigidbody>();
-                        rb.AddExplosionForce(900f, hit.point, explosionRadius);
-                        obj.GetComponent<Enemy>().takeDamage(baseDamage * (explosionRadius - (this.transform.position - obj.transform.position).magnitude) / 5);
-                    }
-                }
-                else if (obj.gameObject.tag == "Player")
-                {
-                    PlayerMovement playercontroller = obj.GetComponent<PlayerMovement>();
-                    playercontroller.AddExplosionForce(hit.point, explosionRadius, explosionForce);
-                    print(transform.position);
-                }
-            }
             if (hit.collider != null) //if did not miss
             {
-                GameObject newObject = Instantiate(explodeIndicator, hit.point, Quaternion.identity); //spawn a circle showing blast radius
-                newObject.GetComponent<ExplosiveRadius>().explosionRadius = this.explosionRadius;
+                GameObject newObj = Instantiate(explosionObject, transform.position, Quaternion.identity);
+                newObj.GetComponent<ExplosionScript>().PlayerExplode(baseDamage, explosionRadius, explosionForce);
                 currentMag--;
                 grenadeVisual.SetActive(false);
             }

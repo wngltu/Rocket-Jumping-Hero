@@ -30,12 +30,12 @@ public class Pistol : weaponScript
             if (canShoot)
                 Shoot();
         }
-        else if (Input.GetKeyDown(KeyCode.Mouse0) && pauseManager.paused == false && currentMag <= 0)
+        else if (Input.GetKeyDown(KeyCode.Mouse0) && pauseManager.paused == false && currentMag <= 0 && fireCooldown == 0)
         {
             if (canReload)
                 Reload();
         }
-        if (Input.GetKeyDown(KeyCode.R) && pauseManager.paused == false && currentMag != maxMag)
+        if (Input.GetKeyDown(KeyCode.R) && pauseManager.paused == false && currentMag != maxMag && fireCooldown == 0)
             Reload();
 
         if (fireCooldown > 0)

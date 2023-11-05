@@ -51,7 +51,7 @@ public class Grenade : weaponScript
         GameObject newobject = Instantiate(bullet, barrel.transform.position, barrel.transform.rotation);
         print(barrel.transform.position.ToString());
         newobject.transform.SetParent(null);
-        
+        Reload();
     }
 
 }

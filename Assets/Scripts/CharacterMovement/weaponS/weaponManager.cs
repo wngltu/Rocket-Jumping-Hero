@@ -103,15 +103,18 @@ public class weaponManager : MonoBehaviour
 
     public void DropWeapon(weaponScript weapon)
     {
-        weaponInventory[equippedNum].GetComponent<Rigidbody>().isKinematic = false;
-        weaponInventory[equippedNum].transform.SetParent(null);
-        //weapon.transform.position = weapon.barrel.transform.position;
-        weaponInventory[equippedNum].GetComponent<weaponScript>().enabled = false;
-        weapon.GetComponent<Collider>().enabled = true;
-        if (weapon.reloadInterrupted == false)
-            weapon.reloadInterrupted = true;
-        weaponInventory.Remove(weapon);
-        magText.text = " ";
-        reserveText.text = " ";
+        if (weaponInventory.Count > 0)
+        {
+            weaponInventory[equippedNum].GetComponent<Rigidbody>().isKinematic = false;
+            weaponInventory[equippedNum].transform.SetParent(null);
+            //weapon.transform.position = weapon.barrel.transform.position;
+            weaponInventory[equippedNum].GetComponent<weaponScript>().enabled = false;
+            weapon.GetComponent<Collider>().enabled = true;
+            if (weapon.reloadInterrupted == false)
+                weapon.reloadInterrupted = true;
+            weaponInventory.Remove(weapon);
+            magText.text = " ";
+            reserveText.text = " ";
+        }
     }
 }
