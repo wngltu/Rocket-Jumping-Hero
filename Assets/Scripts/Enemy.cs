@@ -9,6 +9,8 @@ public class Enemy : MonoBehaviour
     public static Enemy Instance;
     public float currentHealth = 100f;
     public float maxHealth = 100f;
+    public float maxVelocityY = 7f;
+    public float maxVelocityX = 12.5f;
 
     public PrefabLoot prefabLoot;
     public Slider healthBar;
@@ -20,6 +22,7 @@ public class Enemy : MonoBehaviour
     public bool Died = false; //bool to make sure drops dont duplicate
     public bool aggroed = false;
     public bool playerToTheRight; //which direction in reference to the game object is the player currently?
+    public bool attacking = false;
 
 
     // Start is called before the first frame update
@@ -32,6 +35,21 @@ public class Enemy : MonoBehaviour
         Instance = this;
         currentHealth = maxHealth;
         healthBar.value = currentHealth / maxHealth;
+    }
+
+    protected void Update()
+    {
+        
+        if (rb.velocity.y > maxVelocityY && !attacking)
+            rb.velocity = new Vector3(rb.velocity.x, maxVelocityY, rb.velocity.z);
+        else if (rb.velocity.y < -maxVelocityY && !attacking)
+            rb.velocity = new Vector3(rb.velocity.x, -maxVelocityY, rb.velocity.z);
+
+        if (rb.velocity.x > maxVelocityX && !attacking)
+            rb.velocity = new Vector3(maxVelocityX, rb.velocity.y, rb.velocity.z);
+        else if (rb.velocity.x < -3.5f && !attacking)
+            rb.velocity = new Vector3(-maxVelocityX, rb.velocity.y, rb.velocity.z);
+        
     }
 
     public void takeDamage(float damage)
@@ -64,5 +82,10 @@ public class Enemy : MonoBehaviour
         {
             playerToTheRight = false;
         }
+    }
+
+    protected virtual Vector3 GetVectorToPlayer()
+    {
+        return player.gameObject.transform.position - gameObject.transform.position;
     }
 }

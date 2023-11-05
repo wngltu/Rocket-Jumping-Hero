@@ -199,6 +199,7 @@ MonoBehaviour:
   playerCam: {fileID: 0}
   bullet: {fileID: 5373034997172829452, guid: 13e14cf096168be438995f3f49a68eac, type: 3}
   barrel: {fileID: 1025506101651653046}
+  model: {fileID: 5335629391072077587}
   pauseManager: {fileID: 0}
   weaponManager: {fileID: 0}
   equipped: 0

@@ -34,11 +34,6 @@ public class SniperEnemyFSM : Enemy
 
     Vector3 attackDirection;
 
-    void Test_Update()
-    {
-        Debug.Log("Test UPDATE");
-    }
-
     public enum States
     {
         Init,
@@ -76,6 +71,7 @@ public class SniperEnemyFSM : Enemy
 
     void Update()
     {
+        base.Update();
         fsm.Driver.Update.Invoke();
         currentState = fsm.State;
         print(currentState);

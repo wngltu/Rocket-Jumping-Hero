@@ -394,5 +394,9 @@ public class PlayerMovement : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("ground"))
+        {
+            velocity = new Vector3(controller.velocity.x, .5f, controller.velocity.z);
+        }
     }
 }

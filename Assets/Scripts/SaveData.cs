@@ -3,6 +3,7 @@ using UnityEngine;
 public class SaveData : MonoBehaviour
 {
     public GameObject playerDefaultSpawn;
+    public static CheckpointScript currentCheckpoint;
     public static float checkpointX;
     public static float checkpointY;
 
@@ -19,5 +20,15 @@ public class SaveData : MonoBehaviour
     {
         checkpointX = 0;
         checkpointY = 0;
+    }
+
+    public static void SaveCheckpoint(CheckpointScript checkpoint)
+    {
+        currentCheckpoint = checkpoint;
+    }
+
+    public static void DeactivateCheckpoint()
+    {
+        currentCheckpoint.gameObject.GetComponent<CheckpointScript>().DeactivateCheckpoint();
     }
 }

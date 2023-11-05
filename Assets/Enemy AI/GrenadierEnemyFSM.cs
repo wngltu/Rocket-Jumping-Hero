@@ -71,6 +71,7 @@ public class GrenadierEnemyFSM : Enemy
 
     void Update()
     {
+        base.Update();
         fsm.Driver.Update.Invoke();
         currentState = fsm.State;
         print(currentState);

@@ -27,7 +27,7 @@ public class MeleeGruntFSM : Enemy
     public AIDestinationSetter aiDestinationSetter;
     public States currentState;
 
-    LayerMask layerMask = 1 << 3;
+    LayerMask LoSLayerMask = ((1 << 3) | (1 << 12)); //this is for checking line of sight
 
     Vector3 attackDirection;
 
@@ -76,6 +76,7 @@ public class MeleeGruntFSM : Enemy
     // Update is called once per frame
     void Update()
     {
+        base.Update();
         fsm.Driver.Update.Invoke();
         currentState = fsm.State;
     }
@@ -180,6 +181,7 @@ public class MeleeGruntFSM : Enemy
 
     void Attack_Enter()
     {
+        attacking = true;
         timer = 0f;
         timer = attackTime;
         isAttacking = true;
@@ -202,6 +204,7 @@ public class MeleeGruntFSM : Enemy
 
     void Attack_Exit()
     {
+        attacking = false;
         isAttacking = false;
     }
 
@@ -224,8 +227,15 @@ public class MeleeGruntFSM : Enemy
     {
         if (other.gameObject.CompareTag("Player") && fsm.State != States.Attack)
         {
-            aggroed = true;
-            fsm.ChangeState(States.Chasing, StateTransition.Safe);
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, GetVectorToPlayer(), out hit, 99, LoSLayerMask))
+            {
+                if (hit.collider.gameObject.CompareTag("Player"))
+                {
+                    aggroed = true;
+                    fsm.ChangeState(States.Chasing, StateTransition.Safe);
+                }
+            }
         }
     }
 
@@ -233,8 +243,15 @@ public class MeleeGruntFSM : Enemy
     {
         if (other.gameObject.CompareTag("Player") && fsm.State == States.Idle && fsm.State != States.Attack)
         {
-            aggroed = true;
-            fsm.ChangeState(States.Chasing, StateTransition.Safe);
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, GetVectorToPlayer(), out hit, 99, LoSLayerMask))
+            {
+                if (hit.collider.gameObject.CompareTag("Player"))
+                {
+                    aggroed = true;
+                    fsm.ChangeState(States.Chasing, StateTransition.Safe);
+                }
+            }   
         }
     }
 
