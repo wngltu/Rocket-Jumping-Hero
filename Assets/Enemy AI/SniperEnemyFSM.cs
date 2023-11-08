@@ -24,9 +24,11 @@ public class SniperEnemyFSM : Enemy
     public bool recoiledRecently = false;
 
     public GameObject explodeIndicator;
+    public GameObject weapon;
     public GameObject weaponModel;
     public GameObject barrel;
     public GameObject bullet;
+    public GameObject bulletIndicator;
     public AIDestinationSetter aiDestinationSetter;
     public States currentState;
 
@@ -156,20 +158,20 @@ public class SniperEnemyFSM : Enemy
 
     void AttackWindup_Enter()
     {
+        bulletIndicator.SetActive(true);
         UpdatePlayerDirection();
-        Vector2 relativePos = player.transform.position - transform.position;
-
-        weaponModel.transform.right = relativePos;
+        weapon.transform.right = player.transform.position - weapon.transform.position;
         if (playerToTheRight == true)
         {
-            weaponModel.transform.localScale = new Vector3(-1, 1, 1);
-            weaponModel.transform.localPosition = new Vector3(.456f, 0, 0);
+            weaponModel.transform.localScale = new Vector3(1, 1, 1);
+            barrel.transform.localRotation = Quaternion.Euler(90, -90, 0);
         }
         else
         {
-            weaponModel.transform.localScale = new Vector3(1, 1, 1);
-            weaponModel.transform.localPosition = new Vector3(-.456f, 0, 0);
-        }   
+            weaponModel.transform.localScale = new Vector3(1, -1, 1);
+            barrel.transform.localRotation = Quaternion.Euler(-90, 0, 90);
+        }
+        
 
         Debug.Log("start attack windup");
         aiPath.enabled = false;
@@ -185,15 +187,30 @@ public class SniperEnemyFSM : Enemy
         }
     }
 
+    void AttackWindup_Exit()
+    {
+        bulletIndicator.SetActive(false);
+    }
+
     void Attack_Enter()
     {
         timer = 0f;
         timer = attackTime;
         Debug.Log("start attacK");
         UpdatePlayerDirection();
-        GameObject bulletInstance = Instantiate(bullet, barrel.transform, false);
-        bulletInstance.GetComponent<EnemyBullet>().damage = baseDamage;
-        bulletInstance.transform.SetParent(null);
+        if (playerToTheRight == true)
+        {
+
+            GameObject bulletInstance = Instantiate(bullet, barrel.transform, false);
+            bulletInstance.GetComponent<EnemyBullet>().damage = baseDamage;
+            bulletInstance.transform.SetParent(null);     
+        }
+        else
+        {
+            GameObject bulletInstance = Instantiate(bullet, barrel.transform, false);
+            bulletInstance.GetComponent<EnemyBullet>().damage = baseDamage;
+            bulletInstance.transform.SetParent(null);
+        }
     }
     void Attack_Update()
     {

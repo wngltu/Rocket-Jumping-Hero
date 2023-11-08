@@ -38,5 +38,9 @@ public class EnemyBullet : MonoBehaviour
             playerHealth.TakeDamage(damage);
             Destroy(this.gameObject);
         }
+        else if (other.tag == "ground" || other.tag == "door")
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
