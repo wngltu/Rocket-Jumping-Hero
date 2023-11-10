@@ -11,8 +11,6 @@ public class PauseMenu : MonoBehaviour
     public TMP_Text instructionsButtonText;
     public GameObject pauseButton;
 
-    public static PauseMenu instance;
-
     public bool paused = false;
     bool instructionsToggled = false;
     // Start is called before the first frame update

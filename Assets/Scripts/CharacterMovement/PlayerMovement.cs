@@ -79,6 +79,7 @@ public class PlayerMovement : MonoBehaviour
         controller.enabled = false; //unity character controller is.... VERY INCONVENIENT.
         transform.position = new Vector3(SaveData.checkpointX, SaveData.checkpointY, 0);
         controller.enabled = true;
+        pauseManager = FindObjectOfType<PauseMenu>();
         Instance = this;
         rocketText.text = rockets.ToString();
     }

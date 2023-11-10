@@ -18,6 +18,7 @@ public class weaponManager : MonoBehaviour
     void Start()
     {
         Instance = this;
+        pauseManager = FindObjectOfType<PauseMenu>();
     }
 
     // Update is called once per frame

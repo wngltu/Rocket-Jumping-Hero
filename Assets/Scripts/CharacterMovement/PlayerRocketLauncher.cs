@@ -20,6 +20,7 @@ public class PlayerRocketLauncher : MonoBehaviour
     {
         Instance = this;
         playerMovement = this.gameObject.GetComponentInParent<PlayerMovement>();
+        pauseManager = FindObjectOfType<PauseMenu>();
     }
 
     // Update is called once per frame
