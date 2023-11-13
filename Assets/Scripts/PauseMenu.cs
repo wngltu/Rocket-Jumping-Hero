@@ -76,6 +76,12 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene("Main Menu");
     }
 
+    public void RestartLevelTutorial()
+    {
+        Unpause();
+        SceneManager.LoadScene("Tutorial Level");
+    }
+
     public void ToggleInstructions()
     {
         instructionsToggled = !instructionsToggled;

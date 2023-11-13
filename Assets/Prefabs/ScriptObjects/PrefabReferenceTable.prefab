@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6002703271482772614}
   - component: {fileID: 65963753118140227}
+  - component: {fileID: 3141569854633932064}
   m_Layer: 0
   m_Name: PrefabReferenceTable
   m_TagString: Untagged
@@ -48,3 +49,18 @@ MonoBehaviour:
   meleeDrop: {fileID: 6657491412343055848, guid: 74016e3820de0f94e8a7f0ab670b6260, type: 3}
   grenadeDrop: {fileID: 703352752637388383, guid: dbdb243311eece448a3fb832f9fcfd9f, type: 3}
   sniperDrop: {fileID: 9009331981593576864, guid: b6228a858d6002c4391ee307e4d2875c, type: 3}
+--- !u!114 &3141569854633932064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1029730394074594533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ff5830b5b1d614d9941a1ea8127d50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meleeEnemy: {fileID: 4418829945125945176, guid: 8f446b0d59de10e4896d456f5418aa0d, type: 3}
+  sniperEnemy: {fileID: 4418829945125945176, guid: a27f3721ec126524abacc062e0429e51, type: 3}
+  grenadierEnemy: {fileID: 4418829945125945176, guid: f4984201465dace43a94d8f1aa72c00d, type: 3}

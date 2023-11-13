@@ -52,7 +52,7 @@ public class PlayerHealth : MonoBehaviour
     public void Die()
     {
         pauseMenuScript.Pause();
-        this.gameObject.SetActive(false);
+        pauseMenuScript.pauseMenu.SetActive(false);
         pauseMenuScript.enabled = false;
         gameOverScreen.SetActive(true);
         this.gameObject.GetComponent<PlayerMovement>().enabled = false;

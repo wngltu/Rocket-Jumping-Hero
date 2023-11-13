@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
     public PlayerMovement player;
     public AIPath aiPath;
     public GameObject weaponLoot;
+    public GameObject damageIndicator;
 
     public bool Died = false; //bool to make sure drops dont duplicate
     public bool aggroed = false;
@@ -54,6 +55,8 @@ public class Enemy : MonoBehaviour
 
     public void takeDamage(float damage)
     {
+        GameObject damageNumber = Instantiate(damageIndicator, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), Quaternion.identity);
+        damageNumber.GetComponentInChildren<DamageNumberScript>().damage = damage;
         currentHealth -= damage;
         healthBar.value = currentHealth / maxHealth;
         if (currentHealth <= 0f)

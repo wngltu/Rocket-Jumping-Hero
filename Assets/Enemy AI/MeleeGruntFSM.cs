@@ -60,7 +60,7 @@ public class MeleeGruntFSM : Enemy
 
 
         base.Start();
-        base.weaponLoot = base.prefabLoot.meleeDrop;
+        base.weaponLoot = base.prefabLoot.pistolDrop;
         GruntInstance = this;
 
         if (aiDestinationSetter == null)
@@ -151,7 +151,7 @@ public class MeleeGruntFSM : Enemy
         {
             fsm.ChangeState(States.AttackWindup, StateTransition.Safe);
         }
-        if (Mathf.Abs(aiPath.velocity.x) < 1f) //this is to allow enemy to basically climb high altitudes
+        if (Mathf.Abs(aiPath.velocity.x) < 1f && aiPath.velocity.y > .1f) //this is to allow enemy to basically climb high altitudes
             rb.useGravity = false;
         else
             rb.useGravity = true;

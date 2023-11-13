@@ -6,6 +6,8 @@ public class SaveData : MonoBehaviour
     public static CheckpointScript currentCheckpoint;
     public static float checkpointX;
     public static float checkpointY;
+    public static float defaultX;
+    public static float defaultY;
 
     private void Awake()
     {
@@ -16,10 +18,16 @@ public class SaveData : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        defaultX = FindObjectOfType<PlayerSpawnVisual>().gameObject.transform.position.x;
+        defaultY = FindObjectOfType<PlayerSpawnVisual>().gameObject.transform.position.y;
+    }
+
     public static void WipeCheckpointProgress()
     {
-        checkpointX = 0;
-        checkpointY = 0;
+        checkpointX = defaultX;
+        checkpointY = defaultY;
     }
 
     public static void SaveCheckpoint(CheckpointScript checkpoint)

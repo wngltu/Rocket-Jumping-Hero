@@ -18,4 +18,9 @@ public class MenuManager : MonoBehaviour
         SaveData.currentCheckpoint = null;
         SceneManager.LoadScene("Testing Level");
     }
+
+    public static void StartTutorial()
+    {
+        SceneManager.LoadScene("Tutorial Level");
+    }
 }
