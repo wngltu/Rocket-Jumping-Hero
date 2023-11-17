@@ -8,11 +8,13 @@ public class CheckpointScript : MonoBehaviour
     public GameObject inactiveModel;
     public SaveData saveData;
     public CheckpointManager checkpointManager;
+    public AudioSource checkpointSound;
 
     bool activated = false;
 
     private void Start()
     {
+        checkpointSound = GetComponent<AudioSource>();
         saveData = FindObjectOfType<SaveData>();
         checkpointManager = FindObjectOfType<CheckpointManager>();
     }
@@ -28,6 +30,7 @@ public class CheckpointScript : MonoBehaviour
 
     public void ActivateCheckpoint()
     {
+        checkpointSound.Play();
         activated = true;
         SaveData.checkpointX = this.transform.position.x;
         SaveData.checkpointY = this.transform.position.y;

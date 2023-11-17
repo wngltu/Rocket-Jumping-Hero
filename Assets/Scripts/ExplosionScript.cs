@@ -4,6 +4,7 @@ public class ExplosionScript : MonoBehaviour
 {
     //Debugging: if the ExplosionObject is still in scene, that means an explosion failed to go off.
     public GameObject explodeIndicator;
+    public GameObject explosiveSFXObject;
     int layerMask = ~((1 << 9) | (1 << 11) | (1 << 13));
     public void PlayerExplode(float damage, float explosionRadius, float explosionForce) //player rocket/explosives
     {
@@ -48,6 +49,7 @@ public class ExplosionScript : MonoBehaviour
         }
         GameObject newObject = Instantiate(explodeIndicator, transform.position, Quaternion.identity); //spawn a circle showing blast radius
         newObject.GetComponent<ExplosiveRadius>().explosionRadius = explosionRadius;
+        Instantiate(explosiveSFXObject, transform.position, Quaternion.identity);
         Delete();
     }
 
@@ -90,6 +92,7 @@ public class ExplosionScript : MonoBehaviour
         }
         GameObject newObject = Instantiate(explodeIndicator, transform.position, Quaternion.identity); //spawn a circle showing blast radius
         newObject.GetComponent<ExplosiveRadius>().explosionRadius = explosionRadius;
+        Instantiate(explosiveSFXObject, transform.position, Quaternion.identity);
         Delete();
     }
 

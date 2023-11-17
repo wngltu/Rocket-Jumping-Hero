@@ -31,6 +31,7 @@ public class SniperEnemyFSM : Enemy
     public GameObject bulletIndicator;
     public AIDestinationSetter aiDestinationSetter;
     public States currentState;
+    public AudioSource shootSound;
 
     LayerMask layerMask = 1 << 3;
 
@@ -194,6 +195,7 @@ public class SniperEnemyFSM : Enemy
 
     void Attack_Enter()
     {
+        shootSound.Play();
         timer = 0f;
         timer = attackTime;
         Debug.Log("start attacK");

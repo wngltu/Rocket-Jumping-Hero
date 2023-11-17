@@ -17,7 +17,8 @@ public class PlayerMovement : MonoBehaviour
     public Slider rocketReloadSlider;
     public weaponManager weaponManager;
     public PlayerRocketLauncher rocketLauncher;
-    public PauseMenu pauseManager; 
+    public PauseMenu pauseManager;
+    public AudioSource jumpSound;   
 
     //Horizontal variables
     private float horizontalVeloCap = 10f;
@@ -191,6 +192,7 @@ public class PlayerMovement : MonoBehaviour
             }
             jumpCooldown = .5f;
             jumpsLeft -= 1;
+            jumpSound.Play();
         }
 
         if (velocity.x > .1f) //Velocity is from rocket jumping, so this is slowing the effects of rocket jumping on the player

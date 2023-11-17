@@ -202,6 +202,8 @@ MonoBehaviour:
   model: {fileID: 5335629391072077587}
   pauseManager: {fileID: 0}
   weaponManager: {fileID: 0}
+  shootSound: {fileID: 0}
+  bulletImpactSound: {fileID: 0}
   equipped: 0
   canShoot: 1
   canReload: 1

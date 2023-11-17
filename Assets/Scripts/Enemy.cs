@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
     public AIPath aiPath;
     public GameObject weaponLoot;
     public GameObject damageIndicator;
+    public GameObject deathSoundObject;
 
     public bool Died = false; //bool to make sure drops dont duplicate
     public bool aggroed = false;
@@ -71,6 +72,7 @@ public class Enemy : MonoBehaviour
             GameObject loot = Instantiate(weaponLoot, this.transform);
             loot.gameObject.transform.SetParent(null);
             Died = true;
+            Instantiate(deathSoundObject, transform.position, Quaternion.identity);
             Destroy(this.gameObject);
         }
     }

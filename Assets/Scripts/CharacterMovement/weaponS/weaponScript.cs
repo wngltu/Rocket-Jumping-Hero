@@ -12,6 +12,8 @@ public class weaponScript : MonoBehaviour
     public GameObject model;
     public PauseMenu pauseManager;
     public weaponManager weaponManager;
+    public AudioSource shootSound;
+    public AudioSource bulletImpactSound;
 
     public bool equipped = false;
     public bool canShoot = true;

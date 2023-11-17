@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
@@ -8,6 +7,8 @@ public class PlayerInteraction : MonoBehaviour
     Vector2 pointerPos;
     public Camera playerCam;
     public weaponManager weaponManager;
+    public TextMeshProUGUI interactIndicatorText;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +18,23 @@ public class PlayerInteraction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        interactDirection = playerCam.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        RaycastHit hit2;
+        if (Physics.Raycast(transform.position, interactDirection, out hit2, 6)) //shoot ray in front of player, check every frame if item is interactable
+        {
+            if (hit2.collider.gameObject.CompareTag("droppedweapon"))
+            {
+                interactIndicatorText.text = "Click 'E' to pick up weapon";
+            }
+            else
+            {
+                interactIndicatorText.text = " ";
+            }
+        }
+        else //no weapon in front of player
+        {
+            interactIndicatorText.text = " ";
+        }
+            interactDirection = playerCam.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         if (Input.GetKeyDown(KeyCode.E))
         {
             RaycastHit hit;

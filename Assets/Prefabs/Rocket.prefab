@@ -50,6 +50,7 @@ MonoBehaviour:
   barrel: {fileID: 0}
   explodeIndicator: {fileID: 210786055253976368, guid: 427bcb42b61ae844daa3251c344f0a05, type: 3}
   explosionObject: {fileID: 1773655787092596381, guid: 424f6fa8aa0e1e24888bc66a8dda588b, type: 3}
+  explosionSFXObject: {fileID: 8013405610039826201, guid: ced758cf9105f234cb6ec5e24b0ac130, type: 3}
 --- !u!54 &1629816155247051052
 Rigidbody:
   m_ObjectHideFlags: 0

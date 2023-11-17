@@ -16,6 +16,8 @@ public class PlayerHealth : MonoBehaviour
 
     public PauseMenu pauseMenuScript;
     public GameObject gameOverScreen;
+    public AudioSource deathSound;
+    public AudioSource hurtSound;
 
     private void Start()
     {
@@ -41,20 +43,24 @@ public class PlayerHealth : MonoBehaviour
         }
         if (currentHealth == 0)
             Die();
+        else
+            hurtSound.Play();
     }
 
     public void UpdateHealth()
     {
-        currentHealthText.text = currentHealth.ToString();
+        currentHealthText.text = ((int)currentHealth).ToString();
         healthSlider.value = currentHealth / maxHealth;
     }
 
     public void Die()
     {
+        deathSound.Play();
         pauseMenuScript.Pause();
         pauseMenuScript.pauseMenu.SetActive(false);
         pauseMenuScript.enabled = false;
         gameOverScreen.SetActive(true);
         this.gameObject.GetComponent<PlayerMovement>().enabled = false;
+        this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
     }
 }

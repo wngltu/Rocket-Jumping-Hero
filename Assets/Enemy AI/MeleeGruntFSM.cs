@@ -27,6 +27,8 @@ public class MeleeGruntFSM : Enemy
     public GameObject explodeIndicator;
     public AIDestinationSetter aiDestinationSetter;
     public States currentState;
+    public AudioSource attackWindUpSound;
+    public AudioSource attackSound;
 
     LayerMask LoSLayerMask = ((1 << 3) | (1 << 12)); //this is for checking line of sight
 
@@ -170,6 +172,7 @@ public class MeleeGruntFSM : Enemy
 
     void AttackWindup_Enter()
     {
+        attackWindUpSound.Play();
         rb.useGravity = true;
         UpdatePlayerDirection();
         if (playerToTheRight == true)
@@ -192,6 +195,7 @@ public class MeleeGruntFSM : Enemy
 
     void Attack_Enter()
     {
+        attackSound.Play();
         rb.useGravity = true;
         attacking = true;
         timer = 0f;

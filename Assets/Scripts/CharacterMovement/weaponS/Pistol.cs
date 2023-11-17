@@ -46,6 +46,7 @@ public class Pistol : weaponScript
 
     public void Shoot()
     {
+        shootSound.Play();
         fireCooldown = fireRate;
         currentMag--;
         UpdateHUDValues();
@@ -102,6 +103,7 @@ public class Pistol : weaponScript
         trail.transform.position = hit.point;
         GameObject newObject = Instantiate(explodeIndicator, hit.point, Quaternion.identity); //spawn a circle showing blast radius
         newObject.GetComponent<ExplosiveRadius>().explosionRadius = explosionRadius;
+        bulletImpactSound.Play();
 
         Destroy(trail.gameObject, trail.time);
     }
