@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 2566212391023225804}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.27}
+  m_LocalPosition: {x: 0, y: 0, z: -0.056}
   m_LocalScale: {x: 0.6000001, y: 0.6, z: 0.6000001}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -56,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 3735985282825702485}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.592, y: 0, z: 0}
+  m_LocalPosition: {x: 0.18, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -91,8 +91,8 @@ Transform:
   m_GameObject: {fileID: 5324820576725914287}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.3821135, y: 0.53359246, z: 0.053610615}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6183345600168876977}
@@ -117,8 +117,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.27083516, y: 0.3827542, z: 1}
-  m_Center: {x: 0.595605, y: 0.013418376, z: 0}
+  m_Size: {x: 0.08, y: 0.12, z: 1}
+  m_Center: {x: 0.19, y: 0.013418376, z: 0}
 --- !u!54 &7778636871430848082
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -164,6 +164,8 @@ MonoBehaviour:
   model: {fileID: 1676681676745765330}
   pauseManager: {fileID: 0}
   weaponManager: {fileID: 0}
+  shootSound: {fileID: 0}
+  bulletImpactSound: {fileID: 0}
   equipped: 0
   canShoot: 1
   canReload: 1
@@ -200,15 +202,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: cecca25c94780ca428d51ab9f5894270, type: 3}
       propertyPath: m_LocalScale.x
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: cecca25c94780ca428d51ab9f5894270, type: 3}
       propertyPath: m_LocalScale.y
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: cecca25c94780ca428d51ab9f5894270, type: 3}
       propertyPath: m_LocalScale.z
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: cecca25c94780ca428d51ab9f5894270, type: 3}
       propertyPath: m_LocalPosition.x

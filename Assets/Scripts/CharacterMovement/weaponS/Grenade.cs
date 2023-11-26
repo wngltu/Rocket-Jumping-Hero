@@ -31,10 +31,16 @@ public class Grenade : weaponScript
         else if (Input.GetKeyDown(KeyCode.Mouse0) && pauseManager.paused == false && currentMag <= 0)
         {
             if (canReload)
+            {
                 Reload();
+                Invoke("ShowModel", reloadTime);
+            }
         }
         if (Input.GetKeyDown(KeyCode.R) && pauseManager.paused == false && currentMag != maxMag)
+        {
             Reload();
+            Invoke("ShowModel", reloadTime);
+        }
 
         if (fireCooldown > 0)
             fireCooldown -= Time.deltaTime;
@@ -46,6 +52,8 @@ public class Grenade : weaponScript
     {
         fireCooldown = fireRate;
         currentMag--;
+        if (currentMag <= 0)
+            model.gameObject.SetActive(false);
         UpdateHUDValues();
         interactDirection = playerCam.ScreenToWorldPoint(Input.mousePosition) - playerCam.transform.position;
         GameObject newobject = Instantiate(bullet, barrel.transform.position, barrel.transform.rotation);
@@ -53,5 +61,8 @@ public class Grenade : weaponScript
         newobject.transform.SetParent(null);
         Reload();
     }
-
+    public void ShowModel()
+    {
+        model.gameObject.SetActive(true);
+    }
 }
