@@ -62,13 +62,13 @@ public class PauseMenu : MonoBehaviour
     {
         Unpause();
         SaveData.WipeCheckpointProgress();
-        SceneManager.LoadScene("Testing Level");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void RestartCheckpoint()
     {
         Unpause();
-        SceneManager.LoadScene("Testing Level");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void ReturnToMainMenu() //return to main menu button on pause menu
     {

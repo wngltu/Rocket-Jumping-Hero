@@ -24,7 +24,7 @@ public class weaponManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetAxis("Mouse ScrollWheel") > 0 && weaponInventory.Count > 1 && pauseManager.paused == false)
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && weaponInventory.Count > 1 && pauseManager.paused == false && !Input.GetKey(KeyCode.LeftControl))
         {
             if (equippedNum > 0)
             {
@@ -37,7 +37,7 @@ public class weaponManager : MonoBehaviour
             equippedWeapon = weaponInventory[equippedNum];
             EquipCurrentWeapon();
         }
-        if (Input.GetAxis("Mouse ScrollWheel") < 0 && weaponInventory.Count > 1 && pauseManager.paused == false)
+        if (Input.GetAxis("Mouse ScrollWheel") < 0 && weaponInventory.Count > 1 && pauseManager.paused == false && !Input.GetKey(KeyCode.LeftControl))
         {
             if (equippedNum < weaponInventory.Count-1)
             {

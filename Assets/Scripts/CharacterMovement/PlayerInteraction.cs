@@ -8,6 +8,7 @@ public class PlayerInteraction : MonoBehaviour
     public Camera playerCam;
     public weaponManager weaponManager;
     public TextMeshProUGUI interactIndicatorText;
+    int layerMask = ~((1 << 9) | (1 << 13));
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +20,7 @@ public class PlayerInteraction : MonoBehaviour
     void Update()
     {
         RaycastHit hit2;
-        if (Physics.Raycast(transform.position, interactDirection, out hit2, 6)) //shoot ray in front of player, check every frame if item is interactable
+        if (Physics.Raycast(transform.position, interactDirection, out hit2, 6, layerMask)) //shoot ray in front of player, check every frame if item is interactable
         {
             if (hit2.collider.gameObject.CompareTag("droppedweapon"))
             {
@@ -38,7 +39,7 @@ public class PlayerInteraction : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, interactDirection, out hit, 6)) //shoot ray in front of player
+            if (Physics.Raycast(transform.position, interactDirection, out hit, 6, layerMask)) //shoot ray in front of player
             {
                 Debug.DrawRay(transform.position, interactDirection * 2);
                 Debug.Log(hit.ToString());

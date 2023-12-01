@@ -164,11 +164,11 @@ public class GrenadierEnemyFSM : Enemy
         
         if (playerToTheRight == true)
         {
-            weaponModel.transform.localScale = new Vector3(1, 1, 1);
+            weaponModel.transform.localScale = new Vector3(5, 5, 5);
         }
         else
         {
-            weaponModel.transform.localScale = new Vector3(-1, 1, 1);
+            weaponModel.transform.localScale = new Vector3(-5, 5, 5);
         }   
 
         Debug.Log("start attack windup");
@@ -194,6 +194,7 @@ public class GrenadierEnemyFSM : Enemy
         GameObject grenadeInstance = Instantiate(bullet, barrel.transform, false);
         UpdatePlayerDirection();
         grenadeInstance.transform.SetParent(null);
+        grenadeInstance.transform.localScale = new Vector3(3, 3, 3);
         if (playerToTheRight == true)
             grenadeInstance.GetComponent<Rigidbody>().AddForce(new Vector2(distanceFromPlayer/2, 2 +(player.transform.position.y - transform.position.y)), ForceMode.Impulse);
         else

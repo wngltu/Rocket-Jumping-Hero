@@ -13,7 +13,9 @@ public class TutorialGoalScript : MonoBehaviour
         RJVerticalGoal,
         RJHorizontalGoal,
         PlatformGoal,
-        PressurePlateGoal
+        PressurePlateGoal,
+
+        Lv1Room1,
     }
     public GoalName goal; //assign in inspector
 
@@ -41,7 +43,6 @@ public class TutorialGoalScript : MonoBehaviour
                     tutorialObject.pressurePlateGoal = true; break;
                 case GoalName.PlatformGoal:
                     tutorialObject.platformGoal = true; break;
-
             }
         }
     }

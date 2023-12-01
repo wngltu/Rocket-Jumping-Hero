@@ -37,7 +37,8 @@ public class Rocket : MonoBehaviour
     {
         print(collision.gameObject.name.ToString());
         if (collision.gameObject.tag == "enemy" || 
-            collision.gameObject.tag == "door" || 
+            collision.gameObject.tag == "door" ||
+            collision.gameObject.tag == "rdoor" ||
             collision.gameObject.tag == "ground" || 
             collision.gameObject.tag == "platform" || 
             collision.gameObject.tag == "droppedweapon")

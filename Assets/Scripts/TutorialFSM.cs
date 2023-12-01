@@ -77,7 +77,6 @@ public class TutorialFSM : MonoBehaviour
     }
     void Walking_Update()
     {
-        Debug.Log("swaws");
         if (Input.GetKeyDown(KeyCode.A))
             bool1 = true;
         else if (Input.GetKeyDown(KeyCode.D))

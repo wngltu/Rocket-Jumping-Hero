@@ -10,5 +10,9 @@ public class KillboxScript : MonoBehaviour
         {
             other.gameObject.GetComponent<PlayerHealth>().TakeDamage(99999);
         }
+        if (other.gameObject.CompareTag("enemy"))
+        {
+            other.gameObject.GetComponent<Enemy>().takeDamage(99999);
+        }
     }
 }

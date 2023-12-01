@@ -16,11 +16,11 @@ public class PlayerZoomManager : MonoBehaviour
     {
         if (Input.mouseScrollDelta.y != 0)
         {
-            if (cam.orthographicSize > 5 && Input.mouseScrollDelta.y > 0) //zoom in if not at zoom limit 
+            if (cam.orthographicSize > 5 && Input.mouseScrollDelta.y > 0 && Input.GetKey(KeyCode.LeftControl)) //zoom in if not at zoom limit 
             {
                 cam.orthographicSize -= Input.mouseScrollDelta.y;
             }
-            else if (cam.orthographicSize < 12.44f && Input.mouseScrollDelta.y < 0) //zoom out if not at zoom limit
+            else if (cam.orthographicSize < 12.44f && Input.mouseScrollDelta.y < 0 && Input.GetKey(KeyCode.LeftControl)) //zoom out if not at zoom limit
             {
                 cam.orthographicSize -= Input.mouseScrollDelta.y;
             }

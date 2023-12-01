@@ -28,14 +28,14 @@ public class Grenade : weaponScript
             if (canShoot)
                 Shoot();
         }
-        else if (Input.GetKeyDown(KeyCode.Mouse0) && pauseManager.paused == false && currentMag <= 0)
+        /*else if (Input.GetKeyDown(KeyCode.Mouse0) && pauseManager.paused == false && currentMag <= 0)
         {
             if (canReload)
             {
                 Reload();
                 Invoke("ShowModel", reloadTime);
             }
-        }
+        }*/
         if (Input.GetKeyDown(KeyCode.R) && pauseManager.paused == false && currentMag != maxMag)
         {
             Reload();
@@ -59,6 +59,10 @@ public class Grenade : weaponScript
         GameObject newobject = Instantiate(bullet, barrel.transform.position, barrel.transform.rotation);
         print(barrel.transform.position.ToString());
         newobject.transform.SetParent(null);
+        if (currentReserve > 0)
+        {
+            Invoke("ShowModel", reloadTime);
+        }
         Reload();
     }
     public void ShowModel()
