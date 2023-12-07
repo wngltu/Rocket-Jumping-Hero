@@ -50,8 +50,8 @@ public class PlayerMovement : MonoBehaviour
     private float doubleTapDLeniency = .25f; //the input window for double tapping d (higher = more lenient)
 
     //Rocket Launcher variables
-    private int rockets = 4;
-    private int maxRockets = 4;
+    public int rockets = 4;
+    public int maxRockets = 4;
     private float rocketRegenCooldown = 1.5f;
     private float rocketRegenTimer = 0f;
     private float rocketTapWindow = .15f;

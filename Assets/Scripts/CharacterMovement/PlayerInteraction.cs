@@ -5,6 +5,7 @@ public class PlayerInteraction : MonoBehaviour
 {
     Vector2 interactDirection;
     Vector2 pointerPos;
+    public PauseMenu pauseManager;
     public Camera playerCam;
     public weaponManager weaponManager;
     public TextMeshProUGUI interactIndicatorText;
@@ -13,18 +14,22 @@ public class PlayerInteraction : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        pauseManager = FindObjectOfType<PauseMenu>();
     }
 
     // Update is called once per frame
     void Update()
     {
         RaycastHit hit2;
-        if (Physics.Raycast(transform.position, interactDirection, out hit2, 6, layerMask)) //shoot ray in front of player, check every frame if item is interactable
+        if (Physics.Raycast(transform.position, interactDirection, out hit2, 6, layerMask) && pauseManager.paused == false) //shoot ray in front of player, check every frame if item is interactable
         {
             if (hit2.collider.gameObject.CompareTag("droppedweapon"))
             {
                 interactIndicatorText.text = "Click 'E' to pick up weapon";
+            }
+            else if (hit2.collider.gameObject.CompareTag("lever"))
+            {
+                interactIndicatorText.text = "Click 'E' to toggle the lever";
             }
             else
             {
@@ -36,7 +41,7 @@ public class PlayerInteraction : MonoBehaviour
             interactIndicatorText.text = " ";
         }
             interactDirection = playerCam.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && pauseManager.paused == false)
         {
             RaycastHit hit;
             if (Physics.Raycast(transform.position, interactDirection, out hit, 6, layerMask)) //shoot ray in front of player

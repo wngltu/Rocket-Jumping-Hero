@@ -32,8 +32,6 @@ public class ExplosionScript : MonoBehaviour
                         playercontroller.AddExplosionForce(transform.position, explosionRadius, explosionForce);
                         print(transform.position);
                     }
-                    else if (obj.gameObject.tag == "lever")
-                        obj.gameObject.GetComponentInParent<LeverScript>().triggerDoorMaster();
                     else if (obj.gameObject.tag == "explodewhenshot")
                     {
                         if (obj.gameObject.GetComponent<StickyGrenadeProjectile>().exploded == false)
