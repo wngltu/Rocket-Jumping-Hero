@@ -4,13 +4,17 @@ using UnityEngine;
 public class Level1FSM : MonoBehaviour
 {
     private StateMachine<States, StateDriverUnity> fsm;
+    public GameObject winScreen;
+    public PauseMenu pauseMenuScript;
+    public bool bossKilled = false;
     public enum States
     {
         Init,
-        Enemy1,
+        WinState
     }
     void Start()
     {
+        pauseMenuScript = FindObjectOfType<PauseMenu>();
         fsm = new StateMachine<States, StateDriverUnity>(this);
         fsm.ChangeState(States.Init, StateTransition.Safe);
     }
@@ -23,11 +27,14 @@ public class Level1FSM : MonoBehaviour
     public bool initGoal = false;
     void Init_Update()
     {
-        if (initGoal)
-            fsm.ChangeState(States.Enemy1, StateTransition.Safe);
+        if (bossKilled)
+            fsm.ChangeState(States.WinState, StateTransition.Safe);
     }
-    void Enemy1_Enter()
+    void WinState_Enter()
     {
-
+        winScreen.SetActive(true);
+        pauseMenuScript.Pause();
+        pauseMenuScript.pauseMenu.SetActive(false);
+        pauseMenuScript.enabled = false;
     }
 }

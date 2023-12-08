@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PressurePlate : MonoBehaviour
 {
+    public AudioSource activateSound;
+    public AudioSource deactivateSound;
     DoorMaster doorMaster;
     public bool interactable = true;
     // Start is called before the first frame update
@@ -40,11 +42,13 @@ public class PressurePlate : MonoBehaviour
     {
         transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y / 2, transform.localScale.z);
         setUninteractable();
+        activateSound.Play();
     }
 
     public void deactivatePlate()
     {
         transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y * 2, transform.localScale.z);
+        deactivateSound.Play();
     }
 
     void setUninteractable()

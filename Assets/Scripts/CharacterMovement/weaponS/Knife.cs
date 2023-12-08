@@ -19,21 +19,29 @@ public class Knife : weaponScript
         currentMag = 1;
         currentReserve = 0;
         baseDamage = 25;
+        fireRate = .5f;
     }
     void Update()
     {
         base.Update();
-        if (Input.GetKeyDown(KeyCode.Mouse0) && pauseManager.paused == false && currentMag > 0)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && pauseManager.paused == false && currentMag > 0 && fireCooldown == 0)
         {
             if (canShoot)
                 Shoot();
         }
         if (Input.GetKeyDown(KeyCode.R) && pauseManager.paused == false && currentMag != maxMag)
             Reload();
+
+        if (fireCooldown > 0)
+            fireCooldown -= Time.deltaTime;
+        else if (fireCooldown < 0)
+            fireCooldown = 0;
     }
 
     public void Shoot()
     {
+        shootSound.Play();
+        fireCooldown = fireRate;
         interactDirection = playerCam.ScreenToWorldPoint(Input.mousePosition) - playerCam.transform.position;
         RaycastHit hit;
         if (Physics.Raycast(transform.position, interactDirection, out hit, range, layerMask)) //shoot ray from barrel of gun

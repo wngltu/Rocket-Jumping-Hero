@@ -18,7 +18,9 @@ public class PlayerMovement : MonoBehaviour
     public weaponManager weaponManager;
     public PlayerRocketLauncher rocketLauncher;
     public PauseMenu pauseManager;
-    public AudioSource jumpSound;   
+    public AudioSource jumpSound;
+    public AudioSource jumpLandSound;
+    public AudioSource dashSound;
 
     //Horizontal variables
     private float horizontalVeloCap = 10f;
@@ -39,6 +41,9 @@ public class PlayerMovement : MonoBehaviour
     private float defaultVerticalVeloCap = 10f;
     private float rocketJumpingVerticalVeloCap = 12f;
     private float ceilingVelocity = 2f;
+    private float landSFXCooldownTimer = 0;
+    private float landSFXCooldown = .5f;
+    private float airDuration = 0f;
 
     //Dash variables
     private float dashCooldown = 3; //the set limit cooldown of dash
@@ -73,6 +78,7 @@ public class PlayerMovement : MonoBehaviour
     bool isRocketJumping = false;
     public bool isJumping;
     public bool slowmoEnabled = false;
+    bool wasInAir = true; //used to play jump land sfx
     // Start is called before the first frame update
 
     void Start()
@@ -98,6 +104,7 @@ public class PlayerMovement : MonoBehaviour
             StartTrail();
 
             velocity.x -= dashStrength;
+            dashSound.Play();
         }
 
         if (canDash == true && doubleTapDTimer > 0 && Input.GetKeyDown(KeyCode.D))
@@ -108,6 +115,7 @@ public class PlayerMovement : MonoBehaviour
             StartTrail();
 
             velocity.x += dashStrength;
+            dashSound.Play();
         }
 
         if (dashTimer > 0) //if dash is on cooldown, decrease cooldown over time
@@ -148,6 +156,27 @@ public class PlayerMovement : MonoBehaviour
             doubleTapDTimer = 0;
 
         grounded = controller.isGrounded;
+
+        if (grounded && wasInAir == true && landSFXCooldownTimer == 0 && airDuration > .2f)
+        {
+            wasInAir = false;
+            landSFXCooldownTimer = landSFXCooldown;
+            jumpLandSound.Play();
+        }
+        if (!grounded && wasInAir == false)
+        {
+            wasInAir = true;
+        }
+
+        if (landSFXCooldownTimer > 0f)
+            landSFXCooldownTimer -= Time.deltaTime;
+        if (landSFXCooldownTimer < 0)
+            landSFXCooldownTimer = 0;
+
+        if (!grounded)
+            airDuration += Time.deltaTime;
+        if (grounded)
+            airDuration = 0;
 
         if (grounded && playerSpeed != groundedPlayerSpeed && isRocketJumping == false)
         {

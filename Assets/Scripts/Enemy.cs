@@ -25,6 +25,7 @@ public class Enemy : MonoBehaviour
     public bool aggroed = false;
     public bool playerToTheRight; //which direction in reference to the game object is the player currently?
     public bool attacking = false;
+    public bool isBoss = false;
 
 
     // Start is called before the first frame update
@@ -69,7 +70,11 @@ public class Enemy : MonoBehaviour
     {
         if (Died != true)
         {
-            GameObject loot = Instantiate(weaponLoot, this.transform);
+            if (isBoss)
+            {
+                FindObjectOfType<Level1FSM>().bossKilled = true;
+            }
+            GameObject loot = Instantiate(weaponLoot, transform.position, Quaternion.identity, null);
             loot.gameObject.transform.SetParent(null);
             Died = true;
             Instantiate(deathSoundObject, transform.position, Quaternion.identity);

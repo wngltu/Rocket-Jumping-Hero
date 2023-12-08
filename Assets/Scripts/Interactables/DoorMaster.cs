@@ -28,7 +28,6 @@ public class DoorMaster : MonoBehaviour
             else if (child.CompareTag("rdoor")) //object is a reverse door (for lever)
                 reverseDoors.Add(child.gameObject);
         }
-
     }
 
     // Update is called once per frame
@@ -45,7 +44,9 @@ public class DoorMaster : MonoBehaviour
         toggleCooldownTimer = toggleCooldown;
         foreach (GameObject door in doors)
         {
-            door.SetActive(false);
+            door.GetComponent<BoxCollider>().enabled = false;
+            door.GetComponent<SpriteRenderer>().enabled = false;
+            door.GetComponentInChildren<DoorTimerVisualScript>().currentTime = openTime;
         }
         foreach(GameObject plate in pressurePlates)
         {
@@ -60,7 +61,8 @@ public class DoorMaster : MonoBehaviour
     {
         foreach (GameObject door in doors)
         {
-            door.SetActive(true);
+            door.GetComponent<BoxCollider>().enabled = true;
+            door.GetComponent<SpriteRenderer>().enabled = true;
         }    
     }
 

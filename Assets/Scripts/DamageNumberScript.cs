@@ -16,7 +16,14 @@ public class DamageNumberScript : MonoBehaviour
         rb.velocity = new Vector3(Random.Range(-2.5f, 2.5f), Random.Range(1f, 5f), 0);
         canvas = GetComponentInParent<Canvas>();
         text = GetComponent<TextMeshProUGUI>();
-        text.text = "-" + ((int)damage).ToString();
+        if (damage >= 1)
+        {
+            text.text = "-" + ((int)damage).ToString();
+        }
+        else
+        {
+            text.text = " ";
+        }
     }
 
     private void FixedUpdate()

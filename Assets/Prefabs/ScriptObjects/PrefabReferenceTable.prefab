@@ -49,6 +49,7 @@ MonoBehaviour:
   meleeDrop: {fileID: 6657491412343055848, guid: 74016e3820de0f94e8a7f0ab670b6260, type: 3}
   grenadeDrop: {fileID: 703352752637388383, guid: dbdb243311eece448a3fb832f9fcfd9f, type: 3}
   sniperDrop: {fileID: 9009331981593576864, guid: b6228a858d6002c4391ee307e4d2875c, type: 3}
+  rifleDrop: {fileID: 272075338928681332, guid: 17499125cc31a114b9b695ba52dd95b1, type: 3}
 --- !u!114 &3141569854633932064
 MonoBehaviour:
   m_ObjectHideFlags: 0
