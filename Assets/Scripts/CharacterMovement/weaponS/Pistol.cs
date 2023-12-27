@@ -71,8 +71,10 @@ public class Pistol : weaponScript
                 hit.collider.gameObject.GetComponentInParent<StickyGrenadeProjectile>().Explode();
             }
 
-            if (hit.collider.gameObject.CompareTag("lever"))
-                hit.collider.gameObject.GetComponentInParent<LeverScript>().triggerDoorMaster();
+            if (hit.collider.gameObject.CompareTag("shootplate"))
+            {
+                hit.collider.gameObject.GetComponent<ShootPlate>().togglePlate();
+            }
         }
         TrailRenderer trail = Instantiate(bulletTrail, barrel.transform.position, Quaternion.identity);
 

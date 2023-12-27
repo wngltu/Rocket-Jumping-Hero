@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
 {
     //Component variables
     public CharacterController controller;
+    public PlayerHealth playerHealth;
     public BoxCollider jumpCheck;
     public TrailRenderer trail;
     public static PlayerMovement Instance;
@@ -25,9 +26,11 @@ public class PlayerMovement : MonoBehaviour
     //Horizontal variables
     private float horizontalVeloCap = 10f;
     private float groundedPlayerSpeed = 6.5f;
-    private float aerialPlayerSpeed = 5f;
+    private float aerialPlayerSpeed = 7.5f;
+    private float aerialPlayerSprintSpeed = 12f;
     private float playerSpeed = 6.5f;
     private float playerSprintSpeed = 10f;
+    private float groundedSprintSpeed = 6.5f;
 
     //Vertical/Jump variables
     private float gravity = -17f;
@@ -87,6 +90,7 @@ public class PlayerMovement : MonoBehaviour
         transform.position = new Vector3(SaveData.checkpointX, SaveData.checkpointY, 0);
         controller.enabled = true;
         pauseManager = FindObjectOfType<PauseMenu>();
+        playerHealth = GetComponent<PlayerHealth>();
         Instance = this;
         rocketText.text = rockets.ToString();
     }
@@ -105,6 +109,7 @@ public class PlayerMovement : MonoBehaviour
 
             velocity.x -= dashStrength;
             dashSound.Play();
+            
         }
 
         if (canDash == true && doubleTapDTimer > 0 && Input.GetKeyDown(KeyCode.D))
@@ -378,6 +383,7 @@ public class PlayerMovement : MonoBehaviour
     public void SetNormalAerialValues() //call when landing
     {
         playerSpeed = groundedPlayerSpeed;
+        playerSprintSpeed = groundedSprintSpeed;
         gravity = defaultGravity;
         verticalVeloCap = defaultVerticalVeloCap;
         isRocketJumping = false;
@@ -386,6 +392,7 @@ public class PlayerMovement : MonoBehaviour
     public void SetRocketJumpAerialValues() // call when being hit by an explosion
     {
         playerSpeed = aerialPlayerSpeed;
+        playerSprintSpeed = aerialPlayerSprintSpeed;
         gravity = rocketJumpingGravity;
         verticalVeloCap = rocketJumpingVerticalVeloCap;
         isRocketJumping = true;

@@ -16,6 +16,7 @@ TagManager:
   - checkpoint
   - explodewhenshot
   - pathingnode
+  - shootplate
   layers:
   - Default
   - TransparentFX

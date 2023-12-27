@@ -59,7 +59,8 @@ public class Enemy : MonoBehaviour
     {
         GameObject damageNumber = Instantiate(damageIndicator, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), Quaternion.identity);
         damageNumber.GetComponentInChildren<DamageNumberScript>().damage = damage;
-        currentHealth -= damage;
+        if (damage > 0)
+            currentHealth -= damage;
         healthBar.value = currentHealth / maxHealth;
         if (currentHealth <= 0f)
         {
@@ -72,7 +73,8 @@ public class Enemy : MonoBehaviour
         {
             if (isBoss)
             {
-                FindObjectOfType<Level1FSM>().bossKilled = true;
+                if (FindAnyObjectByType<Level1FSM>() != null)
+                    FindObjectOfType<Level1FSM>().bossKilled = true;
             }
             GameObject loot = Instantiate(weaponLoot, transform.position, Quaternion.identity, null);
             loot.gameObject.transform.SetParent(null);

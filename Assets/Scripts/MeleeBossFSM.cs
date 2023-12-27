@@ -26,6 +26,9 @@ public class MeleeBossFSM : Enemy
 
     public GameObject explosionObject;
     public GameObject explodeIndicator;
+    public GameObject leftBarrel;
+    public GameObject rightBarrel;
+    public GameObject slamProjectile;
     public AIDestinationSetter aiDestinationSetter;
     public States currentState;
     public AudioSource attackWindUpSound;
@@ -151,6 +154,7 @@ public class MeleeBossFSM : Enemy
     void Chasing_Enter()
     {
         aiDestinationSetter.target = playerMovement.transform;
+        timer = 0;
     }
 
     void Chasing_Update()
@@ -177,12 +181,23 @@ public class MeleeBossFSM : Enemy
             fsm.ChangeState(States.Idle, StateTransition.Safe);
             rb.useGravity = true;
         }
+
+        if (distanceFromPlayer < attackRange*4)
+            timer += Time.deltaTime;
+        if (timer > 2) //every 2 seconds, check rng to do slam attack or not
+        {
+            if (Random.Range(0, 2) == 0)
+            {
+                fsm.ChangeState(States.SlamAttackWindup);
+            }
+        }
     }
 
     void Chasing_Exit()
     {
         aiDestinationSetter.target = null;
         Debug.Log("chasing exit");
+        timer = 0;
     }
 
     void AttackWindup_Enter()
@@ -286,7 +301,7 @@ public class MeleeBossFSM : Enemy
         isAttacking = true;
         Debug.Log("start attacK");
         UpdatePlayerDirection();
-        rb.AddForce(new Vector3(0, 8, 0), ForceMode.Impulse);
+        rb.AddForce(new Vector3(0, 5, 0), ForceMode.Impulse);
     }
     void SlamAttack_Update()
     {
@@ -297,13 +312,14 @@ public class MeleeBossFSM : Enemy
             fsm.ChangeState(States.SlamAttackCooldown, StateTransition.Safe);
         }
 
-            if (slamAttackLand == true)
-            {
-                GameObject obj = Instantiate(explosionObject, this.transform);
-                obj.GetComponent<ExplosionScript>().EnemyExplode(baseDamage, 5, 30f);
-            Debug.Log("slamattacklanded");
-                fsm.ChangeState(States.SlamAttackCooldown, StateTransition.Safe);
-            }
+        if (slamAttackLand == true)
+        {
+            GameObject obj = Instantiate(explosionObject, this.transform);
+            obj.GetComponent<ExplosionScript>().EnemyExplode(baseDamage, 5, 30f);
+            Instantiate(slamProjectile, leftBarrel.transform);
+            Instantiate(slamProjectile, rightBarrel.transform);
+            fsm.ChangeState(States.SlamAttackCooldown, StateTransition.Safe);
+        }
     }
 
 

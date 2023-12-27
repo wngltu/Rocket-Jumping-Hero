@@ -21,6 +21,7 @@ public class PlayerHealth : MonoBehaviour
     public PauseMenu pauseMenuScript;
     public GameObject gameOverScreen;
     public GameObject invincibilityShield;
+    public GameObject damageIndicatorPrefab;
     public AudioSource deathSound;
     public AudioSource hurtSound;
     public AudioSource hurtInvincibleSound;
@@ -43,10 +44,11 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(float damage) //used by general damage sources, like enemies and enemy projectiles
     {
-        if (!isInvincible)
+        if (!isInvincible && damage > 0)
         {
             ApplyInvincibility();
             currentHealth -= damage;
+            Instantiate(damageIndicatorPrefab, healthSlider.transform);
             UpdateHealth();
             if (currentHealth < 0)
             {
@@ -62,10 +64,11 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeTrapDamage(float damage) //used by traps, should have a separate trap invincibility timer
     {
-        if (!isTrapInvincible)
+        if (!isTrapInvincible && damage > 0)
         {
             ApplyTrapInvincibility();
             currentHealth -= damage;
+            Instantiate(damageIndicatorPrefab, healthSlider.transform);
             UpdateHealth();
             if (currentHealth < 0)
             {
@@ -82,6 +85,7 @@ public class PlayerHealth : MonoBehaviour
     public void TakeTrueDamage(float damage) //used by killboxes, should bypass invinciblity
     {
         currentHealth -= damage;
+        Instantiate(damageIndicatorPrefab, healthSlider.transform);
         UpdateHealth();
         if (currentHealth < 0)
         {
@@ -119,6 +123,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void UpdateHealth()
     {
+        Debug.Log("Player Health Changed");
         currentHealthText.text = ((int)currentHealth).ToString();
         healthSlider.value = currentHealth / maxHealth;
     }

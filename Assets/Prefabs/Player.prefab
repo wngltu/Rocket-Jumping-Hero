@@ -247,6 +247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 2972358732500274532}
+  playerHealth: {fileID: 0}
   jumpCheck: {fileID: 5476573908843251585}
   trail: {fileID: 3775108627411523072}
   rocketText: {fileID: 0}
@@ -369,6 +370,7 @@ MonoBehaviour:
   pauseMenuScript: {fileID: 0}
   gameOverScreen: {fileID: 0}
   invincibilityShield: {fileID: 3596322835866214816}
+  damageIndicatorPrefab: {fileID: 42328156097456936, guid: d597f7d6626db034baf2d5b07e275748, type: 3}
   deathSound: {fileID: 3378164175459973601}
   hurtSound: {fileID: 2882630584004027017}
   hurtInvincibleSound: {fileID: 0}
