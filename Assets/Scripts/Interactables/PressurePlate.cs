@@ -49,7 +49,7 @@ public class PressurePlate : MonoBehaviour
     {
         transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y * 2, transform.localScale.z);
         deactivateSound.Play();
-    }
+    }   
 
     void setUninteractable()
     {

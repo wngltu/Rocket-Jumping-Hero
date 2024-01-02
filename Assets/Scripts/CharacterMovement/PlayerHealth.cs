@@ -111,7 +111,7 @@ public class PlayerHealth : MonoBehaviour
     }
     void ApplyTrapInvincibility()
     {
-        isTrapInvincible = false;
+        isTrapInvincible = true;
         Invoke("RemoveTrapInvincibility", trapInvincibleTime);
         invincibilityShield.SetActive(true);
     }
