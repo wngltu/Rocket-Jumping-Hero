@@ -1,4 +1,6 @@
+using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
@@ -9,6 +11,7 @@ public class PlayerInteraction : MonoBehaviour
     public Camera playerCam;
     public weaponManager weaponManager;
     public TextMeshProUGUI interactIndicatorText;
+    public TextMeshProUGUI feedbackText;
     int layerMask = ~((1 << 9) | (1 << 13));
 
     // Start is called before the first frame update
@@ -53,20 +56,43 @@ public class PlayerInteraction : MonoBehaviour
                     hit.collider.gameObject.GetComponentInParent<LeverScript>().triggerDoorMaster();
                 else if (hit.collider.gameObject.CompareTag("droppedweapon"))
                 {
-                    hit.collider.gameObject.transform.SetParent(this.transform, false);
-                    hit.collider.gameObject.transform.localPosition = new Vector3(0, 0, 0);
-                    hit.collider.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-                    hit.collider.gameObject.GetComponent<weaponScript>().Unequip();
-                    hit.collider.gameObject.GetComponent<weaponScript>().enabled = false;
-                    hit.collider.enabled = false;
-                    weaponManager.addWeapon(hit.collider.gameObject.GetComponent<weaponScript>());
-                    if (weaponManager.weaponInventory.Count == 1) //is this the first weapon the player picks up? if so equip it
+                    if (weaponManager.weaponInventory.Count < weaponManager.maxWeapons) //does player have inventory space to pick up new weapon
                     {
-                        weaponManager.equippedNum = 0;
-                        weaponManager.EquipCurrentWeapon();
+                        hit.collider.gameObject.transform.SetParent(this.transform, false);
+                        hit.collider.gameObject.transform.localPosition = new Vector3(0, 0, 0);
+                        hit.collider.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                        hit.collider.gameObject.GetComponent<weaponScript>().Unequip();
+                        hit.collider.gameObject.GetComponent<weaponScript>().enabled = false;
+                        hit.collider.enabled = false;
+                        weaponManager.addWeapon(hit.collider.gameObject.GetComponent<weaponScript>());
+                        if (weaponManager.weaponInventory.Count == 1) //is this the first weapon the player picks up? if so equip it
+                        {
+                            weaponManager.equippedNum = 0;
+                            weaponManager.EquipCurrentWeapon();
+                        }
+                    }
+                    else if (weaponManager.weaponInventory.Count >= weaponManager.maxWeapons) //if inventory is full
+                    {
+                        feedbackText.text = "Inventory is full. Drop with G";
+                        feedbackText.color = new Color(feedbackText.color.r,feedbackText.color.g,feedbackText.color.b, 1);
+                        Invoke("startFadingText", 1);
                     }
                 }
             }
+        }
+    }
+
+    void startFadingText()
+    {
+        StartCoroutine(fadeFeedbackText(3));
+    }
+    public IEnumerator fadeFeedbackText(float time)
+    {
+        feedbackText.color = new Color(feedbackText.color.r, feedbackText.color.g, feedbackText.color.b, 1);
+        while(feedbackText.color.a > 0.0f)
+        {
+            feedbackText.color = new Color(feedbackText.color.r, feedbackText.color.g, feedbackText.color.b, feedbackText.color.a - (Time.deltaTime / time));
+            yield return null;
         }
     }
 }

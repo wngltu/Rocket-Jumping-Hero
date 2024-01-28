@@ -9,6 +9,7 @@ public class weaponManager : MonoBehaviour
     public static weaponManager Instance;
     public List<weaponScript> weaponInventory = new List<weaponScript>();
     public int equippedNum = 0;
+    public int maxWeapons = 3;
     public weaponScript equippedWeapon;
     public PauseMenu pauseManager;
     public TextMeshProUGUI magText;
@@ -58,6 +59,11 @@ public class weaponManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha2) && pauseManager.paused == false)
         {
             equippedNum = 1;
+            EquipCurrentWeapon();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3) && pauseManager.paused == false) 
+        {
+            equippedNum = 2;
             EquipCurrentWeapon();
         }
 
