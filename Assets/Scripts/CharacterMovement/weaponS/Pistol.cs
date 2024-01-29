@@ -50,7 +50,7 @@ public class Pistol : weaponScript
         fireCooldown = fireRate;
         currentMag--;
         UpdateHUDValues();
-        interactDirection = playerCam.ScreenToWorldPoint(Input.mousePosition) - playerCam.transform.position;
+        interactDirection = playerCam.ScreenToWorldPoint(Input.mousePosition) - playerObj.transform.position;
         RaycastHit hit;
         if (Physics.Raycast(transform.position, interactDirection, out hit, range, layerMask)) //shoot ray from barrel of gun
         {

@@ -64,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
     private float rocketRegenTimer = 0f;
     private float rocketTapWindow = .15f;
     private float rocketTapTimer = 0f;
-    public float rocketFireRate = .15f;
+    public float rocketFireRate = .35f;
     public float rocketFireCooldownTimer = .0f;
 
     //Other variables

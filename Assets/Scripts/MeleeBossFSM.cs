@@ -191,6 +191,12 @@ public class MeleeBossFSM : Enemy
                 fsm.ChangeState(States.SlamAttackWindup);
             }
         }
+
+        UpdatePlayerDirection();
+        if (playerToTheRight)
+            model.transform.localScale = new Vector3(1, model.transform.localScale.y, model.transform.localScale.z);
+        else if (!playerToTheRight)
+            model.transform.localScale = new Vector3(-1, model.transform.localScale.y, model.transform.localScale.z);
     }
 
     void Chasing_Exit()
@@ -237,6 +243,12 @@ public class MeleeBossFSM : Enemy
             rb.AddForce(new Vector2(2 + distanceFromPlayer, 5 + (player.transform.position.y - transform.position.y)), ForceMode.Impulse);
         else
             rb.AddForce(new Vector2(-2 - distanceFromPlayer, 5 + (player.transform.position.y - transform.position.y)), ForceMode.Impulse);
+
+        UpdatePlayerDirection();
+        if (playerToTheRight)
+            model.transform.localScale = new Vector3(1, model.transform.localScale.y, model.transform.localScale.z);
+        else if (!playerToTheRight)
+            model.transform.localScale = new Vector3(-1, model.transform.localScale.y, model.transform.localScale.z);
     }
     void Attack_Update()
     {

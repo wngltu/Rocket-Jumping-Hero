@@ -79,9 +79,16 @@ public class MeleeGruntFSM : Enemy
     // Update is called once per frame
     void Update()
     {
+
         base.Update();
         fsm.Driver.Update.Invoke();
         currentState = fsm.State;
+
+        if (rb.velocity.x > .3f)
+            model.transform.localScale = new Vector3(model.transform.localScale.x, model.transform.localScale.y, -1);
+        if (rb.velocity.x < -.3f)
+            model.transform.localScale = new Vector3(model.transform.localScale.x, model.transform.localScale.y, 1);
+
     }
 
     void Init_Enter()
@@ -134,6 +141,8 @@ public class MeleeGruntFSM : Enemy
             fsm.ChangeState(States.Idle, StateTransition.Safe);
             rb.useGravity = true;
         }
+
+        UpdatePlayerDirection();
     }
 
     void Patrol_Exit()
@@ -162,6 +171,13 @@ public class MeleeGruntFSM : Enemy
             fsm.ChangeState(States.Idle, StateTransition.Safe);
             rb.useGravity = true;
         }
+
+        UpdatePlayerDirection();
+        if (playerToTheRight)
+            model.transform.localScale = new Vector3(model.transform.localScale.x, model.transform.localScale.y, -1);
+        else if (!playerToTheRight)
+            model.transform.localScale = new Vector3(model.transform.localScale.x, model.transform.localScale.y, 1);
+
     }
 
     void Chasing_Exit()
@@ -176,9 +192,13 @@ public class MeleeGruntFSM : Enemy
         rb.useGravity = true;
         UpdatePlayerDirection();
         if (playerToTheRight == true)
+        {
             rb.AddForce(new Vector2(-1, .5f), ForceMode.Impulse);
+        }
         else
+        {
             rb.AddForce(new Vector2(1, .5f), ForceMode.Impulse);
+        }
         Debug.Log("start attack windup");
         aiPath.enabled = false;
         timer = attackWindup;
@@ -191,6 +211,11 @@ public class MeleeGruntFSM : Enemy
             timer = 0;
             fsm.ChangeState(States.Attack, StateTransition.Safe);
         }
+        UpdatePlayerDirection();
+        if (playerToTheRight)
+            model.transform.localScale = new Vector3(model.transform.localScale.x, model.transform.localScale.y, -1);
+        else if (!playerToTheRight)
+            model.transform.localScale = new Vector3(model.transform.localScale.x, model.transform.localScale.y, 1);
     }
 
     void Attack_Enter()

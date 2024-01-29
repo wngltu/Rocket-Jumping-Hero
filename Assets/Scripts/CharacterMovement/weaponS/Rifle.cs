@@ -52,7 +52,7 @@ public class Rifle : weaponScript
         fireCooldown = fireRate;
         currentMag--;
         UpdateHUDValues();
-        interactDirection = playerCam.ScreenToWorldPoint(Input.mousePosition) - playerCam.transform.position;
+        interactDirection = playerCam.ScreenToWorldPoint(Input.mousePosition) - playerObj.transform.position;
         RaycastHit hit;
         bulletDeviation = new Vector2(Random.Range(-bulletDeviationMagnitude, bulletDeviationMagnitude), Random.Range(-bulletDeviationMagnitude, bulletDeviationMagnitude));
         if (Physics.Raycast(transform.position, interactDirection + bulletDeviation, out hit, range, layerMask)) //shoot ray from barrel of gun

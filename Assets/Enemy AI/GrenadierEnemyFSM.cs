@@ -150,6 +150,12 @@ public class GrenadierEnemyFSM : Enemy
 
         Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
         weaponModel.transform.rotation = rotation;
+
+        UpdatePlayerDirection();
+        if (playerToTheRight)
+            model.transform.localScale = new Vector3(1, model.transform.localScale.y, model.transform.localScale.z);
+        else if (!playerToTheRight)
+            model.transform.localScale = new Vector3(-1, model.transform.localScale.y, model.transform.localScale.z);
     }
 
     void Chasing_Exit()
@@ -165,10 +171,12 @@ public class GrenadierEnemyFSM : Enemy
         if (playerToTheRight == true)
         {
             weaponModel.transform.localScale = new Vector3(5, 5, 5);
+            model.transform.localScale = new Vector3(1, model.transform.localScale.y, model.transform.localScale.z);
         }
         else
         {
             weaponModel.transform.localScale = new Vector3(-5, 5, 5);
+            model.transform.localScale = new Vector3(-1, model.transform.localScale.y, model.transform.localScale.z);
         }   
 
         Debug.Log("start attack windup");

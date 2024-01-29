@@ -7,6 +7,7 @@ public class weaponScript : MonoBehaviour
 {
     public static weaponScript Instance;
     public Camera playerCam;
+    public GameObject playerObj;
     public GameObject bullet;
     public GameObject barrel;
     public GameObject model;
@@ -39,6 +40,7 @@ public class weaponScript : MonoBehaviour
         playerCam = FindObjectOfType<Camera>();
         pauseManager = FindObjectOfType<PauseMenu>();
         weaponManager = FindObjectOfType<weaponManager>();
+        playerObj = FindObjectOfType<PlayerMovement>().gameObject;
         this.enabled = false;
     }
     // Update is called once per frame

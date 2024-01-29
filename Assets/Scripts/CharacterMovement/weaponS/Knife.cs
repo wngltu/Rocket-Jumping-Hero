@@ -7,7 +7,7 @@ public class Knife : weaponScript
 {
     public GameObject explodeIndicator;
     public float explosionRadius = .35f;
-    public float range = 2f;
+    public float range = 3.5f;
     int layerMask = ~((1 << 3) | (1 << 8) | (1 << 9) | (1 << 11) | (1 << 13));
     Vector2 interactDirection;
     // Start is called before the first frame update
@@ -42,7 +42,7 @@ public class Knife : weaponScript
     {
         shootSound.Play();
         fireCooldown = fireRate;
-        interactDirection = playerCam.ScreenToWorldPoint(Input.mousePosition) - playerCam.transform.position;
+        interactDirection = playerCam.ScreenToWorldPoint(Input.mousePosition) - playerObj.transform.position;
         RaycastHit hit;
         if (Physics.Raycast(transform.position, interactDirection, out hit, range, layerMask)) //shoot ray from barrel of gun
         {

@@ -20,6 +20,7 @@ public class Enemy : MonoBehaviour
     public GameObject weaponLoot;
     public GameObject damageIndicator;
     public GameObject deathSoundObject;
+    public GameObject model;
 
     public bool Died = false; //bool to make sure drops dont duplicate
     public bool aggroed = false;
@@ -42,7 +43,6 @@ public class Enemy : MonoBehaviour
 
     protected void Update()
     {
-        
         if (rb.velocity.y > maxVelocityY && !attacking)
             rb.velocity = new Vector3(rb.velocity.x, maxVelocityY, rb.velocity.z);
         else if (rb.velocity.y < -maxVelocityY && !attacking)

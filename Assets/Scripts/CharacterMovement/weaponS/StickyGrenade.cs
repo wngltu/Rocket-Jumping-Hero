@@ -47,7 +47,7 @@ public class StickyGrenade : weaponScript
         fireCooldown = fireRate;
         currentMag--;
         UpdateHUDValues();
-        interactDirection = playerCam.ScreenToWorldPoint(Input.mousePosition) - playerCam.transform.position;
+        interactDirection = playerCam.ScreenToWorldPoint(Input.mousePosition) - playerObj.transform.position;
         GameObject newobject = Instantiate(bullet, barrel.transform.position, barrel.transform.rotation);
         newobject.transform.SetParent(null);
         Reload();

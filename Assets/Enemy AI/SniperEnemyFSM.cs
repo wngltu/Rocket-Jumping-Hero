@@ -149,6 +149,12 @@ public class SniperEnemyFSM : Enemy
         {
             fsm.ChangeState(States.AttackWindup, StateTransition.Safe);
         }
+
+        UpdatePlayerDirection();
+        if (playerToTheRight)
+            model.transform.localScale = new Vector3(model.transform.localScale.x, model.transform.localScale.y, -1);
+        else if (!playerToTheRight)
+            model.transform.localScale = new Vector3(model.transform.localScale.x, model.transform.localScale.y, 1);
     }
 
     void Chasing_Exit()
@@ -166,9 +172,11 @@ public class SniperEnemyFSM : Enemy
         {
             weaponModel.transform.localScale = new Vector3(1, 1, 1);
             barrel.transform.localRotation = Quaternion.Euler(90, -90, 0);
+            model.transform.localScale = new Vector3(model.transform.localScale.x, model.transform.localScale.y, -1);
         }
         else
         {
+            model.transform.localScale = new Vector3(model.transform.localScale.x, model.transform.localScale.y, 1);
             weaponModel.transform.localScale = new Vector3(1, -1, 1);
             barrel.transform.localRotation = Quaternion.Euler(-90, 0, 90);
         }

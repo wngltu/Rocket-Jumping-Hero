@@ -54,6 +54,7 @@ MonoBehaviour:
   reverseDoors: []
   openTime: 5
   doorTimer: 0
+  door3DGraphic: {fileID: 0}
   toggleCooldown: 0.1
   toggleCooldownTimer: 0
 --- !u!1001 &797040154331823877
@@ -80,6 +81,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Door
       objectReference: {fileID: 0}
+    - target: {fileID: 3863813620740634835, guid: 491959bf88080ad4eb36afa53b9c7c01, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 945f03dd2f0aaca4faab42b78a46f1ad, type: 2}
     - target: {fileID: 5052314582952704888, guid: 491959bf88080ad4eb36afa53b9c7c01, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.75
@@ -122,6 +127,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5052314582952704888, guid: 491959bf88080ad4eb36afa53b9c7c01, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8913418412027569728, guid: 491959bf88080ad4eb36afa53b9c7c01, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8913418412027569728, guid: 491959bf88080ad4eb36afa53b9c7c01, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

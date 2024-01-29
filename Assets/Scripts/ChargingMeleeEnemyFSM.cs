@@ -162,6 +162,16 @@ public class ChargingMeleeEnemyFSM : Enemy
             fsm.ChangeState(States.Idle, StateTransition.Safe);
             rb.useGravity = true;
         }
+
+        UpdatePlayerDirection();
+        if (playerToTheRight == true)
+        {
+            model.transform.localScale = new Vector3(1, model.transform.localScale.y, model.transform.localScale.z);
+        }
+        else
+        {
+            model.transform.localScale = new Vector3(-1, model.transform.localScale.y, model.transform.localScale.z);
+        }
     }
 
     void Chasing_Exit()
@@ -205,9 +215,15 @@ public class ChargingMeleeEnemyFSM : Enemy
         Debug.Log("start attacK");
         UpdatePlayerDirection();
         if (playerToTheRight == true)
+        {
             chargeRight = true;
+            model.transform.localScale = new Vector3(1, model.transform.localScale.y, model.transform.localScale.z);
+        }
         else
+        {
             chargeRight = false;
+            model.transform.localScale = new Vector3(-1, model.transform.localScale.y, model.transform.localScale.z);
+        }
     }
     void Attack_Update()
     {

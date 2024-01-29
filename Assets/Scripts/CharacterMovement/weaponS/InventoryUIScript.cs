@@ -14,7 +14,10 @@ public class InventoryUIScript : MonoBehaviour
     private void Start()
     {
         weaponManagerScript = FindObjectOfType<weaponManager>();
-    }
+        slot1UI.SetActive(false);
+        slot2UI.SetActive(false);
+        slot3UI.SetActive(false);
+}
 
     public void switchWeapons(int currentWep) //equippedweapon from wepmanage should be passed through
     {
@@ -83,6 +86,7 @@ public class InventoryUIScript : MonoBehaviour
 
     public void updateWeaponInventory()
     {
+        /*
         if (weaponManagerScript.weaponInventory.Count > 0)
             slot1WepName.text = weaponManagerScript.weaponInventory[0].name;
         else
@@ -95,5 +99,47 @@ public class InventoryUIScript : MonoBehaviour
             slot3WepName.text = weaponManagerScript.weaponInventory[2].name;
         else
             slot3WepName.text = "";
+        */
+
+        for (int i = 0; i < 3; i++)
+        {
+            if (weaponManagerScript.weaponInventory.Count > i)
+            {
+                switch (i)
+                {
+                    case 0:
+                        slot1UI.SetActive(true);
+                        slot1WepName.text = weaponManagerScript.weaponInventory[i].name;
+                        break;
+                    case 1:
+                        slot2UI.SetActive(true);
+                        slot2WepName.text = weaponManagerScript.weaponInventory[i].name;
+                        break;
+                    case 2:
+                        slot3UI.SetActive(true);
+                        slot3WepName.text = weaponManagerScript.weaponInventory[i].name;
+                        break;
+
+                }
+            }
+            else
+            {
+                switch (i)
+                {
+                    case 0:
+                        slot1WepName.text = "";
+                        slot1UI.SetActive(false);
+                        break;
+                    case 1:
+                        slot2WepName.text = "";
+                        slot2UI.SetActive(false);
+                        break;
+                    case 2:
+                        slot3WepName.text = "";
+                        slot3UI.SetActive(false);
+                        break;
+                }
+            }
+        }
     }
 }

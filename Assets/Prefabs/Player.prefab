@@ -261,7 +261,7 @@ MonoBehaviour:
   dashSound: {fileID: 6952935366173163228}
   rockets: 4
   maxRockets: 4
-  rocketFireRate: 0.15
+  rocketFireRate: 0.35
   rocketFireCooldownTimer: 0
   grounded: 0
   isJumping: 0

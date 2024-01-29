@@ -55,7 +55,7 @@ public class Grenade : weaponScript
         if (currentMag <= 0)
             model.gameObject.SetActive(false);
         UpdateHUDValues();
-        interactDirection = playerCam.ScreenToWorldPoint(Input.mousePosition) - playerCam.transform.position;
+        interactDirection = playerCam.ScreenToWorldPoint(Input.mousePosition) - playerObj.transform.position;
         GameObject newobject = Instantiate(bullet, barrel.transform.position, barrel.transform.rotation);
         print(barrel.transform.position.ToString());
         newobject.transform.SetParent(null);

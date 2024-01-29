@@ -72,13 +72,18 @@ public class weaponManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.G) && pauseManager.paused == false && playerRocketLauncherScript.equipped == false) //drop weapon
         {
-            if (equippedNum > 0)
+            if (equippedNum > 0 && weaponInventory.Count > 1)
             {
                 DropWeapon(equippedWeapon);
                 equippedNum--;
                 EquipCurrentWeapon();
             }
-            else if (equippedNum == 0 && weaponInventory.Count <= 2) //if this is the last weapon in inventory dont try to switch
+            else if (equippedNum > 0 && weaponInventory.Count == 1)
+            {
+                DropWeapon(equippedWeapon);
+                equippedNum = 0;
+            }
+            else if (equippedNum == 0 && weaponInventory.Count <= 3) //if this is the last weapon in inventory dont try to switch
             {
                 DropWeapon(equippedWeapon);
                 equippedNum = 0;
@@ -128,7 +133,8 @@ public class weaponManager : MonoBehaviour
             weaponInventory.Remove(weapon);
             magText.text = " ";
             reserveText.text = " ";
-            playerInvScript.dropWeapon(equippedNum);
+            playerInvScript.updateWeaponInventory();
+            /*
             if (temp >= 0 && weaponInventory.Count > 0)
             {
                 equippedNum = temp;
@@ -138,7 +144,7 @@ public class weaponManager : MonoBehaviour
             {
                 equippedNum = 1;
                 EquipCurrentWeapon();
-            }
+            }*/
         }
     }
 
