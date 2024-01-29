@@ -89,7 +89,7 @@ public class Shotgun : weaponScript
             }
             else //if bullet missed
             {
-                StartCoroutine(SpawnTrail(trail, new Vector2(playerCam.transform.position.x, playerCam.transform.position.y) + (targetPos.normalized * range) + bulletDeviation, Random.Range(0, .1f)));
+                StartCoroutine(SpawnTrail(trail, new Vector2(playerObj.transform.position.x, playerObj.transform.position.y) + (targetPos.normalized * range) + bulletDeviation, Random.Range(0, .1f)));
             }
         }
     }

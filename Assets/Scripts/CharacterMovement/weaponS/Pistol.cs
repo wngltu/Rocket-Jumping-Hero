@@ -84,7 +84,7 @@ public class Pistol : weaponScript
         }
         else
         {
-            StartCoroutine(SpawnTrail(trail, new Vector2(playerCam.transform.position.x, playerCam.transform.position.y) + targetPos.normalized*range));
+            StartCoroutine(SpawnTrail(trail, new Vector2(playerObj.transform.position.x, playerObj.transform.position.y) + targetPos.normalized*range));
         }
         //GameObject clone = Instantiate(bullet, barrel.transform.position, barrel.transform.rotation);
         UpdateHUDValues();
