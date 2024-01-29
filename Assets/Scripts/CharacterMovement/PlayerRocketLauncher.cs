@@ -47,10 +47,12 @@ public class PlayerRocketLauncher : MonoBehaviour
     public virtual void Equip()
     {
         this.gameObject.SetActive(true);
+        equipped = true;
     }
     public virtual void Unequip()
     {
         this.gameObject.SetActive(false);
+        equipped = false;
     }
 
     public void Shoot()

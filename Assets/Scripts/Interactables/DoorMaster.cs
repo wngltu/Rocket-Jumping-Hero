@@ -11,6 +11,7 @@ public class DoorMaster : MonoBehaviour
     public List<GameObject> reverseDoors;
     public float openTime = 5f;
     public float doorTimer;
+    public GameObject door3DGraphic;
 
     public float toggleCooldown = .1f;
     public float toggleCooldownTimer = 0f;
@@ -47,6 +48,7 @@ public class DoorMaster : MonoBehaviour
             door.GetComponent<BoxCollider>().enabled = false;
             door.GetComponent<SpriteRenderer>().enabled = false;
             door.GetComponentInChildren<DoorTimerVisualScript>().currentTime = openTime;
+            door.GetComponent<door3DGraphicScript>().disableDoorGraphic();
         }
         foreach(GameObject plate in pressurePlates)
         {
@@ -63,6 +65,7 @@ public class DoorMaster : MonoBehaviour
         {
             door.GetComponent<BoxCollider>().enabled = true;
             door.GetComponent<SpriteRenderer>().enabled = true;
+            door.GetComponent<door3DGraphicScript>().enableDoorGraphic();
         }    
     }
 

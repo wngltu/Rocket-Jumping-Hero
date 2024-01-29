@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
     private float aerialPlayerSprintSpeed = 12f;
     private float playerSpeed = 6.5f;
     private float playerSprintSpeed = 10f;
-    private float groundedSprintSpeed = 6.5f;
+    private float groundedSprintSpeed = 10f;
 
     //Vertical/Jump variables
     private float gravity = -17f;
@@ -268,11 +268,11 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (sprintHeld && !grounded)
         {
-            controller.Move(move * Time.deltaTime * playerSprintSpeed / 2);
+            controller.Move(move * Time.deltaTime * playerSprintSpeed);
         }
         else if (!sprintHeld && !grounded)
         {
-            controller.Move(move * Time.deltaTime * playerSpeed / 2);
+            controller.Move(move * Time.deltaTime * playerSpeed);
 
         }
 
@@ -305,7 +305,10 @@ public class PlayerMovement : MonoBehaviour
         else if (Input.GetKeyUp(KeyCode.Mouse1) && pauseManager.paused == false)
         {
             rocketLauncher.Unequip();
-            weaponManager.EquipCurrentWeapon();
+            if (weaponManager.weaponInventory.Count > 0)
+            {
+                weaponManager.EquipCurrentWeapon();
+            }
             if (slowmoEnabled == true)
                 Time.timeScale = 1f;
         }

@@ -15,11 +15,14 @@ public class weaponManager : MonoBehaviour
     public TextMeshProUGUI magText;
     public TextMeshProUGUI reserveText;
     public GameObject playerItemDrop;
+    public PlayerRocketLauncher playerRocketLauncherScript;
+    InventoryUIScript playerInvScript;
     // Start is called before the first frame update
     void Start()
     {
         Instance = this;
         pauseManager = FindObjectOfType<PauseMenu>();
+        playerInvScript = FindObjectOfType<InventoryUIScript>();
     }
 
     // Update is called once per frame
@@ -51,23 +54,23 @@ public class weaponManager : MonoBehaviour
             equippedWeapon = weaponInventory[equippedNum];
             EquipCurrentWeapon();
         }
-        if (Input.GetKeyDown(KeyCode.Alpha1) && pauseManager.paused == false)
+        if (Input.GetKeyDown(KeyCode.Alpha1) && pauseManager.paused == false && weaponInventory.Count > 0)
         {
             equippedNum = 0;
             EquipCurrentWeapon();
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2) && pauseManager.paused == false)
+        if (Input.GetKeyDown(KeyCode.Alpha2) && pauseManager.paused == false && weaponInventory.Count > 1)
         {
             equippedNum = 1;
             EquipCurrentWeapon();
         }
-        if (Input.GetKeyDown(KeyCode.Alpha3) && pauseManager.paused == false) 
+        if (Input.GetKeyDown(KeyCode.Alpha3) && pauseManager.paused == false && weaponInventory.Count > 2) 
         {
             equippedNum = 2;
             EquipCurrentWeapon();
         }
 
-        if (Input.GetKeyDown(KeyCode.G) && pauseManager.paused == false) //drop weapon
+        if (Input.GetKeyDown(KeyCode.G) && pauseManager.paused == false && playerRocketLauncherScript.equipped == false) //drop weapon
         {
             if (equippedNum > 0)
             {
@@ -100,18 +103,21 @@ public class weaponManager : MonoBehaviour
             UnequipAll();
             equippedWeapon.enabled = true;
             equippedWeapon.Equip();
+            playerInvScript.switchWeapons(equippedNum);
         }
     }
 
     public void addWeapon(weaponScript weapon)
     {
         weaponInventory.Add(weapon);
+        playerInvScript.updateWeaponInventory();
     }
 
     public void DropWeapon(weaponScript weapon)
     {
         if (weaponInventory.Count > 0)
         {
+            int temp = equippedNum;
             weaponInventory[equippedNum].GetComponent<Rigidbody>().isKinematic = false;
             weaponInventory[equippedNum].transform.SetParent(null);
             //weapon.transform.position = weapon.barrel.transform.position;
@@ -122,6 +128,18 @@ public class weaponManager : MonoBehaviour
             weaponInventory.Remove(weapon);
             magText.text = " ";
             reserveText.text = " ";
+            playerInvScript.dropWeapon(equippedNum);
+            if (temp >= 0 && weaponInventory.Count > 0)
+            {
+                equippedNum = temp;
+                EquipCurrentWeapon();
+            }
+            else if (weaponInventory.Count != 0)
+            {
+                equippedNum = 1;
+                EquipCurrentWeapon();
+            }
         }
     }
+
 }

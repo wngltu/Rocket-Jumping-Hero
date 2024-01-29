@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 878410000176914799}
   - component: {fileID: 2981744411976742624}
   m_Layer: 12
-  m_Name: Horizontal Ground (1 horizontal meter)
+  m_Name: Background1
   m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55,7 +55,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 14fac2c4db58a492aba33d256a37a52a, type: 2}
+  - {fileID: 2100000, guid: 981a6c651e539497da0058d713deecde, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

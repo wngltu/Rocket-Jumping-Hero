@@ -195,7 +195,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -165065755
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -324,11 +324,13 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   equippedNum: 0
+  maxWeapons: 3
   equippedWeapon: {fileID: 0}
   pauseManager: {fileID: 0}
   magText: {fileID: 0}
   reserveText: {fileID: 0}
   playerItemDrop: {fileID: 832449576337828387}
+  playerRocketLauncherScript: {fileID: 8513419251519647722}
 --- !u!114 &4355713923257352318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -345,6 +347,7 @@ MonoBehaviour:
   playerCam: {fileID: 7680093933480077685}
   weaponManager: {fileID: 0}
   interactIndicatorText: {fileID: 0}
+  feedbackText: {fileID: 0}
 --- !u!114 &7505302916716611302
 MonoBehaviour:
   m_ObjectHideFlags: 0
