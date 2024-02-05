@@ -6,7 +6,7 @@ public class Rifle : weaponScript
     public TrailRenderer bulletTrail;
     public GameObject explodeIndicator;
     public float explosionRadius = .35f;
-    public float range = 13f;
+    float range = 13f;
     public float bulletDeviationMagnitude = .25f;
 
     Vector2 interactDirection;
@@ -34,6 +34,10 @@ public class Rifle : weaponScript
         }
         else if (Input.GetKey(KeyCode.Mouse0) && pauseManager.paused == false && currentMag <= 0 && fireCooldown == 0)
         {
+            if (currentReserve == 0)
+            {
+                weaponManager.DropCurrentEmptyWeapon();
+            }
             if (canReload)
                 Reload();
         }

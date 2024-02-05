@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +8,8 @@ public class PlayerHealth : MonoBehaviour
     public float maxHealth = 100;
     public float invincibleTime = .75f;
     public float trapInvincibleTime = 1.5f;
+    public float healthRectMaxWidth;
+    public float healthRectMaxHeight;
     public bool isInvincible = false;
     public bool isTrapInvincible = false;
 
@@ -17,6 +17,8 @@ public class PlayerHealth : MonoBehaviour
     public TextMeshProUGUI maxHealthText;
     public Slider healthSlider;
     public Camera playerCamera;
+    public RectTransform healthRectFill;
+    public Canvas healthCanvas;
 
     public PauseMenu pauseMenuScript;
     public GameObject gameOverScreen;
@@ -28,6 +30,8 @@ public class PlayerHealth : MonoBehaviour
 
     private void Start()
     {
+        healthRectMaxWidth = healthRectFill.rect.width;
+        healthRectMaxHeight = healthRectFill.rect.height;
         pauseMenuScript = FindObjectOfType<PauseMenu>();
         currentHealth = maxHealth;
         UpdateHealth();
@@ -48,7 +52,7 @@ public class PlayerHealth : MonoBehaviour
         {
             ApplyInvincibility();
             currentHealth -= damage;
-            Instantiate(damageIndicatorPrefab, healthSlider.transform);
+            Instantiate(damageIndicatorPrefab, healthRectFill.transform);
             UpdateHealth();
             if (currentHealth < 0)
             {
@@ -68,7 +72,7 @@ public class PlayerHealth : MonoBehaviour
         {
             ApplyTrapInvincibility();
             currentHealth -= damage;
-            Instantiate(damageIndicatorPrefab, healthSlider.transform);
+            Instantiate(damageIndicatorPrefab, healthRectFill.transform);
             UpdateHealth();
             if (currentHealth < 0)
             {
@@ -85,7 +89,7 @@ public class PlayerHealth : MonoBehaviour
     public void TakeTrueDamage(float damage) //used by killboxes, should bypass invinciblity
     {
         currentHealth -= damage;
-        Instantiate(damageIndicatorPrefab, healthSlider.transform);
+        Instantiate(damageIndicatorPrefab, healthRectFill.transform);
         UpdateHealth();
         if (currentHealth < 0)
         {
@@ -126,6 +130,7 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log("Player Health Changed");
         currentHealthText.text = ((int)currentHealth).ToString();
         healthSlider.value = currentHealth / maxHealth;
+        healthRectFill.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, currentHealth / maxHealth * healthRectMaxWidth);
     }
 
     public void Die()

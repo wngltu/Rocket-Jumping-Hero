@@ -28,6 +28,10 @@ public class Grenade : weaponScript
             if (canShoot)
                 Shoot();
         }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && pauseManager.paused == false && currentReserve == 0 && currentMag == 0)
+        {
+            weaponManager.DropCurrentEmptyWeapon();
+        }
         /*else if (Input.GetKeyDown(KeyCode.Mouse0) && pauseManager.paused == false && currentMag <= 0)
         {
             if (canReload)

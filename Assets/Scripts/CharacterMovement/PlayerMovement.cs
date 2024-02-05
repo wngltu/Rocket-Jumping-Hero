@@ -66,6 +66,8 @@ public class PlayerMovement : MonoBehaviour
     private float rocketTapTimer = 0f;
     public float rocketFireRate = .35f;
     public float rocketFireCooldownTimer = .0f;
+    public float rocketRecentlyShotTimer = 0f;
+    public float rocketRecentlyShotTime = 1.5f;
 
     //Other variables
     private float explosionRecoilRecoveryRate = 10; //higher = faster recovery
@@ -331,12 +333,18 @@ public class PlayerMovement : MonoBehaviour
             rocketTapTimer -= Time.deltaTime;
         else if (rocketTapTimer < 0)
             rocketTapTimer = 0f;
-            rocketTapTimer = 0f;
-                
+
+        if (rocketRecentlyShotTimer > 0)
+            rocketRecentlyShotTimer -= Time.deltaTime;
+        else if (rocketRecentlyShotTimer < 0)
+            rocketRecentlyShotTimer = 0f;
 
         if (grounded && rockets < maxRockets) //"reload"/regenerate rockets while standing on the ground
         {
-            rocketRegenTimer += Time.deltaTime;
+            if (Mathf.Abs(playerMovementVector.x) > 0 || rocketRecentlyShotTimer != 0) //if player is moving, regen at normal rate
+                rocketRegenTimer += Time.deltaTime;
+            else //if player is not moving, regen at 1.5x rate
+                rocketRegenTimer += Time.deltaTime * 2;
             rocketReloadSlider.value = rocketRegenTimer / rocketRegenCooldown;
             if (rocketRegenTimer > rocketRegenCooldown)
             {

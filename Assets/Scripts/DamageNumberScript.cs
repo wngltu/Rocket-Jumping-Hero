@@ -13,12 +13,16 @@ public class DamageNumberScript : MonoBehaviour
     {
         rb = GetComponentInParent<Rigidbody>();
         gameObject.transform.position += new Vector3(Random.Range(-.5f,.5f), Random.Range(-.25f, .25f), 0);
-        rb.velocity = new Vector3(Random.Range(-2.5f, 2.5f), Random.Range(1f, 5f), 0);
+        rb.velocity = new Vector3(Random.Range(-.25f, .25f), Random.Range(1f, 5f), 0);
         canvas = GetComponentInParent<Canvas>();
         text = GetComponent<TextMeshProUGUI>();
         if (damage >= 1)
         {
             text.text = "-" + ((int)damage).ToString();
+            if (damage >= 5)
+            {
+                canvas.gameObject.transform.localScale += new Vector3((damage - 5) / 100, (damage - 5) / 100, 0);
+            }
         }
         else
         {

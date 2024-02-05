@@ -66,5 +66,6 @@ public class PlayerRocketLauncher : MonoBehaviour
             GameObject clone = Instantiate(bullet, barrel.transform.position, barrel.transform.rotation);
         }
         playerMovement.rocketFireCooldownTimer = playerMovement.rocketFireRate;
+        playerMovement.rocketRecentlyShotTimer = playerMovement.rocketRecentlyShotTime;
     }
 }

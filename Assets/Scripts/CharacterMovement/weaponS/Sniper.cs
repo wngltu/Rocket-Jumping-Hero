@@ -6,7 +6,7 @@ public class Sniper : weaponScript
     public TrailRenderer bulletTrail;
     public GameObject explodeIndicator;
     public float explosionRadius = .35f;
-    public float range = 8f;
+    float range = 17f;
     Vector2 interactDirection;
 
     int layerMask = ~((1 << 3) | (1 << 8) | (1 << 9) | (1 << 11) | (1 << 13));
@@ -31,6 +31,10 @@ public class Sniper : weaponScript
         }
         else if (Input.GetKeyDown(KeyCode.Mouse0) && pauseManager.paused == false && currentMag <= 0 && fireCooldown == 0)
         {
+            if (currentReserve == 0)
+            {
+                weaponManager.DropCurrentEmptyWeapon();
+            }
             if (canReload)
                 Reload();
         }

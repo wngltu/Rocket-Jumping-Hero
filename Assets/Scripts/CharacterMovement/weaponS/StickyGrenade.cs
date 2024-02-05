@@ -30,6 +30,10 @@ public class StickyGrenade : weaponScript
         }
         else if (Input.GetKeyDown(KeyCode.Mouse0) && pauseManager.paused == false && currentMag <= 0)
         {
+            if (currentReserve == 0)
+            {
+                weaponManager.DropCurrentEmptyWeapon();
+            }
             if (canReload)
                 Reload();
         }

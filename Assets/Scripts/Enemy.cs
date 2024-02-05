@@ -83,6 +83,7 @@ public class Enemy : MonoBehaviour
             }
             GameObject loot = Instantiate(weaponLoot, transform.position, Quaternion.identity, null);
             loot.gameObject.transform.SetParent(null);
+            loot.name = loot.name.Replace("(Clone)", "");
             Died = true;
             Instantiate(deathSoundObject, transform.position, Quaternion.identity);
             Destroy(this.gameObject);

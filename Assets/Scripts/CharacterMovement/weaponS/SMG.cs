@@ -34,6 +34,10 @@ public class SMG : weaponScript
         }
         else if (Input.GetKey(KeyCode.Mouse0) && pauseManager.paused == false && currentMag <= 0 && fireCooldown == 0)
         {
+            if (currentReserve == 0)
+            {
+                weaponManager.DropCurrentEmptyWeapon();
+            }
             if (canReload)
                 Reload();
         }

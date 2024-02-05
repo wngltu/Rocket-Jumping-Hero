@@ -70,25 +70,9 @@ public class weaponManager : MonoBehaviour
             EquipCurrentWeapon();
         }
 
-        if (Input.GetKeyDown(KeyCode.G) && pauseManager.paused == false && playerRocketLauncherScript.equipped == false) //drop weapon
+        if (Input.GetKeyDown(KeyCode.G) && pauseManager.paused == false) //drop weapon
         {
-            if (equippedNum > 0 && weaponInventory.Count > 1)
-            {
-                DropWeapon(equippedWeapon);
-                equippedNum--;
-                EquipCurrentWeapon();
-            }
-            else if (equippedNum > 0 && weaponInventory.Count == 1)
-            {
-                DropWeapon(equippedWeapon);
-                equippedNum = 0;
-            }
-            else if (equippedNum == 0 && weaponInventory.Count <= 3) //if this is the last weapon in inventory dont try to switch
-            {
-                DropWeapon(equippedWeapon);
-                equippedNum = 0;
-                EquipCurrentWeapon();
-            }
+            DropCurrentWeapon();
         }
     }
 
@@ -145,6 +129,72 @@ public class weaponManager : MonoBehaviour
                 equippedNum = 1;
                 EquipCurrentWeapon();
             }*/
+        }
+    }
+    public void DropEmptyWeapon(weaponScript weapon)
+    {
+        if (weaponInventory.Count > 0)
+        {
+            int temp = equippedNum;
+            weaponInventory[equippedNum].GetComponent<Rigidbody>().isKinematic = false;
+            weaponInventory[equippedNum].transform.SetParent(null);
+            //weapon.transform.position = weapon.barrel.transform.position;
+            weaponInventory[equippedNum].GetComponent<weaponScript>().enabled = false;
+            weapon.GetComponent<Collider>().enabled = false;
+            if (weapon.reloadInterrupted == false)
+                weapon.reloadInterrupted = true;
+            weaponInventory.Remove(weapon);
+            magText.text = " ";
+            reserveText.text = " ";
+            playerInvScript.updateWeaponInventory();
+        }
+    }
+
+    public void DropCurrentWeapon()
+    {
+        if (playerRocketLauncherScript.equipped == false)
+        {
+            if (equippedNum > 0 && weaponInventory.Count > 1)
+            {
+                DropWeapon(equippedWeapon);
+                equippedNum--;
+                EquipCurrentWeapon();
+            }
+            else if (equippedNum > 0 && weaponInventory.Count == 1)
+            {
+                DropWeapon(equippedWeapon);
+                equippedNum = 0;
+            }
+            else if (equippedNum == 0 && weaponInventory.Count <= 3) //if this is the last weapon in inventory dont try to switch
+            {
+                DropWeapon(equippedWeapon);
+                equippedNum = 0;
+                EquipCurrentWeapon();
+            }
+        }
+    }
+
+    public void DropCurrentEmptyWeapon()
+    {
+        if (playerRocketLauncherScript.equipped == false)
+        {
+            if (equippedNum > 0 && weaponInventory.Count > 1)
+            {
+                DropEmptyWeapon(equippedWeapon);
+                equippedNum--;
+                EquipCurrentWeapon();
+            }
+            else if (equippedNum > 0 && weaponInventory.Count == 1)
+            {
+                DropEmptyWeapon(equippedWeapon);
+                equippedNum = 0;
+            }
+            else if (equippedNum == 0 && weaponInventory.Count <= 3) //if this is the last weapon in inventory dont try to switch
+            {
+                DropEmptyWeapon(equippedWeapon);
+                equippedNum = 0;
+                EquipCurrentWeapon();
+            }
         }
     }
 

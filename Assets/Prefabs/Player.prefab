@@ -271,6 +271,7 @@ MonoBehaviour:
   sprintHeld: 0
   isJumping: 0
   slowmoEnabled: 0
+  shotRecently: 0
 --- !u!65 &4868551514160495221
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -371,12 +372,16 @@ MonoBehaviour:
   maxHealth: 100
   invincibleTime: 0.75
   trapInvincibleTime: 1.5
+  healthRectMaxWidth: 0
+  healthRectMaxHeight: 0
   isInvincible: 0
   isTrapInvincible: 0
   currentHealthText: {fileID: 0}
   maxHealthText: {fileID: 0}
   healthSlider: {fileID: 0}
   playerCamera: {fileID: 0}
+  healthRectFill: {fileID: 0}
+  healthCanvas: {fileID: 0}
   pauseMenuScript: {fileID: 0}
   gameOverScreen: {fileID: 0}
   invincibilityShield: {fileID: 3596322835866214816}
@@ -1638,7 +1643,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 5494538773569377092}
   m_HandleRect: {fileID: 0}
-  m_Direction: 1
+  m_Direction: 0
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0

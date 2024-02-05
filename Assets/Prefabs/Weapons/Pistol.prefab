@@ -71,7 +71,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 956294589
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 1
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -246,6 +246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCam: {fileID: 0}
+  playerObj: {fileID: 0}
   bullet: {fileID: 5373034997172829452, guid: 13e14cf096168be438995f3f49a68eac, type: 3}
   barrel: {fileID: 8429479038650570780}
   model: {fileID: 7271115591563449504}
@@ -253,6 +254,7 @@ MonoBehaviour:
   weaponManager: {fileID: 0}
   shootSound: {fileID: 1528807306330177416}
   bulletImpactSound: {fileID: 4299658544184760379}
+  playerMovementScript: {fileID: 0}
   equipped: 0
   canShoot: 1
   canReload: 1
@@ -263,7 +265,6 @@ MonoBehaviour:
   bulletTrail: {fileID: 5713675519578680126, guid: ad777a106ba4f82479a4a1f6cd66abee, type: 3}
   explodeIndicator: {fileID: 210786055253976368, guid: 427bcb42b61ae844daa3251c344f0a05, type: 3}
   explosionRadius: 0.35
-  range: 10
 --- !u!82 &1528807306330177416
 AudioSource:
   m_ObjectHideFlags: 0
