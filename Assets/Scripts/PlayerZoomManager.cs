@@ -16,19 +16,20 @@ public class PlayerZoomManager : MonoBehaviour
     {
         if (Input.mouseScrollDelta.y != 0)
         {
-            if (cam.orthographicSize > 5 && Input.mouseScrollDelta.y > 0 && Input.GetKey(KeyCode.LeftControl)) //zoom in if not at zoom limit 
+            if (cam.fieldOfView > 40f && Input.mouseScrollDelta.y > 0 && Input.GetKey(KeyCode.LeftControl)) //zoom in if not at zoom limit 
             {
-                cam.orthographicSize -= Input.mouseScrollDelta.y;
+                print("test camera fov");
+                cam.fieldOfView -= 3* Input.mouseScrollDelta.y;
             }
-            else if (cam.orthographicSize < 12.44f && Input.mouseScrollDelta.y < 0 && Input.GetKey(KeyCode.LeftControl)) //zoom out if not at zoom limit
+            else if (cam.fieldOfView < 60f && Input.mouseScrollDelta.y < 0 && Input.GetKey(KeyCode.LeftControl)) //zoom out if not at zoom limit
             {
-                cam.orthographicSize -= Input.mouseScrollDelta.y;
+                cam.fieldOfView -= 3* Input.mouseScrollDelta.y;
             }
         }
 
-        if (cam.orthographicSize < 5)
-            cam.orthographicSize = 5;
-        else if (cam.orthographicSize > 12.44f)
-            cam.orthographicSize = 12.44f;
+        if (cam.fieldOfView < 40)
+            cam.fieldOfView = 40;
+        else if (cam.fieldOfView > 60f)
+            cam.fieldOfView = 60f;
     }
 }

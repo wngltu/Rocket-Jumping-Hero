@@ -40,6 +40,7 @@ public class Knife : weaponScript
 
     public void Shoot()
     {
+        playerMovementScript.setShotRecentlyTimer();
         shootSound.Play();
         fireCooldown = fireRate;
         interactDirection = playerCam.ScreenToWorldPoint(Input.mousePosition) - playerObj.transform.position;

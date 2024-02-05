@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
     private float aerialPlayerSpeed = 7.5f;
     private float aerialPlayerSprintSpeed = 12f;
     private float playerSpeed = 6.5f;
-    private float playerSprintSpeed = 10f;
+    public float playerSprintSpeed = 10f;
     private float groundedSprintSpeed = 10f;
 
     //Vertical/Jump variables
@@ -69,19 +69,23 @@ public class PlayerMovement : MonoBehaviour
 
     //Other variables
     private float explosionRecoilRecoveryRate = 10; //higher = faster recovery
+    private float shotRecentlyTimer = 0;
+    private float shotRecentlyTime = .75f;
 
     Vector2 velocity;
+    public Vector2 playerMovementVector;
 
     //Bools
     bool canDash = true;
     public bool grounded;
-    bool sprintHeld = false;
+    public bool sprintHeld = false;
     bool jumpHeld = false;
     bool facingRight = true;
     bool isRocketJumping = false;
     public bool isJumping;
     public bool slowmoEnabled = false;
     bool wasInAir = true; //used to play jump land sfx
+    public bool shotRecently = false;
     // Start is called before the first frame update
 
     void Start()
@@ -258,6 +262,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Vector2 move = new Vector2(Input.GetAxis("Horizontal"), 0); //horizontal movement
+        playerMovementVector = move;
         if (sprintHeld && grounded) //if sprinting, move at sprint speed
         {
             controller.Move(move * Time.deltaTime * playerSprintSpeed);
@@ -339,6 +344,17 @@ public class PlayerMovement : MonoBehaviour
                 rocketText.text = rockets.ToString();
                 rocketRegenTimer = 0;
             }
+        }
+
+        if (shotRecentlyTimer > 0)
+        {
+            shotRecentlyTimer -= Time.deltaTime;
+            shotRecently = true;
+        }
+        else if (shotRecentlyTimer < 0)
+        {
+            shotRecentlyTimer = 0f;
+            shotRecently = false;
         }
     }
 
@@ -422,6 +438,11 @@ public class PlayerMovement : MonoBehaviour
             slowmoStatusText.text = "Off";
             Time.timeScale = 1f;
         }
+    }
+
+    public void setShotRecentlyTimer()
+    {
+        shotRecentlyTimer = shotRecentlyTime;
     }
 
     private void OnTriggerStay(Collider other)

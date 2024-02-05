@@ -44,6 +44,7 @@ public class StickyGrenade : weaponScript
 
     public void Shoot()
     {
+        playerMovementScript.setShotRecentlyTimer();
         fireCooldown = fireRate;
         currentMag--;
         UpdateHUDValues();

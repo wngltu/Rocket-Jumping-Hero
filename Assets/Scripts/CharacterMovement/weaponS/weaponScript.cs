@@ -15,6 +15,7 @@ public class weaponScript : MonoBehaviour
     public weaponManager weaponManager;
     public AudioSource shootSound;
     public AudioSource bulletImpactSound;
+    public PlayerMovement playerMovementScript;
 
     public bool equipped = false;
     public bool canShoot = true;
@@ -37,10 +38,11 @@ public class weaponScript : MonoBehaviour
     // Start is called before the first frame update
     protected void Start()
     {
-        playerCam = FindObjectOfType<Camera>();
+        playerCam = FindObjectOfType<PlayerZoomManager>().gameObject.GetComponent<Camera>();
         pauseManager = FindObjectOfType<PauseMenu>();
         weaponManager = FindObjectOfType<weaponManager>();
-        playerObj = FindObjectOfType<PlayerMovement>().gameObject;
+        playerObj = FindObjectOfType<PlayerInteraction>().playerModelHead;
+        playerMovementScript = FindObjectOfType<PlayerMovement>();
         this.enabled = false;
     }
     // Update is called once per frame

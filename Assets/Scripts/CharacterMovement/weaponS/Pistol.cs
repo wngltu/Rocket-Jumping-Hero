@@ -46,6 +46,7 @@ public class Pistol : weaponScript
 
     public void Shoot()
     {
+        playerMovementScript.setShotRecentlyTimer();
         shootSound.Play();
         fireCooldown = fireRate;
         currentMag--;

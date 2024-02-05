@@ -125,6 +125,7 @@ MonoBehaviour:
   playerToTheRight: 0
   attacking: 0
   isBoss: 0
+  isInvincible: 0
   recoiledRecently: 0
   explodeIndicator: {fileID: 0}
   aiDestinationSetter: {fileID: 7046975212132726673}
@@ -1038,7 +1039,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 64148567565064136, guid: 614ae078bc54b724ba88e5ad5fcf173f, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

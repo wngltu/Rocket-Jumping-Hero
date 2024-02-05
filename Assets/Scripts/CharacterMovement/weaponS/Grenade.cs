@@ -50,6 +50,7 @@ public class Grenade : weaponScript
 
     public void Shoot()
     {
+        playerMovementScript.setShotRecentlyTimer();
         fireCooldown = fireRate;
         currentMag--;
         if (currentMag <= 0)

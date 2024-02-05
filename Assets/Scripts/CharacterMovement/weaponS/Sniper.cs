@@ -45,6 +45,7 @@ public class Sniper : weaponScript
 
     public void Shoot()
     {
+        playerMovementScript.setShotRecentlyTimer();
         shootSound.Play();
         fireCooldown = fireRate;
         currentMag--;

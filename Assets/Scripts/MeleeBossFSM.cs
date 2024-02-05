@@ -29,6 +29,7 @@ public class MeleeBossFSM : Enemy
     public GameObject leftBarrel;
     public GameObject rightBarrel;
     public GameObject slamProjectile;
+    public GameObject invincibleShield;
     public AIDestinationSetter aiDestinationSetter;
     public States currentState;
     public AudioSource attackWindUpSound;
@@ -37,11 +38,6 @@ public class MeleeBossFSM : Enemy
     LayerMask LoSLayerMask = ((1 << 3) | (1 << 12)); //this is for checking line of sight
 
     Vector3 attackDirection;
-
-    void Test_Update()
-    {
-        Debug.Log("Test UPDATE");
-    }
 
     public enum States
     {
@@ -89,6 +85,10 @@ public class MeleeBossFSM : Enemy
     // Update is called once per frame
     void Update()
     {
+        if (isInvincible && invincibleShield.activeSelf == false)
+            invincibleShield.SetActive(true);
+        else if (!isInvincible && invincibleShield.activeSelf == true)
+            invincibleShield.SetActive(false);
         base.Update();
         fsm.Driver.Update.Invoke();
         currentState = fsm.State;
@@ -268,6 +268,7 @@ public class MeleeBossFSM : Enemy
 
     void AttackCooldown_Enter()
     {
+        isInvincible = false;
         timer = 0f;
         timer = attackCooldown;
     }
@@ -279,6 +280,10 @@ public class MeleeBossFSM : Enemy
             timer = 0;
             fsm.ChangeState(States.Idle, StateTransition.Safe);
         }
+    }
+    void AttackCooldown_Exit()
+    {
+        isInvincible = true;
     }
 
     void SlamAttackWindup_Enter()
@@ -337,6 +342,7 @@ public class MeleeBossFSM : Enemy
 
     void SlamAttackCooldown_Enter()
     {
+        isInvincible = false;
         timer = 0f;
         timer = attackCooldown * 1.5f;
     }
@@ -348,6 +354,10 @@ public class MeleeBossFSM : Enemy
             timer = 0;
             fsm.ChangeState(States.Idle, StateTransition.Safe);
         }
+    }
+    void SlamAttackCooldown_Exit()
+    {
+        isInvincible = true;
     }
 
     private void OnTriggerEnter(Collider other)

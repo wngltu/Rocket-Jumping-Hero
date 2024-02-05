@@ -12,7 +12,9 @@ public class PlayerInteraction : MonoBehaviour
     public weaponManager weaponManager;
     public TextMeshProUGUI interactIndicatorText;
     public TextMeshProUGUI feedbackText;
-    int layerMask = ~((1 << 9) | (1 << 13));
+    public GameObject playerModelHand;
+    public GameObject playerModelHead;
+    int layerMask = ~((1 << 9) | (1 << 13) | (1 << 3));
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +26,7 @@ public class PlayerInteraction : MonoBehaviour
     void Update()
     {
         RaycastHit hit2;
-        if (Physics.Raycast(transform.position, interactDirection, out hit2, 6, layerMask) && pauseManager.paused == false) //shoot ray in front of player, check every frame if item is interactable
+        if (Physics.Raycast(playerModelHead.transform.position, interactDirection, out hit2, 6, layerMask) && pauseManager.paused == false) //shoot ray in front of player, check every frame if item is interactable
         {
             if (hit2.collider.gameObject.CompareTag("droppedweapon"))
             {
@@ -43,13 +45,13 @@ public class PlayerInteraction : MonoBehaviour
         {
             interactIndicatorText.text = " ";
         }
-            interactDirection = playerCam.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+            interactDirection = playerCam.ScreenToWorldPoint(Input.mousePosition) - playerModelHead.transform.position;
         if (Input.GetKeyDown(KeyCode.E) && pauseManager.paused == false)
         {
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, interactDirection, out hit, 6, layerMask)) //shoot ray in front of player
+            if (Physics.Raycast(playerModelHead.transform.position, interactDirection, out hit, 6, layerMask)) //shoot ray in front of player
             {
-                Debug.DrawRay(transform.position, interactDirection * 2);
+                Debug.DrawRay(playerModelHead.transform.position, interactDirection * 2);
                 Debug.Log(hit.ToString());
 
                 if (hit.collider.gameObject.CompareTag("lever"))
@@ -58,7 +60,7 @@ public class PlayerInteraction : MonoBehaviour
                 {
                     if (weaponManager.weaponInventory.Count < weaponManager.maxWeapons) //does player have inventory space to pick up new weapon
                     {
-                        hit.collider.gameObject.transform.SetParent(this.transform, false);
+                        hit.collider.gameObject.transform.SetParent(playerModelHand.transform, false);
                         hit.collider.gameObject.transform.localPosition = new Vector3(0, 0, 0);
                         hit.collider.gameObject.GetComponent<Rigidbody>().isKinematic = true;
                         hit.collider.gameObject.GetComponent<weaponScript>().Unequip();

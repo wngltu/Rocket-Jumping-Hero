@@ -27,6 +27,7 @@ public class Enemy : MonoBehaviour
     public bool playerToTheRight; //which direction in reference to the game object is the player currently?
     public bool attacking = false;
     public bool isBoss = false;
+    public bool isInvincible = false;
 
 
     // Start is called before the first frame update
@@ -57,6 +58,10 @@ public class Enemy : MonoBehaviour
 
     public void takeDamage(float damage)
     {
+        if (isInvincible)
+        {
+            damage = 0;
+        }
         GameObject damageNumber = Instantiate(damageIndicator, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), Quaternion.identity);
         damageNumber.GetComponentInChildren<DamageNumberScript>().damage = damage;
         if (damage > 0)
