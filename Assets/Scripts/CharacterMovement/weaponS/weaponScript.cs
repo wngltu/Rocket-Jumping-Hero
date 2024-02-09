@@ -11,6 +11,7 @@ public class weaponScript : MonoBehaviour
     public GameObject bullet;
     public GameObject barrel;
     public GameObject model;
+    public GameObject lootPillar;
     public PauseMenu pauseManager;
     public weaponManager weaponManager;
     public AudioSource shootSound;
@@ -43,6 +44,7 @@ public class weaponScript : MonoBehaviour
         weaponManager = FindObjectOfType<weaponManager>();
         playerObj = FindObjectOfType<PlayerInteraction>().playerModelHead;
         playerMovementScript = FindObjectOfType<PlayerMovement>();
+        lootPillar = GetComponentInChildren<LootPillarScript>().gameObject;
         this.enabled = false;
     }
     // Update is called once per frame

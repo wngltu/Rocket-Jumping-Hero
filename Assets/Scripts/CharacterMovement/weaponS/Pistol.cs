@@ -19,7 +19,7 @@ public class Pistol : weaponScript
         maxReserve = 21;
         currentMag = maxMag;
         currentReserve = maxReserve;
-        baseDamage = 25;
+        baseDamage = 15;
         fireRate = .1f;
     }
     void Update()

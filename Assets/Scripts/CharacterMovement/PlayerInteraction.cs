@@ -14,6 +14,9 @@ public class PlayerInteraction : MonoBehaviour
     public TextMeshProUGUI feedbackText;
     public GameObject playerModelHand;
     public GameObject playerModelHead;
+
+    int usefulItemsInCollider = 0; //this is so the indicator text does not reset to " " if there is an item in collider, but none in raycast LOS
+
     int layerMask = ~((1 << 9) | (1 << 13) | (1 << 3));
 
     // Start is called before the first frame update
@@ -36,12 +39,12 @@ public class PlayerInteraction : MonoBehaviour
             {
                 interactIndicatorText.text = "Click 'E' to toggle the lever";
             }
-            else
+            else if (usefulItemsInCollider == 0)
             {
                 interactIndicatorText.text = " ";
             }
         }
-        else //no weapon in front of player
+        else if (usefulItemsInCollider == 0) //no weapon in front of player
         {
             interactIndicatorText.text = " ";
         }
@@ -95,6 +98,34 @@ public class PlayerInteraction : MonoBehaviour
         {
             feedbackText.color = new Color(feedbackText.color.r, feedbackText.color.g, feedbackText.color.b, feedbackText.color.a - (Time.deltaTime / time));
             yield return null;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.GetComponent<LeverScript>() != null)
+        {
+            usefulItemsInCollider++;
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.GetComponent<LeverScript>() != null)
+        {
+            interactIndicatorText.text = "Click 'E' to toggle the lever";
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                other.gameObject.GetComponent<LeverScript>().triggerDoorMaster();
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.GetComponent<LeverScript>() != null)
+        {
+            usefulItemsInCollider--;
         }
     }
 }

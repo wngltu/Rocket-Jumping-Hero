@@ -99,6 +99,7 @@ public class weaponManager : MonoBehaviour
     public void addWeapon(weaponScript weapon)
     {
         weaponInventory.Add(weapon);
+        weapon.lootPillar.SetActive(false);
         playerInvScript.updateWeaponInventory();
     }
 
@@ -111,6 +112,7 @@ public class weaponManager : MonoBehaviour
             weaponInventory[equippedNum].transform.SetParent(null);
             //weapon.transform.position = weapon.barrel.transform.position;
             weaponInventory[equippedNum].GetComponent<weaponScript>().enabled = false;
+            weapon.lootPillar.SetActive(true);
             weapon.GetComponent<Collider>().enabled = true;
             if (weapon.reloadInterrupted == false)
                 weapon.reloadInterrupted = true;

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -34,7 +35,7 @@ public class playerAnimationScript : MonoBehaviour
         anim.SetBool("shotRecently", playerMovementScript.shotRecently);
 
         if (!playerMovementScript.sprintHeld && facingLeft == false)
-            anim.SetFloat("Input Magnitude", playerMovementScript.playerMovementVector.x);
+            anim.SetFloat("Input Magnitude", playerMovementScript.playerMovementVector.x); //Mathf.SmoothDamp(anim.GetFloat("Input Magnitude"), playerMovementScript.playerMovementVector.x, ref playerMovementScript.playerMovementVector.x, .5f);
         else if (playerMovementScript.sprintHeld && facingLeft == false)
             anim.SetFloat("Input Magnitude", playerMovementScript.playerMovementVector.x * 2);
         else if (!playerMovementScript.sprintHeld && facingLeft == true)

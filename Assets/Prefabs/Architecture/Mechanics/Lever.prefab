@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 800379897629621481}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.35, y: 1.6152341, z: -22.936123}
+  m_LocalPosition: {x: -1.35, y: 1.6152341, z: 0}
   m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -110,7 +110,7 @@ Transform:
   m_GameObject: {fileID: 962527650265489541}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.586, y: 1.598, z: -22.936123}
+  m_LocalPosition: {x: -0.586, y: 1.598, z: 0}
   m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -195,7 +195,7 @@ Transform:
   m_GameObject: {fileID: 1319438818664271776}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.20153952, w: 0.9794804}
-  m_LocalPosition: {x: -1.107, y: 1.024, z: -22.936123}
+  m_LocalPosition: {x: -1.107, y: 1.024, z: 0}
   m_LocalScale: {x: 0.2028213, y: 1.2038268, z: 4.75}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -301,7 +301,7 @@ Transform:
   m_GameObject: {fileID: 2742141507120739074}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.97050023, y: 0.53033423, z: -22.936123}
+  m_LocalPosition: {x: -0.97050023, y: 0.53033423, z: 0}
   m_LocalScale: {x: 1.4415166, y: 0.39998394, z: 4.75}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -440,7 +440,7 @@ Transform:
   m_GameObject: {fileID: 4826882287998751411}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.20067182, w: 0.97965854}
-  m_LocalPosition: {x: -0.853, y: 0.9921, z: -22.936123}
+  m_LocalPosition: {x: -0.853, y: 0.9921, z: 0}
   m_LocalScale: {x: 0.20282128, y: 1.2038267, z: 4.75}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -563,6 +563,7 @@ GameObject:
   - component: {fileID: 5357414122041080422}
   - component: {fileID: 7377047036654785014}
   - component: {fileID: 6492977189855733004}
+  - component: {fileID: 5075602703178531260}
   m_Layer: 10
   m_Name: Lever
   m_TagString: lever
@@ -579,7 +580,7 @@ Transform:
   m_GameObject: {fileID: 6308812203324245374}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.6322491, y: -1.5502342, z: 22.936123}
+  m_LocalPosition: {x: 1.6322491, y: -1.5502342, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -699,3 +700,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!135 &5075602703178531260
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6308812203324245374}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1.16
+  m_Center: {x: -0.94, y: 0.91, z: 0}

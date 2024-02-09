@@ -19,7 +19,14 @@ public class GrenadeProjectile : MonoBehaviour
     {
         Instance = this;
         rigidbody = GetComponent<Rigidbody>();
-        rigidbody.AddRelativeForce(new Vector3(0,100, -300));
+        if (Input.mousePosition.x < Screen.width / 2f) //if mouse on left half of screen
+        {
+            rigidbody.AddRelativeForce(new Vector3(0, -100, 300));
+        }
+        else //if mouse on right half of screen
+        {
+            rigidbody.AddRelativeForce(new Vector3(0, 100, -300));
+        }
         timer = 1.5f;
     }
 
