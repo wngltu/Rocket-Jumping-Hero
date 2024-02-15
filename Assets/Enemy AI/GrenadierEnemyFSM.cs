@@ -42,7 +42,8 @@ public class GrenadierEnemyFSM : Enemy
         Attack,
         AttackCooldown,
         Chasing,
-        AttackWindup
+        AttackWindup,
+        Die
     }
     float aggroRange = 20f;
     float stateTime = 0f;
@@ -75,6 +76,9 @@ public class GrenadierEnemyFSM : Enemy
         fsm.Driver.Update.Invoke();
         currentState = fsm.State;
         print(currentState);
+
+        if (Died == true)
+            fsm.ChangeState(States.Die, StateTransition.Safe);
     }
 
     void Init_Enter()
@@ -236,6 +240,12 @@ public class GrenadierEnemyFSM : Enemy
             fsm.ChangeState(States.Idle, StateTransition.Safe);
         }
     }
+
+    void Die_Enter()
+    {
+        weaponModel.SetActive(false);
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {

@@ -50,6 +50,7 @@ public class Pistol : weaponScript
 
     public void Shoot()
     {
+        base.MuzzleFlash();
         playerMovementScript.setShotRecentlyTimer();
         shootSound.Play();
         fireCooldown = fireRate;

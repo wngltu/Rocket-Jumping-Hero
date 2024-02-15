@@ -81,6 +81,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Door
       objectReference: {fileID: 0}
+    - target: {fileID: 3668783763188495513, guid: 491959bf88080ad4eb36afa53b9c7c01, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3863813620740634835, guid: 491959bf88080ad4eb36afa53b9c7c01, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 

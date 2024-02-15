@@ -46,7 +46,6 @@ public class ExplosionScript : MonoBehaviour
             }
         }
         GameObject newObject = Instantiate(explodeIndicator, transform.position, Quaternion.identity); //spawn a circle showing blast radius
-        newObject.GetComponent<ExplosiveRadius>().explosionRadius = explosionRadius;
         Instantiate(explosiveSFXObject, transform.position, Quaternion.identity);
         Delete();
     }
@@ -89,7 +88,6 @@ public class ExplosionScript : MonoBehaviour
             }
         }
         GameObject newObject = Instantiate(explodeIndicator, transform.position, Quaternion.identity); //spawn a circle showing blast radius
-        newObject.GetComponent<ExplosiveRadius>().explosionRadius = explosionRadius;
         Instantiate(explosiveSFXObject, transform.position, Quaternion.identity);
         Delete();
     }

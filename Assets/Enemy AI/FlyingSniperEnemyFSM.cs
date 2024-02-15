@@ -58,7 +58,8 @@ public class FlyingSniperEnemyFSM : Enemy
         Chasing,
         AttackWindup,
         Attack2Windup,
-        AttackBridge //bridge between attack 1 and attack 2 
+        AttackBridge, //bridge between attack 1 and attack 2 
+        Die
     }
     float aggroRange = 20f;
     float stateTime = 0f;
@@ -94,6 +95,9 @@ public class FlyingSniperEnemyFSM : Enemy
         base.Update();
         fsm.Driver.Update.Invoke();
         currentState = fsm.State;
+
+        if (Died == true)
+            fsm.ChangeState(States.Die, StateTransition.Safe);
     }
 
     void Init_Enter()
@@ -398,6 +402,7 @@ public class FlyingSniperEnemyFSM : Enemy
             fsm.ChangeState(States.Idle, StateTransition.Safe);
         }
     }
+
 
     private void OnTriggerEnter(Collider other)
     {

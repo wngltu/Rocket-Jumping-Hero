@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class door3DGraphicScript : MonoBehaviour
 {
+    public GameObject doorGraphic;
     public void disableDoorGraphic()
     {
-        this.gameObject.SetActive(false);
+        doorGraphic.SetActive(false);
     }
     public void enableDoorGraphic()
     {
-        this.gameObject.SetActive(true);
+        doorGraphic.SetActive(true);
     }
 }

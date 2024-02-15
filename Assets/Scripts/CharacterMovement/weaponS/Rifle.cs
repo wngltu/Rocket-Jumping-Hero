@@ -52,6 +52,7 @@ public class Rifle : weaponScript
 
     public void Shoot()
     {
+        base.MuzzleFlash();
         playerMovementScript.setShotRecentlyTimer();
         shootSound.Play();
         fireCooldown = fireRate;

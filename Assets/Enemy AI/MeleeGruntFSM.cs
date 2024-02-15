@@ -47,7 +47,8 @@ public class MeleeGruntFSM : Enemy
         Attack,
         AttackCooldown,
         Chasing,
-        AttackWindup
+        AttackWindup,
+        Die
     }
     float aggroRange = 20f;
     float stateTime = 0f;
@@ -89,6 +90,8 @@ public class MeleeGruntFSM : Enemy
         if (rb.velocity.x < -.3f)
             model.transform.localScale = new Vector3(model.transform.localScale.x, model.transform.localScale.y, 1);
 
+        if (Died == true)
+            fsm.ChangeState(States.Die, StateTransition.Safe);
     }
 
     void Init_Enter()

@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c72e63ed6a3562c4c84d006b4ce564b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explodeIndicator: {fileID: 210786055253976368, guid: 427bcb42b61ae844daa3251c344f0a05, type: 3}
+  explodeIndicator: {fileID: 1828176872806910, guid: 64891a0eb28db934898420d80ca07cb3, type: 3}
   explosiveSFXObject: {fileID: 8013405610039826201, guid: ced758cf9105f234cb6ec5e24b0ac130, type: 3}

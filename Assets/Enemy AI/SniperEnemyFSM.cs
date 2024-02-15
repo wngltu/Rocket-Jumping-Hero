@@ -45,7 +45,8 @@ public class SniperEnemyFSM : Enemy
         Attack,
         AttackCooldown,
         Chasing,
-        AttackWindup
+        AttackWindup,
+        Die
     }
     float aggroRange = 20f;
     float stateTime = 0f;
@@ -78,6 +79,9 @@ public class SniperEnemyFSM : Enemy
         fsm.Driver.Update.Invoke();
         currentState = fsm.State;
         print(currentState);
+
+        if (Died == true)
+            fsm.ChangeState(States.Die, StateTransition.Safe);
     }
 
     void Init_Enter()
@@ -250,6 +254,7 @@ public class SniperEnemyFSM : Enemy
             fsm.ChangeState(States.Idle, StateTransition.Safe);
         }
     }
+
 
     private void OnTriggerEnter(Collider other)
     {

@@ -261,11 +261,15 @@ MonoBehaviour:
   jumpSound: {fileID: 2679799590173817022}
   jumpLandSound: {fileID: 4518329672575531221}
   dashSound: {fileID: 6952935366173163228}
+  respawnVFX: {fileID: 0}
+  playerModel: {fileID: 6745346277519761747}
   playerSprintSpeed: 10
   rockets: 4
   maxRockets: 4
   rocketFireRate: 0.35
   rocketFireCooldownTimer: 0
+  rocketRecentlyShotTimer: 0
+  rocketRecentlyShotTime: 1.5
   playerMovementVector: {x: 0, y: 0}
   grounded: 0
   sprintHeld: 0

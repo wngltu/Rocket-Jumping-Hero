@@ -21,6 +21,8 @@ public class Enemy : MonoBehaviour
     public GameObject damageIndicator;
     public GameObject deathSoundObject;
     public GameObject model;
+    public SphereCollider corpseCollider;
+    public GameObject explosionVFX;
 
     public bool Died = false; //bool to make sure drops dont duplicate
     public bool aggroed = false;
@@ -33,6 +35,8 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     protected void Start()
     {
+        if (GetComponent<SphereCollider>() != null)
+            corpseCollider = GetComponent<SphereCollider>();
         player = FindObjectOfType<PlayerMovement>();
         prefabLoot = FindObjectOfType<PrefabLoot>();
         rb = GetComponent<Rigidbody>();
@@ -76,6 +80,16 @@ public class Enemy : MonoBehaviour
     {
         if (Died != true)
         {
+            foreach (Collider col in this.gameObject.GetComponentsInChildren<Collider>())
+            {
+                col.enabled = false;
+            }
+            corpseCollider.enabled = true;
+            rb.constraints = RigidbodyConstraints.None;
+            rb.AddForce(Random.Range(-100f, 100f), Random.Range(100f, 1000f), 0);
+            rb.AddTorque(Random.Range(-50f, 50f), Random.Range(-50f, 50f), Random.Range(-50f, 50f));
+            healthBar.gameObject.SetActive(false);
+
             if (isBoss)
             {
                 if (FindAnyObjectByType<Level1FSM>() != null)
@@ -85,9 +99,15 @@ public class Enemy : MonoBehaviour
             loot.gameObject.transform.SetParent(null);
             loot.name = loot.name.Replace("(Clone)", "");
             Died = true;
-            Instantiate(deathSoundObject, transform.position, Quaternion.identity);
-            Destroy(this.gameObject);
+            Invoke("ExplodeCorpse", 1f);
         }
+    }
+
+    protected virtual void ExplodeCorpse()
+    {
+        Instantiate(explosionVFX, transform.position, Quaternion.identity, null);
+        Instantiate(deathSoundObject, transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 
     protected virtual void UpdatePlayerDirection()

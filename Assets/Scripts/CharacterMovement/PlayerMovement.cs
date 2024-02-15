@@ -22,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource jumpSound;
     public AudioSource jumpLandSound;
     public AudioSource dashSound;
+    public GameObject respawnVFX;
+    public GameObject playerModel;
 
     //Horizontal variables
     private float horizontalVeloCap = 10f;
@@ -88,17 +90,21 @@ public class PlayerMovement : MonoBehaviour
     public bool slowmoEnabled = false;
     bool wasInAir = true; //used to play jump land sfx
     public bool shotRecently = false;
+    public bool isRespawning = false;
     // Start is called before the first frame update
 
     void Start()
     {
         controller.enabled = false; //unity character controller is.... VERY INCONVENIENT.
         transform.position = new Vector3(SaveData.checkpointX, SaveData.checkpointY, 0);
+        GameObject newObj = Instantiate(respawnVFX, transform, true);
+        newObj.transform.SetParent(null);
         controller.enabled = true;
         pauseManager = FindObjectOfType<PauseMenu>();
         playerHealth = GetComponent<PlayerHealth>();
         Instance = this;
         rocketText.text = rockets.ToString();
+        StartSpawnSequence();
     }
 
     // Update is called once per frame
@@ -292,7 +298,7 @@ public class PlayerMovement : MonoBehaviour
             rocketFireCooldownTimer = 0;
 
 
-        if (Input.GetKey(KeyCode.Mouse1) && pauseManager.paused == false) //if player starts holding right click, start rocket "aim mode"
+        if (Input.GetKey(KeyCode.Mouse1) && pauseManager.paused == false && !isRespawning) //if player starts holding right click, start rocket "aim mode"
         {
             weaponManager.UnequipAll();
             rocketLauncher.Equip();
@@ -307,8 +313,8 @@ public class PlayerMovement : MonoBehaviour
                 rocketTapTimer = 0f; //make sure player can't tap shoot after shooting a held rocket
             }
         }
-        if (Input.GetKeyDown(KeyCode.Mouse1) && pauseManager.paused == false) //when player clicks button, start rocket tap input window
-            rocketTapTimer = rocketTapWindow;
+        //if (Input.GetKeyDown(KeyCode.Mouse1) && pauseManager.paused == false) //when player clicks button, start rocket tap input window
+        //    rocketTapTimer = rocketTapWindow;
         else if (Input.GetKeyUp(KeyCode.Mouse1) && pauseManager.paused == false)
         {
             rocketLauncher.Unequip();
@@ -451,6 +457,21 @@ public class PlayerMovement : MonoBehaviour
     public void setShotRecentlyTimer()
     {
         shotRecentlyTimer = shotRecentlyTime;
+    }
+
+    void StartSpawnSequence()
+    {
+        isRespawning = true;
+        controller.enabled = false;
+        playerModel.SetActive(false);
+        Invoke("EndSpawnSequence", 2);
+    }
+
+    void EndSpawnSequence()
+    {
+        isRespawning = false;
+        controller.enabled = true;
+        playerModel.SetActive(true);
     }
 
     private void OnTriggerStay(Collider other)

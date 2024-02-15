@@ -17,6 +17,8 @@ public class weaponScript : MonoBehaviour
     public AudioSource shootSound;
     public AudioSource bulletImpactSound;
     public PlayerMovement playerMovementScript;
+    public GameObject muzzleFlash;
+    ParticleSystem muzzleFlashParticleSystem;
 
     public bool equipped = false;
     public bool canShoot = true;
@@ -45,6 +47,8 @@ public class weaponScript : MonoBehaviour
         playerObj = FindObjectOfType<PlayerInteraction>().playerModelHead;
         playerMovementScript = FindObjectOfType<PlayerMovement>();
         lootPillar = GetComponentInChildren<LootPillarScript>().gameObject;
+        if (muzzleFlash.gameObject != null && muzzleFlash.gameObject.GetComponent<ParticleSystem>() != null)
+            muzzleFlashParticleSystem = muzzleFlash.gameObject.GetComponent<ParticleSystem>();
         this.enabled = false;
     }
     // Update is called once per frame
@@ -168,5 +172,15 @@ public class weaponScript : MonoBehaviour
             weaponManager.magText.text = currentMag.ToString();
             weaponManager.reserveText.text = currentReserve.ToString();
         }
+    }
+
+    public virtual void MuzzleFlash()
+    {
+        muzzleFlashParticleSystem.Play();
+    }
+
+    public void DeleteWeapon()
+    {
+        Destroy(gameObject);
     }
 }

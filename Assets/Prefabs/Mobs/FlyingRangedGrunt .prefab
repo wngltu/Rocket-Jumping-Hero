@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 1736042661123253296}
   - component: {fileID: 5705207541137421399}
   - component: {fileID: 6781868914504072015}
+  - component: {fileID: 3821658604051713406}
   m_Layer: 7
   m_Name: 'FlyingRangedGrunt '
   m_TagString: enemy
@@ -70,11 +71,14 @@ MonoBehaviour:
   damageIndicator: {fileID: 42328156097456936, guid: 32199e813c98f844581093bb8f307ee4, type: 3}
   deathSoundObject: {fileID: 6658857692857206431, guid: 47a19307c2c2e3240a49c114b0fcdcd9, type: 3}
   model: {fileID: 0}
+  corpseCollider: {fileID: 0}
+  explosionVFX: {fileID: 1828176872806910, guid: 64891a0eb28db934898420d80ca07cb3, type: 3}
   Died: 0
   aggroed: 0
   playerToTheRight: 0
   attacking: 0
   isBoss: 0
+  isInvincible: 0
   recoiledRecently: 0
   explodeIndicator: {fileID: 210786055253976368, guid: 427bcb42b61ae844daa3251c344f0a05, type: 3}
   aiDestinationSetter: {fileID: 5177180974926265958}
@@ -402,6 +406,27 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!135 &3821658604051713406
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 734674433663440549}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1101063148959397702
 GameObject:
   m_ObjectHideFlags: 0

@@ -48,7 +48,7 @@ public class DoorMaster : MonoBehaviour
             door.GetComponent<BoxCollider>().enabled = false;
             door.GetComponent<SpriteRenderer>().enabled = false;
             door.GetComponentInChildren<DoorTimerVisualScript>().currentTime = openTime;
-            door.GetComponent<door3DGraphicScript>().disableDoorGraphic();
+            door.GetComponentInChildren<door3DGraphicScript>().disableDoorGraphic();
         }
         foreach(GameObject plate in pressurePlates)
         {
@@ -65,7 +65,7 @@ public class DoorMaster : MonoBehaviour
         {
             door.GetComponent<BoxCollider>().enabled = true;
             door.GetComponent<SpriteRenderer>().enabled = true;
-            door.GetComponent<door3DGraphicScript>().enableDoorGraphic();
+            door.GetComponentInChildren<door3DGraphicScript>().enableDoorGraphic();
         }    
     }
 

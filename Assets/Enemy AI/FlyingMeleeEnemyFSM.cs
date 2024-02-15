@@ -51,7 +51,8 @@ public class FlyingMeleeEnemyFSM : Enemy
         Attack,
         AttackCooldown,
         Chasing,
-        AttackWindup
+        AttackWindup,
+        Die
     }
     float aggroRange = 20f;
     float stateTime = 0f;
@@ -87,6 +88,9 @@ public class FlyingMeleeEnemyFSM : Enemy
         base.Update();
         fsm.Driver.Update.Invoke();
         currentState = fsm.State;
+
+        if (Died == true)
+            fsm.ChangeState(States.Die, StateTransition.Safe);
     }
 
     void Init_Enter()

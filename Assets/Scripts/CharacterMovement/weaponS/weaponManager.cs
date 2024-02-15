@@ -140,6 +140,9 @@ public class weaponManager : MonoBehaviour
             int temp = equippedNum;
             weaponInventory[equippedNum].GetComponent<Rigidbody>().isKinematic = false;
             weaponInventory[equippedNum].transform.SetParent(null);
+            weaponInventory[equippedNum].gameObject.GetComponent<Rigidbody>().AddForce(Random.Range(-100f, 100f), Random.Range(200f, 200f), 0f);
+            weaponInventory[equippedNum].gameObject.GetComponent<Rigidbody>().AddTorque(0, 0, 200);
+            weaponInventory[equippedNum].Invoke("DeleteWeapon", 3);
             //weapon.transform.position = weapon.barrel.transform.position;
             weaponInventory[equippedNum].GetComponent<weaponScript>().enabled = false;
             weapon.GetComponent<Collider>().enabled = false;
