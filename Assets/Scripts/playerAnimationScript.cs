@@ -7,6 +7,8 @@ public class playerAnimationScript : MonoBehaviour
 {
     public Animator anim;
     PlayerMovement playerMovementScript;
+    PlayerHealth playerHealthScript;
+    PauseMenu pauseMenuScript;
     public GameObject playerModel;
 
     bool facingLeft;
@@ -14,17 +16,19 @@ public class playerAnimationScript : MonoBehaviour
     void Start()
     {
         playerMovementScript = FindObjectOfType<PlayerMovement>();
+        playerHealthScript = FindAnyObjectByType<PlayerHealth>();
+        pauseMenuScript = FindObjectOfType<PauseMenu>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.mousePosition.x < Screen.width / 2f)
+        if (Input.mousePosition.x < Screen.width / 2f && pauseMenuScript.paused == false && !playerHealthScript.isDead)
         {
             facingLeft = true;
             playerModel.transform.localScale = new Vector3(1, 1, -1);
         }
-        else
+        else if (Input.mousePosition.x >= Screen.width / 2f && pauseMenuScript.paused == false && !playerHealthScript.isDead)
         {
             facingLeft = false;
             playerModel.transform.localScale = new Vector3(1, 1, 1);
@@ -33,6 +37,8 @@ public class playerAnimationScript : MonoBehaviour
         anim.SetFloat("yMagnitude", playerMovementScript.controller.velocity.y);
         anim.SetBool("isGrounded", playerMovementScript.controller.isGrounded);
         anim.SetBool("shotRecently", playerMovementScript.shotRecently);
+        if (playerHealthScript.isDead == true)
+            anim.SetBool("isDead", true);
 
         if (!playerMovementScript.sprintHeld && facingLeft == false)
             anim.SetFloat("Input Magnitude", playerMovementScript.playerMovementVector.x); //Mathf.SmoothDamp(anim.GetFloat("Input Magnitude"), playerMovementScript.playerMovementVector.x, ref playerMovementScript.playerMovementVector.x, .5f);

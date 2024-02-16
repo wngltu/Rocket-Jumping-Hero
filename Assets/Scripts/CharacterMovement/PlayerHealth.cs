@@ -12,6 +12,7 @@ public class PlayerHealth : MonoBehaviour
     public float healthRectMaxHeight;
     public bool isInvincible = false;
     public bool isTrapInvincible = false;
+    public bool isDead = false;
 
     public TextMeshProUGUI currentHealthText;
     public TextMeshProUGUI maxHealthText;
@@ -27,6 +28,9 @@ public class PlayerHealth : MonoBehaviour
     public AudioSource deathSound;
     public AudioSource hurtSound;
     public AudioSource hurtInvincibleSound;
+    public Enemy[] enemyList;
+    CharacterController controller;
+    Rigidbody rb;
 
     private void Start()
     {
@@ -36,6 +40,8 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = maxHealth;
         UpdateHealth();
         invincibilityShield.SetActive(false);
+        controller = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>();
     }
 
     private void Update()
@@ -135,8 +141,15 @@ public class PlayerHealth : MonoBehaviour
 
     public void Die()
     {
+        foreach (Enemy enemy in FindObjectsOfType<Enemy>())
+        {
+            enemy.Died = true;
+        }
+        controller.enabled = false;
+        rb.isKinematic = false;
+        isDead = true;
         deathSound.Play();
-        pauseMenuScript.Pause();
+        //pauseMenuScript.Pause();
         pauseMenuScript.pauseMenu.SetActive(false);
         pauseMenuScript.enabled = false;
         gameOverScreen.SetActive(true);

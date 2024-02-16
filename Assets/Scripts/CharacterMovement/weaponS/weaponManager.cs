@@ -16,7 +16,10 @@ public class weaponManager : MonoBehaviour
     public TextMeshProUGUI reserveText;
     public GameObject playerItemDrop;
     public PlayerRocketLauncher playerRocketLauncherScript;
+    public AudioSource playerDropSFX;
     InventoryUIScript playerInvScript;
+    public AudioSource reloadSFX;
+    public AudioSource reloadFinishSFX;
     // Start is called before the first frame update
     void Start()
     {
@@ -107,6 +110,7 @@ public class weaponManager : MonoBehaviour
     {
         if (weaponInventory.Count > 0)
         {
+            playerDropSFX.Play();
             int temp = equippedNum;
             weaponInventory[equippedNum].GetComponent<Rigidbody>().isKinematic = false;
             weaponInventory[equippedNum].transform.SetParent(null);
@@ -137,6 +141,7 @@ public class weaponManager : MonoBehaviour
     {
         if (weaponInventory.Count > 0)
         {
+            playerDropSFX.Play();
             int temp = equippedNum;
             weaponInventory[equippedNum].GetComponent<Rigidbody>().isKinematic = false;
             weaponInventory[equippedNum].transform.SetParent(null);

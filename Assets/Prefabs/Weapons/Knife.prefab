@@ -209,6 +209,7 @@ MonoBehaviour:
   shootSound: {fileID: 8488669924372624234}
   bulletImpactSound: {fileID: 0}
   playerMovementScript: {fileID: 0}
+  muzzleFlash: {fileID: 1743301284569550, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
   equipped: 0
   canShoot: 1
   canReload: 1

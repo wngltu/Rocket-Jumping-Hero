@@ -520,6 +520,7 @@ GameObject:
   - component: {fileID: 8182339558982721529}
   - component: {fileID: 3104278521797453423}
   - component: {fileID: -6249610673408544164}
+  - component: {fileID: -383418783671158647}
   m_Layer: 7
   m_Name: MeleeBoss
   m_TagString: enemy
@@ -672,6 +673,8 @@ MonoBehaviour:
   damageIndicator: {fileID: 42328156097456936, guid: 32199e813c98f844581093bb8f307ee4, type: 3}
   deathSoundObject: {fileID: 6658857692857206431, guid: 47a19307c2c2e3240a49c114b0fcdcd9, type: 3}
   model: {fileID: 6176029179225906326}
+  corpseCollider: {fileID: 0}
+  explosionVFX: {fileID: 1121192042590650, guid: e1b08032bec16ba4eb1ae23cbd572664, type: 3}
   Died: 0
   aggroed: 0
   playerToTheRight: 0
@@ -986,6 +989,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!135 &-383418783671158647
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4418829945125945176}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6176029179225906326
 GameObject:
   m_ObjectHideFlags: 0

@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource dashSound;
     public GameObject respawnVFX;
     public GameObject playerModel;
+    public AudioSource respawnSFX;
 
     //Horizontal variables
     private float horizontalVeloCap = 10f;
@@ -461,6 +462,7 @@ public class PlayerMovement : MonoBehaviour
 
     void StartSpawnSequence()
     {
+        respawnSFX.Play();
         isRespawning = true;
         controller.enabled = false;
         playerModel.SetActive(false);

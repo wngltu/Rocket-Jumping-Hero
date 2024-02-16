@@ -98,6 +98,7 @@ public class weaponScript : MonoBehaviour
         {
             if (currentReserve >= maxMag) //if more ammo than max mag
             {
+                weaponManager.reloadSFX.Play();
                 reloadInterrupted = false;
                 canShoot = false;
                 isReloading = true;
@@ -108,6 +109,7 @@ public class weaponScript : MonoBehaviour
             {
                 if (currentReserve > 0)
                 {
+                    weaponManager.reloadSFX.Play();
                     canShoot = false;
                     isReloading = true;
                     weaponManager.magText.text = "...";
@@ -126,6 +128,7 @@ public class weaponScript : MonoBehaviour
         {
             if (currentReserve >= maxMag) //if more ammo than max mag
             {
+                weaponManager.reloadFinishSFX.Play();
                 currentReserve -= maxMag - currentMag;
                 currentMag = maxMag;
                 canShoot = true;
@@ -137,11 +140,13 @@ public class weaponScript : MonoBehaviour
                 {
                     if ((currentReserve + currentMag) >= maxMag) //if player have more reserve to max out mag
                     {
+                        weaponManager.reloadFinishSFX.Play();
                         currentReserve -= maxMag - currentMag;
                         currentMag = maxMag;
                     }
                     else if ((currentReserve + currentMag) < maxMag) //if player does not have enough 
                     {
+                        weaponManager.reloadFinishSFX.Play();
                         currentMag = currentMag + currentReserve;
                         currentReserve = 0;
                     }

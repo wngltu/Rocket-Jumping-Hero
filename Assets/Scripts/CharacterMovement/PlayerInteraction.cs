@@ -14,6 +14,7 @@ public class PlayerInteraction : MonoBehaviour
     public TextMeshProUGUI feedbackText;
     public GameObject playerModelHand;
     public GameObject playerModelHead;
+    public AudioSource playerPickupSFX;
 
     int usefulItemsInCollider = 0; //this is so the indicator text does not reset to " " if there is an item in collider, but none in raycast LOS
 
@@ -63,6 +64,7 @@ public class PlayerInteraction : MonoBehaviour
                 {
                     if (weaponManager.weaponInventory.Count < weaponManager.maxWeapons) //does player have inventory space to pick up new weapon
                     {
+                        playerPickupSFX.Play();
                         hit.collider.gameObject.transform.SetParent(playerModelHand.transform, false);
                         hit.collider.gameObject.transform.localPosition = new Vector3(0, 0, 0);
                         hit.collider.gameObject.GetComponent<Rigidbody>().isKinematic = true;
