@@ -52,6 +52,7 @@ MonoBehaviour:
   reverseDoors: []
   openTime: 5
   doorTimer: 0
+  door3DGraphic: {fileID: 0}
   toggleCooldown: 0.1
   toggleCooldownTimer: 0
 --- !u!1 &6480062978260604361
@@ -422,6 +423,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Door
       objectReference: {fileID: 0}
+    - target: {fileID: 3863813620740634835, guid: 491959bf88080ad4eb36afa53b9c7c01, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ff6368798f374844ca06ac693cd9b1f5, type: 2}
     - target: {fileID: 5052314582952704888, guid: 491959bf88080ad4eb36afa53b9c7c01, type: 3}
       propertyPath: m_LocalScale.y
       value: 1

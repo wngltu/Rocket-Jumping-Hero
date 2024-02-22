@@ -264,6 +264,7 @@ GameObject:
   - component: {fileID: 3024457814817687297}
   - component: {fileID: 1695054125242483468}
   - component: {fileID: 7914173795737547297}
+  - component: {fileID: 4826812690935799466}
   m_Layer: 12
   m_Name: Door
   m_TagString: door
@@ -375,6 +376,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentTime: 0
   doorTimer: {fileID: 5559712623634648311}
+--- !u!114 &4826812690935799466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3668783763188495513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cefb2fa5852513a4194322771d435f2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorGraphic: {fileID: 5213557198879473447}
 --- !u!1 &4851001714236542058
 GameObject:
   m_ObjectHideFlags: 0
@@ -421,7 +435,6 @@ GameObject:
   - component: {fileID: 7431947040901968687}
   - component: {fileID: 4075527524705411969}
   - component: {fileID: 3863813620740634835}
-  - component: {fileID: 8186757834234668020}
   m_Layer: 12
   m_Name: 3dGraphic
   m_TagString: Untagged
@@ -494,18 +507,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &8186757834234668020
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5213557198879473447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cefb2fa5852513a4194322771d435f2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5758561603752078928
 GameObject:
   m_ObjectHideFlags: 0
