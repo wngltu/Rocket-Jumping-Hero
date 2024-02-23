@@ -28,4 +28,9 @@ public class MenuManager : MonoBehaviour
     {
         SceneManager.LoadScene("Testing Level");
     }
+
+    public static void StartLevel2()
+    {
+        SceneManager.LoadScene("Level 2");
+    }
 }
