@@ -231,6 +231,7 @@ public class MeleeBossFSM : Enemy
 
     void Attack_Enter()
     {
+        isInvincible = false;
         attackSound.Play();
         rb.useGravity = true;
         attacking = true;
@@ -268,7 +269,6 @@ public class MeleeBossFSM : Enemy
 
     void AttackCooldown_Enter()
     {
-        isInvincible = false;
         timer = 0f;
         timer = attackCooldown;
     }

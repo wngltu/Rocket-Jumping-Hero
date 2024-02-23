@@ -36,16 +36,17 @@ public class PlayerMovement : MonoBehaviour
     private float groundedSprintSpeed = 10f;
 
     //Vertical/Jump variables
-    private float gravity = -17f;
-    private float defaultGravity = -17f;
-    private float rocketJumpingGravity = -15f;
+    private float gravity = -16f;
+    private float defaultGravity = -16f;
+    private float rocketJumpingGravity = -14f;
     private float jumpStrength = 7.5f;
     private float jumpCooldown = 0;
     private float multiJumpCooldown = .1f;
-    private float jumpsLeft = 1;
-    private float verticalVeloCap = 10f;
-    private float defaultVerticalVeloCap = 10f;
-    private float rocketJumpingVerticalVeloCap = 12f;
+    public float jumpsLeft = 1;
+    public float jumpsCap = 2;
+    private float verticalVeloCap = 8f;
+    private float defaultVerticalVeloCap = 8f;
+    private float rocketJumpingVerticalVeloCap = 10f;
     private float ceilingVelocity = 2f;
     private float landSFXCooldownTimer = 0;
     private float landSFXCooldown = .5f;
@@ -92,6 +93,7 @@ public class PlayerMovement : MonoBehaviour
     bool wasInAir = true; //used to play jump land sfx
     public bool shotRecently = false;
     public bool isRespawning = false;
+    bool decreasedJump = false;
     // Start is called before the first frame update
 
     void Start()
@@ -111,6 +113,13 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (gameObject.transform.position.z != 0)
+        {
+            gameObject.GetComponent<CharacterController>().enabled = false;
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, 0);
+            gameObject.GetComponent<CharacterController>().enabled = true;
+        }
+
         jumpHeld = Input.GetKeyDown(KeyCode.Space);
 
         if (canDash == true && doubleTapATimer > 0 && Input.GetKeyDown(KeyCode.A)) //initiate dash
@@ -223,7 +232,8 @@ public class PlayerMovement : MonoBehaviour
         if (grounded && velocity.y < 0) //If the player lands, they can jump again
         {
             velocity.y = -.5f;
-            jumpsLeft = 1;
+            jumpsLeft = jumpsCap;
+            decreasedJump = false;
         }
 
         if ((jumpHeld && grounded && jumpCooldown <= 0) || (jumpHeld && jumpsLeft > 0 && multiJumpCooldown <= 0)) //Is the player able to double jump again
@@ -467,6 +477,15 @@ public class PlayerMovement : MonoBehaviour
         controller.enabled = false;
         playerModel.SetActive(false);
         Invoke("EndSpawnSequence", 2);
+    }
+
+    public void DecreaseJumpsLeft() //decrease jumps on first rocket jump, so the normal grounded jump cannot be performed
+    {
+        if (!decreasedJump)
+        {
+            jumpsLeft--;
+            decreasedJump = true;
+        }
     }
 
     void EndSpawnSequence()

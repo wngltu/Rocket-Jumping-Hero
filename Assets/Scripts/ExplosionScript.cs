@@ -30,7 +30,7 @@ public class ExplosionScript : MonoBehaviour
                     {
                         PlayerMovement playercontroller = obj.GetComponent<PlayerMovement>();
                         playercontroller.AddExplosionForce(transform.position, explosionRadius, explosionForce);
-                        print(transform.position);
+                        playercontroller.DecreaseJumpsLeft();
                     }
                     else if (obj.gameObject.tag == "explodewhenshot")
                     {

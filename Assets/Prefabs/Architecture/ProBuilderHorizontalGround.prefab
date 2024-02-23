@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 2866289383629000902}
   - component: {fileID: 1068220469383920910}
   - component: {fileID: 7813155371180352001}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: ProBuilderHorizontalGround
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647

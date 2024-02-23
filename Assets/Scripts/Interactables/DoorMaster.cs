@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class DoorMaster : MonoBehaviour
@@ -57,6 +55,12 @@ public class DoorMaster : MonoBehaviour
                 plate.GetComponent<PressurePlate>().activatePlate();
             }
         }
+        foreach (GameObject rdoor in reverseDoors)
+        {
+            rdoor.GetComponent<BoxCollider>().enabled = true;
+            rdoor.GetComponentInChildren<DoorTimerVisualScript>().currentTime = openTime;
+            rdoor.GetComponentInChildren<door3DGraphicScript>().enableDoorGraphic();
+        }
         Invoke("closeDoor", openTime);
     }
     public void closeDoor()
@@ -67,6 +71,11 @@ public class DoorMaster : MonoBehaviour
             door.GetComponent<SpriteRenderer>().enabled = true;
             door.GetComponentInChildren<door3DGraphicScript>().enableDoorGraphic();
         }    
+        foreach (GameObject rdoor in reverseDoors)
+        {
+            rdoor.GetComponent<BoxCollider>().enabled = false;
+            rdoor.GetComponentInChildren<door3DGraphicScript>().disableDoorGraphic();
+        }
     }
 
     public void toggleDoorLever(bool active)
@@ -98,6 +107,8 @@ public class DoorMaster : MonoBehaviour
         foreach (GameObject lever in levers)
             lever.GetComponent<LeverScript>().deactivateLever();
         foreach (GameObject rdoor in reverseDoors)
+        {
             rdoor.SetActive(false);
+        }
     }
 }

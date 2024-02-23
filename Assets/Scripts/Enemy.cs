@@ -94,6 +94,8 @@ public class Enemy : MonoBehaviour
             {
                 if (FindAnyObjectByType<Level1FSM>() != null)
                     FindObjectOfType<Level1FSM>().bossKilled = true;
+                if (FindAnyObjectByType<Level2FSM>() != null)
+                    FindAnyObjectByType<Level2FSM>().bossKilled = true;
             }
             GameObject loot = Instantiate(weaponLoot, transform.position, Quaternion.identity, null);
             loot.gameObject.transform.SetParent(null);

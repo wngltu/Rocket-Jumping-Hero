@@ -155,5 +155,8 @@ public class PlayerHealth : MonoBehaviour
         gameOverScreen.SetActive(true);
         this.gameObject.GetComponent<PlayerMovement>().enabled = false;
         this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        this.gameObject.GetComponent<weaponManager>().DropCurrentWeapon();
+        this.gameObject.GetComponent<weaponManager>().enabled = false;
+        this.gameObject.GetComponent<PlayerInteraction>().enabled = false;
     }
 }

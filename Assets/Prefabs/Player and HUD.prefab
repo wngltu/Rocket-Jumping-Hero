@@ -2826,7 +2826,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 632ae7eb1d4ce49d38a1e38ee7efe7c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guid: 48bbcaab5551ec60-38369dc05f0bcf3b
+  guid: b2219956e14e0574-6f1f952091e9a534
 --- !u!1 &2613378587682420207
 GameObject:
   m_ObjectHideFlags: 0
@@ -9741,7 +9741,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3883857759102516575, guid: 33c206ea514f7d44aa87fdd2c80b15ed, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3883857759102516575, guid: 33c206ea514f7d44aa87fdd2c80b15ed, type: 3}
       propertyPath: m_TagString
@@ -9817,11 +9817,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5056488580480363371, guid: 33c206ea514f7d44aa87fdd2c80b15ed, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5056488580480363371, guid: 33c206ea514f7d44aa87fdd2c80b15ed, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.314
+      value: -0.127
       objectReference: {fileID: 0}
     - target: {fileID: 5077409984503185987, guid: 33c206ea514f7d44aa87fdd2c80b15ed, type: 3}
       propertyPath: m_Color.a
@@ -9898,6 +9898,14 @@ PrefabInstance:
     - target: {fileID: 6460930614444577550, guid: 33c206ea514f7d44aa87fdd2c80b15ed, type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6479680940068565433, guid: 33c206ea514f7d44aa87fdd2c80b15ed, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6479680940068565433, guid: 33c206ea514f7d44aa87fdd2c80b15ed, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6479680940068565433, guid: 33c206ea514f7d44aa87fdd2c80b15ed, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10296,7 +10304,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5903115938729172915, guid: a6693373ac87afc449516e53c6bcc6bd, type: 3}
       propertyPath: guid
-      value: ee22d5a7ae95adc9-06e58decb38615dd
+      value: d74348bd9846beef-a2dcc5f28dda30a9
       objectReference: {fileID: 0}
     - target: {fileID: 7675958526447171964, guid: a6693373ac87afc449516e53c6bcc6bd, type: 3}
       propertyPath: m_LocalPosition.x

@@ -527,7 +527,7 @@ MonoBehaviour:
   pressurePlates: []
   levers: []
   reverseDoors: []
-  openTime: 5
+  openTime: 10
   doorTimer: 0
   door3DGraphic: {fileID: 4896130209224406941}
   toggleCooldown: 0.1

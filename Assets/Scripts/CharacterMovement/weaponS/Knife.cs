@@ -65,6 +65,10 @@ public class Knife : weaponScript
             {
                 hit.collider.gameObject.GetComponentInParent<StickyGrenadeProjectile>().Explode();
             }
+            if (hit.collider.gameObject.CompareTag("shootplate"))
+            {
+                hit.collider.gameObject.GetComponent<ShootPlate>().togglePlate();
+            }
         }
         //GameObject clone = Instantiate(bullet, barrel.transform.position, barrel.transform.rotation);
         UpdateHUDValues();

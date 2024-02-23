@@ -34,6 +34,7 @@ public class SniperEnemyFSM : Enemy
     public AudioSource shootSound;
 
     LayerMask layerMask = 1 << 3;
+    LayerMask LoSLayerMask = ((1 << 3) | (1 << 12)); //this is for checking line of sight
 
     Vector3 attackDirection;
 
@@ -258,19 +259,33 @@ public class SniperEnemyFSM : Enemy
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && (fsm.State == States.Idle || fsm.State == States.Patrol))
         {
-            aggroed = true;
-            fsm.ChangeState(States.Chasing, StateTransition.Safe);
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, GetVectorToPlayer(), out hit, 99, LoSLayerMask))
+            {
+                if (hit.collider.gameObject.CompareTag("Player"))
+                {
+                    aggroed = true;
+                    fsm.ChangeState(States.Chasing, StateTransition.Safe);
+                }
+            }
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Player") && fsm.State == States.Idle)
+        if (other.gameObject.CompareTag("Player") && (fsm.State == States.Idle || fsm.State == States.Patrol))
         {
-            aggroed = true;
-            fsm.ChangeState(States.Chasing, StateTransition.Safe);
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, GetVectorToPlayer(), out hit, 99, LoSLayerMask))
+            {
+                if (hit.collider.gameObject.CompareTag("Player"))
+                {
+                    aggroed = true;
+                    fsm.ChangeState(States.Chasing, StateTransition.Safe);
+                }
+            }
         }
     }
 

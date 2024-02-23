@@ -4952,7 +4952,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfaf4622f7a2bb3458e8e59f41617350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deleteDuration: 3
+  deleteDuration: 2
 --- !u!1 &1123476242953952
 GameObject:
   m_ObjectHideFlags: 0
