@@ -12,7 +12,7 @@ public class Rifle : weaponScript
     Vector2 interactDirection;
     Vector2 bulletDeviation;
 
-    int layerMask = ~((1 << 3) | (1 << 8) | (1 << 9) | (1 << 11) | (1 << 13));
+    int layerMask = ~((1 << 3) | (1 << 8) | (1 << 9) | (1 << 11) | (1 << 13) | (1 << 10));
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +21,7 @@ public class Rifle : weaponScript
         maxReserve = 45;
         currentMag = maxMag;
         currentReserve = maxReserve;
-        baseDamage = 30;
+        baseDamage = 15;
         fireRate = .2f;
     }
     void Update()

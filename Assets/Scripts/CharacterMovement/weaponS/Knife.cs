@@ -8,7 +8,7 @@ public class Knife : weaponScript
     public GameObject explodeIndicator;
     public float explosionRadius = .35f;
     public float range = 4.5f;
-    int layerMask = ~((1 << 3) | (1 << 8) | (1 << 9) | (1 << 11) | (1 << 13));
+    int layerMask = ~((1 << 3) | (1 << 8) | (1 << 9) | (1 << 11) | (1 << 13) | (1 << 10));
     Vector2 interactDirection;
     // Start is called before the first frame update
     void Start()

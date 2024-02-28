@@ -5,7 +5,7 @@ public class ExplosionScript : MonoBehaviour
     //Debugging: if the ExplosionObject is still in scene, that means an explosion failed to go off.
     public GameObject explodeIndicator;
     public GameObject explosiveSFXObject;
-    int layerMask = ~((1 << 9) | (1 << 11) | (1 << 13));
+    int layerMask = ~((1 << 9) | (1 << 11) | (1 << 13) | (1 << 10));
     public void PlayerExplode(float damage, float explosionRadius, float explosionForce) //player rocket/explosives
     {
         var cols = Physics.OverlapSphere(this.transform.position, explosionRadius);
@@ -30,7 +30,8 @@ public class ExplosionScript : MonoBehaviour
                     {
                         PlayerMovement playercontroller = obj.GetComponent<PlayerMovement>();
                         playercontroller.AddExplosionForce(transform.position, explosionRadius, explosionForce);
-                        playercontroller.DecreaseJumpsLeft();
+                        if (playercontroller.jumpsLeft == playercontroller.jumpsCap) //Prevent player from using grounded jump in the air
+                            playercontroller.DecreaseJumpsLeft();
                     }
                     else if (obj.gameObject.tag == "explodewhenshot")
                     {

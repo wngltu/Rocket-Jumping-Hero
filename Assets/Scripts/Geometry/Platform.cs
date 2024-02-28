@@ -42,6 +42,4 @@ public class Platform : MonoBehaviour
             disablePlayerCollisions();
         }
     }
-
-
 }

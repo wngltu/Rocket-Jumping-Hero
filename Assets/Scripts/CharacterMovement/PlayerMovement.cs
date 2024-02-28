@@ -87,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
     public bool sprintHeld = false;
     bool jumpHeld = false;
     bool facingRight = true;
-    bool isRocketJumping = false;
+    public bool isRocketJumping = false;
     public bool isJumping;
     public bool slowmoEnabled = false;
     bool wasInAir = true; //used to play jump land sfx

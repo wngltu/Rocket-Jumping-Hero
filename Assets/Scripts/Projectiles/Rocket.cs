@@ -41,7 +41,8 @@ public class Rocket : MonoBehaviour
             collision.gameObject.tag == "rdoor" ||
             collision.gameObject.tag == "ground" || 
             collision.gameObject.tag == "platform" || 
-            collision.gameObject.tag == "droppedweapon")
+            collision.gameObject.tag == "droppedweapon" ||
+            collision.gameObject.tag == "weapon")
             Explode();
     }
 

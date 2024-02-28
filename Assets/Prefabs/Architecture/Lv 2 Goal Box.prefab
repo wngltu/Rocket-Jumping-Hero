@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5779223959704521714}
   - component: {fileID: 8297879002118638855}
   - component: {fileID: 5288474075601534755}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Lv 2 Goal Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
