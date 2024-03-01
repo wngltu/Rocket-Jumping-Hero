@@ -47,6 +47,7 @@ public class PlayerRocketLauncher : MonoBehaviour
     public virtual void Equip()
     {
         this.gameObject.SetActive(true);
+        playerMovement.setShotRecentlyTimer();
         equipped = true;
     }
     public virtual void Unequip()

@@ -41,8 +41,13 @@ public class Rocket : MonoBehaviour
             collision.gameObject.tag == "rdoor" ||
             collision.gameObject.tag == "ground" || 
             collision.gameObject.tag == "platform" || 
-            collision.gameObject.tag == "droppedweapon" ||
-            collision.gameObject.tag == "weapon")
+            collision.gameObject.tag == "droppedweapon")
+            Explode();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "droppedweapon")
             Explode();
     }
 

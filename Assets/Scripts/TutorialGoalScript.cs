@@ -15,6 +15,10 @@ public class TutorialGoalScript : MonoBehaviour
         RJHorizontalGoal,
         PlatformGoal,
         PressurePlateGoal,
+        PressurePlate,
+        ShootPressurePlate,
+        DoubleRJ,
+        Lever,
 
         Lv1Room1,
     }
@@ -46,6 +50,12 @@ public class TutorialGoalScript : MonoBehaviour
                     tutorialObject.pressurePlateGoal = true; break;
                 case GoalName.PlatformGoal:
                     tutorialObject.platformGoal = true; break;
+                case GoalName.ShootPressurePlate:
+                    tutorialObject.shootPressurePlateGoal = true; break;
+                case GoalName.DoubleRJ:
+                    tutorialObject.doubleRJGoal = true; break;
+                case GoalName.Lever:
+                    tutorialObject.leverGoal = true; break;
             }
         }
     }

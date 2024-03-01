@@ -10,6 +10,9 @@ public class TutorialFSM : MonoBehaviour
     public GameObject enemySpawn1;
     public GameObject enemy2Spawn1;
     public GameObject enemy2Spawn2;
+    public GameObject enemy3Spawn1;
+    public GameObject enemy3Spawn2;
+    public GameObject enemy3Spawn3;
     public GameObject player;
     public TextMeshProUGUI tutorialText;
     public weaponManager weaponMgr;
@@ -42,8 +45,11 @@ public class TutorialFSM : MonoBehaviour
         Enemy2,
         Inventory2,
         PressurePlate,
+        ShootPressurePlate,
+        DoubleRJ,
         Lever,
-        TutorialFinished
+        TutorialFinished,
+
 
     }
 
@@ -286,25 +292,12 @@ public class TutorialFSM : MonoBehaviour
             if (weapon.GetComponent<Sniper>() != null)
                 fsm.ChangeState(States.PressurePlate);
     }
-    /*
-    void Inventory2_Enter()
-    {
-        tutorialText.text = "The player can drop the current weapon with G (A max of 2 weapons can be held in the inventory). Try dropping one, and picking up the sniper";
-        timer = pulseTime;
-    }
-    void Inventory2_Update()
-    {
-        foreach (weaponScript weapon in player.GetComponent<weaponManager>().weaponInventory) //does the player have pistol in inventory?
-            if (weapon.GetComponent<Sniper>() != null)
-                fsm.ChangeState(States.PressurePlate);
-    }
-    */
 
     public GameObject pPlate;
     public bool pressurePlateGoal = false;
     void PressurePlate_Enter()
     {
-        tutorialText.text = "A pressure plate has appeared. Step on it to open the Blue Door temporarily";
+        tutorialText.text = "A pressure plate has appeared. Step on it to open the Blue Door temporarily.";
         pPlate.SetActive(true);
         timer = pulseTime;
     }
@@ -312,11 +305,45 @@ public class TutorialFSM : MonoBehaviour
     {
         if (pressurePlateGoal == true)
         {
-            fsm.ChangeState(States.TutorialFinished);
+            fsm.ChangeState(States.ShootPressurePlate, StateTransition.Safe);
         }
-
     }
 
+    public bool shootPressurePlateGoal = false;
+    void ShootPressurePlate_Enter()
+    {
+        tutorialText.text = "To open a red door temporarily, shoot the target in the top left corner of the room.";
+    }
+    void ShootPressurePlate_Update()
+    {
+        if (shootPressurePlateGoal == true)
+            fsm.ChangeState(States.DoubleRJ, StateTransition.Safe);
+    }
+
+    public bool doubleRJGoal = false;
+    void DoubleRJ_Enter()
+    {
+        tutorialText.text = "Using the rocket launcher, shoot a rocket at the wall at the peak of the first rocket jump to go higher. This can be chained multiple times. Dont forget about the Double Jump(Space)";
+    }
+    void DoubleRJ_Update()
+    {
+        if (doubleRJGoal == true)
+            fsm.ChangeState(States.Lever, StateTransition.Safe);
+    }
+
+    public bool leverGoal = false;
+    void Lever_Enter()
+    {
+        tutorialText.text = "Click E on a lever to toggle a door to walk through. It may also toggle inactive doors. Reach the end to complete the tutorial.";
+        Instantiate(prefabTable.GetComponent<PrefabEnemy>().meleeEnemy, enemy3Spawn1.transform);
+        Instantiate(prefabTable.GetComponent<PrefabEnemy>().sniperEnemy, enemy3Spawn2.transform);
+        Instantiate(prefabTable.GetComponent<PrefabEnemy>().grenadierEnemy, enemy3Spawn3.transform);
+    }
+    void Lever_Update()
+    {
+        if (leverGoal == true)
+            fsm.ChangeState(States.TutorialFinished, StateTransition.Safe);
+    }
     void TutorialFinished_Enter()
     {
         tutorialText.text = "Congratulations, you have beaten the tutorial. You can toggle the instructions at any time in the pause menu (ESC, or top right button). Return to the main menu to play the main game.";

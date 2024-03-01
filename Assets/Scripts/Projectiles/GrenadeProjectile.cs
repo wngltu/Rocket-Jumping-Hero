@@ -9,7 +9,7 @@ public class GrenadeProjectile : MonoBehaviour
     public GameObject explodeIndicator;
     public GameObject explosionObject;
     Rigidbody rigidbody;
-    float damage = 50f;
+    float damage = 100f;
     float timer = 0f;
     float explosionRadius = 5f;
     float explosionForce = 30f;

@@ -17,7 +17,7 @@ public class Grenade : weaponScript
         maxReserve = 2;
         currentMag = maxMag;
         currentReserve = maxReserve;
-        baseDamage = 25;
+        baseDamage = 50;
         fireRate = 1f;
     }
     void Update()
