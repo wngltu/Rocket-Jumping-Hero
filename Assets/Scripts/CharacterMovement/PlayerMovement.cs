@@ -100,8 +100,6 @@ public class PlayerMovement : MonoBehaviour
     {
         controller.enabled = false; //unity character controller is.... VERY INCONVENIENT.
         transform.position = new Vector3(SaveData.checkpointX, SaveData.checkpointY, 0);
-        GameObject newObj = Instantiate(respawnVFX, transform, true);
-        newObj.transform.SetParent(null);
         controller.enabled = true;
         pauseManager = FindObjectOfType<PauseMenu>();
         playerHealth = GetComponent<PlayerHealth>();
@@ -476,7 +474,9 @@ public class PlayerMovement : MonoBehaviour
         isRespawning = true;
         controller.enabled = false;
         playerModel.SetActive(false);
-        Invoke("EndSpawnSequence", 2);
+        GameObject newObj = Instantiate(respawnVFX, transform);
+        newObj.transform.SetParent(null);
+        Invoke("EndSpawnSequence", 1);
     }
 
     public void DecreaseJumpsLeft() //decrease jumps on first rocket jump, so the normal grounded jump cannot be performed

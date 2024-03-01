@@ -26,7 +26,8 @@ public class TutorialFSM : MonoBehaviour
         Sprinting,
         WalkingGoal,
         Jumping,
-        JumpingGoal,
+        SingleJumpingGoal,
+        DoubleJumpingGoal,
         SprintJumpingGoal,
         EquipWeapon,
         Enemy1,
@@ -119,25 +120,36 @@ public class TutorialFSM : MonoBehaviour
     void Jumping_Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
-            fsm.ChangeState(States.JumpingGoal);
+            fsm.ChangeState(States.SingleJumpingGoal);
     }
 
     public bool jumpingGoal = false;
-    void JumpingGoal_Enter()
+    void SingleJumpingGoal_Enter()
     {
         tutorialText.text = "Use the Jump(Space) to overcome these obstacles";
-        timer = pulseTime;
     }
-    void JumpingGoal_Update()
+    void SingleJumpingGoal_Update()
     {
         if (jumpingGoal)
+            fsm.ChangeState(States.DoubleJumpingGoal);
+    }
+
+    public bool doubleJumpingGoal = false;
+    void DoubleJumpingGoal_Enter()
+    {
+        tutorialText.text = "Use the Double Jump (Space while in Mid-Air) to overcome these obstacles";
+        timer = pulseTime;
+    }
+    void DoubleJumpingGoal_Update()
+    {
+        if (doubleJumpingGoal)
             fsm.ChangeState(States.SprintJumpingGoal);
     }
 
     public bool sprintingGoal = false;
     void SprintJumpingGoal_Enter()
     {
-        tutorialText.text = "Use both Sprint(shift) and Jump(space) to overcome this obstacle";
+        tutorialText.text = "Use both Sprint(shift) and/or Double Jump(space) to overcome this obstacle";
         timer = pulseTime;
     }
     void SprintJumpingGoal_Update()

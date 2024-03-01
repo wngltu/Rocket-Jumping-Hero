@@ -8,7 +8,8 @@ public class TutorialGoalScript : MonoBehaviour
     public enum GoalName
     {
         WalkingGoal,
-        JumpingGoal,
+        SingleJumpingGoal,
+        DoubleJumpingGoal,
         SprintJumpingGoal,
         RJVerticalGoal,
         RJHorizontalGoal,
@@ -31,8 +32,10 @@ public class TutorialGoalScript : MonoBehaviour
             {
                 case GoalName.WalkingGoal:
                     tutorialObject.walkingGoal = true; break;
-                case GoalName.JumpingGoal:
+                case GoalName.SingleJumpingGoal:
                     tutorialObject.jumpingGoal = true; break;
+                case GoalName.DoubleJumpingGoal:
+                    tutorialObject.doubleJumpingGoal = true; break;
                 case GoalName.SprintJumpingGoal:
                     tutorialObject.sprintingGoal = true; break;
                 case GoalName.RJVerticalGoal:
