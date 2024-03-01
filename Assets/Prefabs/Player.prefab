@@ -271,6 +271,8 @@ MonoBehaviour:
   playerModel: {fileID: 6745346277519761747}
   respawnSFX: {fileID: 6436416051770222076}
   playerSprintSpeed: 10
+  jumpsLeft: 1
+  jumpsCap: 2
   rockets: 4
   maxRockets: 4
   rocketFireRate: 0.35
@@ -280,6 +282,7 @@ MonoBehaviour:
   playerMovementVector: {x: 0, y: 0}
   grounded: 0
   sprintHeld: 0
+  isRocketJumping: 0
   isJumping: 0
   slowmoEnabled: 0
   shotRecently: 0
@@ -1798,7 +1801,7 @@ MonoBehaviour:
   bullet: {fileID: 975312783370038833, guid: 62a2673fbcd53744196280ca9af8da54, type: 3}
   barrel: {fileID: 7833552968575698228}
   model: {fileID: 4323794169213892579}
-  playerMovement: {fileID: 0}
+  playerMovement: {fileID: 3961433849992181797}
   pauseManager: {fileID: 0}
   equipped: 0
 --- !u!1 &4323794169213892579

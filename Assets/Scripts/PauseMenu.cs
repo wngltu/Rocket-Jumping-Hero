@@ -73,6 +73,7 @@ public class PauseMenu : MonoBehaviour
     public void ReturnToMainMenu() //return to main menu button on pause menu
     {
         Unpause();
+        SaveData.WipeCheckpointProgress();
         SceneManager.LoadScene("Main Menu");
     }
 

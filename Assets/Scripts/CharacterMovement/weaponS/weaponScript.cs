@@ -47,7 +47,7 @@ public class weaponScript : MonoBehaviour
         playerObj = FindObjectOfType<PlayerInteraction>().playerModelHead;
         playerMovementScript = FindObjectOfType<PlayerMovement>();
         lootPillar = GetComponentInChildren<LootPillarScript>().gameObject;
-        if (muzzleFlash.gameObject != null && muzzleFlash.gameObject.GetComponent<ParticleSystem>() != null)
+        if (muzzleFlash != null)
             muzzleFlashParticleSystem = muzzleFlash.gameObject.GetComponent<ParticleSystem>();
         this.enabled = false;
     }

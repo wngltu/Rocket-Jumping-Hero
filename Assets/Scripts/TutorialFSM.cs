@@ -177,7 +177,7 @@ public class TutorialFSM : MonoBehaviour
 
     void Enemy1_Enter()
     {
-        tutorialText.text = "Watch out, an enemy! Defeat the enemy with Left Click attacks and pick up its loot";
+        tutorialText.text = "Watch out, an enemy! Enemies typically wind up for a brief period before attacking, try approaching and observing its movements. Defeat the enemy with Left Click attacks and pick up its loot";
         Instantiate(prefabTable.GetComponent<PrefabEnemy>().meleeEnemy, enemySpawn1.transform);
         timer = pulseTime;
     }
@@ -323,7 +323,7 @@ public class TutorialFSM : MonoBehaviour
     public bool doubleRJGoal = false;
     void DoubleRJ_Enter()
     {
-        tutorialText.text = "Using the rocket launcher, shoot a rocket at the wall at the peak of the first rocket jump to go higher. This can be chained multiple times. Dont forget about the Double Jump(Space)";
+        tutorialText.text = "Using the rocket launcher, shoot a rocket at the wall at the peak of the first rocket jump to go higher. This can be chained multiple times. Dont forget about the Double Jump(Space), which can be used after a rocket jump as well.";
     }
     void DoubleRJ_Update()
     {

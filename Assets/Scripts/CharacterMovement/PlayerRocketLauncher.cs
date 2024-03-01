@@ -19,7 +19,7 @@ public class PlayerRocketLauncher : MonoBehaviour
     protected virtual void Start()
     {
         Instance = this;
-        playerMovement = this.gameObject.GetComponentInParent<PlayerMovement>();
+        playerMovement = FindObjectOfType<PlayerMovement>();
         pauseManager = FindObjectOfType<PauseMenu>();
     }
 
