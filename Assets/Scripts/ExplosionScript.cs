@@ -1,3 +1,4 @@
+using Pathfinding;
 using UnityEngine;
 
 public class ExplosionScript : MonoBehaviour
@@ -22,7 +23,8 @@ public class ExplosionScript : MonoBehaviour
                         if (obj.isTrigger == false)
                         {
                             Rigidbody rb = obj.GetComponent<Rigidbody>();
-                            rb.AddExplosionForce(900f, transform.position, explosionRadius);
+                            obj.GetComponent<AIPath>().enabled = true;
+                            rb.AddExplosionForce(300f, transform.position, explosionRadius);
                             obj.GetComponent<Enemy>().takeDamage(damage * (explosionRadius - (this.transform.position - obj.transform.position).magnitude) / 5);
                         }
                     }
@@ -68,7 +70,8 @@ public class ExplosionScript : MonoBehaviour
                         {
 
                             Rigidbody rb = obj.GetComponent<Rigidbody>();
-                            rb.AddExplosionForce(900f, transform.position, explosionRadius);
+                            obj.GetComponent<AIPath>().enabled = true;
+                            rb.AddExplosionForce(300f, transform.position, explosionRadius);
                         }
                     }
                     else if (obj.gameObject.tag == "Player")

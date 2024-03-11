@@ -121,7 +121,8 @@ public class MeleeGruntFSM : Enemy
 
     void Idle_Exit()
     {
-        aiPath.enabled = true;
+        if (distanceFromPlayer > .05f)
+            aiPath.enabled = true;
     }
     
     void Patrol_Enter()
@@ -339,6 +340,18 @@ public class MeleeGruntFSM : Enemy
             collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(15);
             print(collision.gameObject.name);
             fsm.ChangeState(States.AttackCooldown, StateTransition.Safe);
+        }
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            gameObject.GetComponent<AIPath>().enabled = false;
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            gameObject.GetComponent<AIPath>().enabled = false;
         }
     }
 }
