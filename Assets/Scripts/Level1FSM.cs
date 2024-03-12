@@ -7,6 +7,7 @@ public class Level1FSM : MonoBehaviour
     public GameObject winScreen;
     public PauseMenu pauseMenuScript;
     public bool bossKilled = false;
+    public GameObject postBossObjects;
     public enum States
     {
         Init,
@@ -32,9 +33,10 @@ public class Level1FSM : MonoBehaviour
     }
     void WinState_Enter()
     {
-        winScreen.SetActive(true);
-        pauseMenuScript.Pause();
-        pauseMenuScript.pauseMenu.SetActive(false);
-        pauseMenuScript.enabled = false;
+        postBossObjects.SetActive(true);
+        //winScreen.SetActive(true);
+        //pauseMenuScript.Pause();
+        //pauseMenuScript.pauseMenu.SetActive(false);
+        //pauseMenuScript.enabled = false;
     }
 }

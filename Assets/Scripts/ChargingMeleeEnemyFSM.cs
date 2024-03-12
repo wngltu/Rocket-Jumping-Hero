@@ -46,7 +46,8 @@ public class ChargingMeleeEnemyFSM : Enemy
         Attack,
         AttackCooldown,
         Chasing,
-        AttackWindup
+        AttackWindup,
+        Died,
     }
     float aggroRange = 20f;
     float stateTime = 0f;
@@ -82,6 +83,11 @@ public class ChargingMeleeEnemyFSM : Enemy
         base.Update();
         fsm.Driver.Update.Invoke();
         currentState = fsm.State;
+
+        if (Died)
+        {
+            fsm.ChangeState(States.Died, StateTransition.Safe);
+        }
     }
 
     void Init_Enter()
@@ -280,6 +286,11 @@ public class ChargingMeleeEnemyFSM : Enemy
             timer = 0;
             fsm.ChangeState(States.Idle, StateTransition.Safe);
         }
+    }
+
+    void Died_Enter()
+    {
+        isAttacking = false;
     }
 
     private void OnTriggerEnter(Collider other)

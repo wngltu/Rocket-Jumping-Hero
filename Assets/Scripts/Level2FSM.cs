@@ -45,6 +45,12 @@ public class Level2FSM : MonoBehaviour
 
     void WinState_Enter()
     {
+        Invoke("WinScreen", 3);
+    }
+
+
+    void WinScreen()
+    {
         winScreen.SetActive(true);
         pauseMenuScript.Pause();
         pauseMenuScript.pauseMenu.SetActive(false);

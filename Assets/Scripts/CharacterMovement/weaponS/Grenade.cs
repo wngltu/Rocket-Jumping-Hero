@@ -62,7 +62,6 @@ public class Grenade : weaponScript
         UpdateHUDValues();
         interactDirection = playerCam.ScreenToWorldPoint(Input.mousePosition) - playerObj.transform.position;
         GameObject newobject = Instantiate(bullet, barrel.transform.position, barrel.transform.rotation);
-        print(barrel.transform.position.ToString());
         newobject.transform.SetParent(null);
         if (currentReserve > 0)
         {

@@ -89,7 +89,7 @@ public class Enemy : MonoBehaviour
             rb.AddForce(Random.Range(-100f, 100f), Random.Range(100f, 1000f), 0);
             rb.AddTorque(Random.Range(-50f, 50f), Random.Range(-50f, 50f), Random.Range(-50f, 50f));
             healthBar.gameObject.SetActive(false);
-
+            
             if (isBoss)
             {
                 if (FindAnyObjectByType<Level1FSM>() != null)

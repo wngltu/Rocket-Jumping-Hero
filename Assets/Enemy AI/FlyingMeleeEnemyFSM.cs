@@ -281,6 +281,11 @@ public class FlyingMeleeEnemyFSM : Enemy
         }
     }
 
+    void Die_Enter()
+    {
+        isAttacking = false;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player") && (fsm.State == States.Idle || fsm.State == States.Patrol))

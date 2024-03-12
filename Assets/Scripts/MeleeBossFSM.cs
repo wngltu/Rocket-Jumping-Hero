@@ -53,6 +53,8 @@ public class MeleeBossFSM : Enemy
         SlamAttack,
         SlamAttackCooldown,
         SlamAttackWindup,
+
+        Died
     }
     float aggroRange = 20f;
     float stateTime = 0f;
@@ -92,6 +94,9 @@ public class MeleeBossFSM : Enemy
         base.Update();
         fsm.Driver.Update.Invoke();
         currentState = fsm.State;
+
+        if (Died)
+            fsm.ChangeState(States.Died, StateTransition.Safe);
     }
 
     void Init_Enter()
@@ -358,6 +363,11 @@ public class MeleeBossFSM : Enemy
     void SlamAttackCooldown_Exit()
     {
         isInvincible = true;
+    }
+
+    void Died_Enter()
+    {
+        isAttacking = false;
     }
 
     private void OnTriggerEnter(Collider other)
