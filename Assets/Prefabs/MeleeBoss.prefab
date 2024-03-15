@@ -46,6 +46,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1558833488511285723}
   - component: {fileID: 5262084517442937460}
+  - component: {fileID: 5279276723188452590}
   m_Layer: 13
   m_Name: AggroRange
   m_TagString: Untagged
@@ -87,8 +88,20 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 40, y: 25, z: 0.2}
+  m_Size: {x: 50, y: 30, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5279276723188452590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217234605431133532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8321598ee2ccab346b70446dc2f1f441, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2337122177467262025
 GameObject:
   m_ObjectHideFlags: 0
@@ -656,7 +669,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4418829945125945176}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7393553a5f54f3b478cd8b7aebb84f0d, type: 3}
   m_Name: 

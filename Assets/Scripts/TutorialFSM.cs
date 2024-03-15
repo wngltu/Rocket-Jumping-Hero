@@ -13,6 +13,7 @@ public class TutorialFSM : MonoBehaviour
     public GameObject enemy3Spawn1;
     public GameObject enemy3Spawn2;
     public GameObject enemy3Spawn3;
+    public GameObject healthPackPrefab;
     public GameObject player;
     public TextMeshProUGUI tutorialText;
     public weaponManager weaponMgr;
@@ -34,6 +35,7 @@ public class TutorialFSM : MonoBehaviour
         SprintJumpingGoal,
         EquipWeapon,
         Enemy1,
+        HealthPack,
         Inventory,
         EquipWeapon2,
         RJPullOut,
@@ -177,7 +179,7 @@ public class TutorialFSM : MonoBehaviour
 
     void Enemy1_Enter()
     {
-        tutorialText.text = "Watch out, an enemy! Enemies typically wind up for a brief period before attacking, try approaching and observing its movements. Defeat the enemy with Left Click attacks and pick up its loot";
+        tutorialText.text = "Watch out, an enemy! Enemies typically wind up for a brief period before attacking, try approaching and observing its movements. Defeat with left click.";
         Instantiate(prefabTable.GetComponent<PrefabEnemy>().meleeEnemy, enemySpawn1.transform);
         timer = pulseTime;
     }
@@ -190,7 +192,7 @@ public class TutorialFSM : MonoBehaviour
 
     void Inventory_Enter()
     {
-        tutorialText.text = "Switch to the new weapon with scroll wheel or numbers (1, 2, 3, etc.)";
+        tutorialText.text = "Pick up the weapon with E, and switch to it with scroll wheel or numbers (1, 2, 3, etc.)";
         timer = pulseTime;
     }
     void Inventory_Update()

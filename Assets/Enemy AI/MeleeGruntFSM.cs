@@ -127,6 +127,7 @@ public class MeleeGruntFSM : Enemy
     
     void Patrol_Enter()
     {
+        aiPath.enabled = true;
         stateTime = 0;
         WalkToRandomNearbyNode();
         Debug.Log("enter patrol state");   

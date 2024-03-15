@@ -1,6 +1,5 @@
 using System.Collections;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
@@ -80,13 +79,18 @@ public class PlayerInteraction : MonoBehaviour
                     }
                     else if (weaponManager.weaponInventory.Count >= weaponManager.maxWeapons) //if inventory is full
                     {
-                        feedbackText.text = "Inventory is full. Drop with G";
-                        feedbackText.color = new Color(feedbackText.color.r,feedbackText.color.g,feedbackText.color.b, 1);
-                        Invoke("startFadingText", 1);
+                        DisplayFeedbackText("Inventory is full. Drop with G");
                     }
                 }
             }
         }
+    }
+
+    public void DisplayFeedbackText(string text)
+    {
+        feedbackText.text = text;
+        feedbackText.color = new Color(feedbackText.color.r, feedbackText.color.g, feedbackText.color.b, 1);
+        Invoke("startFadingText", 1);
     }
 
     void startFadingText()
