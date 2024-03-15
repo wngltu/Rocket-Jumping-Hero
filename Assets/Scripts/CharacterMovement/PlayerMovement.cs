@@ -120,6 +120,7 @@ public class PlayerMovement : MonoBehaviour
 
         jumpHeld = Input.GetKeyDown(KeyCode.Space);
 
+        /*
         if (canDash == true && doubleTapATimer > 0 && Input.GetKeyDown(KeyCode.A)) //initiate dash
         {
             canDash = false;
@@ -161,6 +162,7 @@ public class PlayerMovement : MonoBehaviour
         {
             doubleTapDTimer = doubleTapDLeniency;
         }
+        */
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
             sprintHeld = true;
@@ -361,12 +363,17 @@ public class PlayerMovement : MonoBehaviour
             else //if player is not moving, regen at 1.5x rate
                 rocketRegenTimer += Time.deltaTime * 2;
             rocketReloadSlider.value = rocketRegenTimer / rocketRegenCooldown;
-            if (rocketRegenTimer > rocketRegenCooldown)
-            {
-                rockets++;
-                rocketText.text = rockets.ToString();
-                rocketRegenTimer = 0;
-            }
+        }
+        else if (rockets < maxRockets)
+        {
+            rocketRegenTimer += Time.deltaTime * .5f;
+            rocketReloadSlider.value = rocketRegenTimer / rocketRegenCooldown;
+        }
+        if (rocketRegenTimer > rocketRegenCooldown)
+        {
+            rockets++;
+            rocketText.text = rockets.ToString();
+            rocketRegenTimer = 0;
         }
 
         if (shotRecentlyTimer > 0)

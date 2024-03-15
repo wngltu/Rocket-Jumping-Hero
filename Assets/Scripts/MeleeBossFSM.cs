@@ -17,6 +17,7 @@ public class MeleeBossFSM : Enemy
     float idleTime = 3f;
     float patrolTime = 5f;
 
+    public float shieldCharges = 0f;
 
     float distanceFromPlayer;
     float timer;
@@ -87,6 +88,14 @@ public class MeleeBossFSM : Enemy
     // Update is called once per frame
     void Update()
     {
+        if (shieldCharges == 0)
+        {
+            isInvincible = false;
+        }
+        if (shieldCharges > 0)
+        {
+            isInvincible = true;
+        }
         if (isInvincible && invincibleShield.activeSelf == false)
             invincibleShield.SetActive(true);
         else if (!isInvincible && invincibleShield.activeSelf == true)
@@ -276,6 +285,8 @@ public class MeleeBossFSM : Enemy
     {
         timer = 0f;
         timer = attackCooldown;
+        isInvincible = false;
+        shieldCharges = 0;
     }
     void AttackCooldown_Update()
     {
@@ -289,6 +300,7 @@ public class MeleeBossFSM : Enemy
     void AttackCooldown_Exit()
     {
         isInvincible = true;
+        shieldCharges = 1;
     }
 
     void SlamAttackWindup_Enter()
@@ -348,6 +360,7 @@ public class MeleeBossFSM : Enemy
     void SlamAttackCooldown_Enter()
     {
         isInvincible = false;
+        shieldCharges = 0;
         timer = 0f;
         timer = attackCooldown * 1.5f;
     }
@@ -363,11 +376,31 @@ public class MeleeBossFSM : Enemy
     void SlamAttackCooldown_Exit()
     {
         isInvincible = true;
+        shieldCharges = 1;
     }
 
     void Died_Enter()
     {
         isAttacking = false;
+    }
+
+    public override void takeDamage(float damage)
+    {
+        if (isInvincible && shieldCharges > 0)
+        {
+            damage = 0;
+        }
+        GameObject damageNumber = Instantiate(damageIndicator, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), Quaternion.identity);
+        damageNumber.GetComponentInChildren<DamageNumberScript>().damage = damage;
+        if (damage > 0)
+        {
+            currentHealth -= damage;
+        }
+        healthBar.value = currentHealth / maxHealth;
+        if (currentHealth <= 0f)
+        {
+            Die();
+        }
     }
 
     private void OnTriggerEnter(Collider other)

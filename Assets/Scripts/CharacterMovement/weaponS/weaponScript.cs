@@ -12,6 +12,7 @@ public class weaponScript : MonoBehaviour
     public GameObject barrel;
     public GameObject model;
     public GameObject lootPillar;
+    public GameObject crosshair;
     public PauseMenu pauseManager;
     public weaponManager weaponManager;
     public AudioSource shootSound;
@@ -75,6 +76,8 @@ public class weaponScript : MonoBehaviour
 
     public virtual void Equip()
     {
+        if (crosshair != null)
+            crosshair.SetActive(true);
         this.gameObject.SetActive(true);
         UpdateHUDValues();
     }
@@ -84,6 +87,8 @@ public class weaponScript : MonoBehaviour
             reloadInterrupted = true;
         canShoot = true;
         isReloading = false;
+        if (crosshair != null)
+            crosshair.SetActive(false);
         this.gameObject.SetActive(false);
     }
     public virtual void AddWeapon()

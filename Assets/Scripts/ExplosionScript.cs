@@ -24,14 +24,28 @@ public class ExplosionScript : MonoBehaviour
                         {
                             Rigidbody rb = obj.GetComponent<Rigidbody>();
                             obj.GetComponent<AIPath>().enabled = true;
-                            rb.AddExplosionForce(300f, transform.position, explosionRadius);
-                            obj.GetComponent<Enemy>().takeDamage(damage * (explosionRadius - (this.transform.position - obj.transform.position).magnitude) / 5);
+                            if (obj.gameObject.GetComponentInParent<MeleeBossFSM>() != null)
+                            {
+                                rb.AddExplosionForce(10f, transform.position, explosionRadius);
+                                obj.GetComponent<Enemy>().takeDamage(damage * (explosionRadius - (this.transform.position - obj.transform.position).magnitude) / 5);
+                                if (obj.gameObject.GetComponentInParent<MeleeBossFSM>().shieldCharges > 0)
+                                {
+                                    obj.gameObject.GetComponentInParent<MeleeBossFSM>().shieldCharges--;
+                                }
+                            }
+                            else
+                            {
+                                rb.AddExplosionForce(300f, transform.position, explosionRadius);
+                                obj.GetComponent<Enemy>().takeDamage(damage * (explosionRadius - (this.transform.position - obj.transform.position).magnitude) / 5);
+                            }
                         }
+
                     }
                     else if (obj.gameObject.tag == "Player")
                     {
                         PlayerMovement playercontroller = obj.GetComponent<PlayerMovement>();
-                        playercontroller.AddExplosionForce(transform.position, explosionRadius, explosionForce);
+                        playercontroller.AddExplosionForce(new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z), explosionRadius, explosionForce);
+
                         if (playercontroller.jumpsLeft == playercontroller.jumpsCap) //Prevent player from using grounded jump in the air
                             playercontroller.DecreaseJumpsLeft();
                     }
@@ -68,7 +82,6 @@ public class ExplosionScript : MonoBehaviour
                     {
                         if (obj.isTrigger == true)
                         {
-
                             Rigidbody rb = obj.GetComponent<Rigidbody>();
                             obj.GetComponent<AIPath>().enabled = true;
                             rb.AddExplosionForce(300f, transform.position, explosionRadius);

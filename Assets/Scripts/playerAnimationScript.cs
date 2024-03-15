@@ -9,6 +9,7 @@ public class playerAnimationScript : MonoBehaviour
     PlayerMovement playerMovementScript;
     PlayerHealth playerHealthScript;
     PauseMenu pauseMenuScript;
+    weaponManager weaponManagerScript;
     public GameObject playerModel;
 
     bool facingLeft;
@@ -18,6 +19,7 @@ public class playerAnimationScript : MonoBehaviour
         playerMovementScript = FindObjectOfType<PlayerMovement>();
         playerHealthScript = FindAnyObjectByType<PlayerHealth>();
         pauseMenuScript = FindObjectOfType<PauseMenu>();
+        weaponManagerScript = FindObjectOfType<weaponManager>();
     }
 
     // Update is called once per frame
@@ -80,5 +82,10 @@ public class playerAnimationScript : MonoBehaviour
         }
         else
             anim.SetBool("isMoving", false);
+
+        if (weaponManagerScript.weaponInventory.Count == 0)
+            anim.SetBool("hasNoWeapons", true);
+        else
+            anim.SetBool("hasNoWeapons", false);
     }
 }

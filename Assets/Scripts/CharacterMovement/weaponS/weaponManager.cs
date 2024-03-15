@@ -115,6 +115,8 @@ public class weaponManager : MonoBehaviour
             weaponInventory[equippedNum].GetComponent<Rigidbody>().isKinematic = false;
             weaponInventory[equippedNum].transform.SetParent(null);
             //weapon.transform.position = weapon.barrel.transform.position;
+            if (weapon.crosshair != null)
+                weapon.crosshair.SetActive(false);
             weaponInventory[equippedNum].GetComponent<weaponScript>().enabled = false;
             weapon.lootPillar.SetActive(true);
             weapon.GetComponent<Collider>().enabled = true;
@@ -149,6 +151,8 @@ public class weaponManager : MonoBehaviour
             weaponInventory[equippedNum].gameObject.GetComponent<Rigidbody>().AddTorque(0, 0, 200);
             weaponInventory[equippedNum].Invoke("DeleteWeapon", 3);
             //weapon.transform.position = weapon.barrel.transform.position;
+            if (weapon.crosshair != null)
+                weapon.crosshair.SetActive(false);
             weaponInventory[equippedNum].GetComponent<weaponScript>().enabled = false;
             weapon.GetComponent<Collider>().enabled = false;
             if (weapon.reloadInterrupted == false)

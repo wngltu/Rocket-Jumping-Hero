@@ -1,5 +1,6 @@
 
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class GrenadeProjectile : MonoBehaviour
 {
@@ -21,17 +22,34 @@ public class GrenadeProjectile : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
         if (Input.mousePosition.x < Screen.width / 2f) //if mouse on left half of screen
         {
-            rigidbody.AddRelativeForce(new Vector3(0, -100, 300));
+            if ((Mathf.Abs(Input.mousePosition.x - Screen.width / 2f)) < 360f)
+            {
+                rigidbody.AddRelativeForce(new Vector3(0, -100, 300));
+            }
+            else
+            {
+                float throwMultiplier = Mathf.Abs(Input.mousePosition.x - Screen.width / 2f)/360;
+                rigidbody.AddRelativeForce(new Vector3(0, -100, 300 * throwMultiplier));
+            }
         }
         else //if mouse on right half of screen
         {
-            rigidbody.AddRelativeForce(new Vector3(0, 100, -300));
+            if ((Mathf.Abs(Input.mousePosition.x - Screen.width / 2f)) < 100f)
+            {
+                rigidbody.AddRelativeForce(new Vector3(0, 100, -300));
+            }
+            else
+            {
+                float throwMultiplier = Mathf.Abs(Input.mousePosition.x - Screen.width / 2f)/360;
+                rigidbody.AddRelativeForce(new Vector3(0, 100, -300 * throwMultiplier));
+            }
         }
         timer = 1.5f;
     }
 
     private void Update()
     {
+        Debug.Log(Mathf.Abs(Input.mousePosition.x - Screen.width / 2f)/100);
         if (timer > 0)
             timer -= Time.deltaTime;
         if (timer < 0)

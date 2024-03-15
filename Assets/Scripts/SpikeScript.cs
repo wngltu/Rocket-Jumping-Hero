@@ -15,7 +15,6 @@ public class SpikeScript : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        Debug.Log("spiketest");
         if (spiketype == SpikeType.NoTeleport && collision.gameObject.CompareTag("Player")) //damage the player, nothing else
             collision.gameObject.GetComponent<PlayerHealth>().TakeTrapDamage(10);
         else if (spiketype == SpikeType.Teleport && collision.gameObject.CompareTag("Player")) //teleport player back to respawn point
@@ -24,6 +23,11 @@ public class SpikeScript : MonoBehaviour
             collision.gameObject.transform.position = respawnPoint.transform.position;
             collision.gameObject.GetComponent<CharacterController>().enabled = true;
             collision.gameObject.GetComponent<PlayerHealth>().TakeTrapDamage(10);
+        }
+
+        if (spiketype == SpikeType.Teleport && collision.gameObject.CompareTag("droppedweapon"))
+        {
+            collision.gameObject.transform.position = respawnPoint.transform.position;
         }
     }
 }

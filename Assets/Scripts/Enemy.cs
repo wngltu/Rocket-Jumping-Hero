@@ -60,7 +60,7 @@ public class Enemy : MonoBehaviour
         
     }
 
-    public void takeDamage(float damage)
+    public virtual void takeDamage(float damage)
     {
         if (isInvincible)
         {

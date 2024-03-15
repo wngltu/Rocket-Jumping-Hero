@@ -36,6 +36,19 @@ public class Knife : weaponScript
             fireCooldown -= Time.deltaTime;
         else if (fireCooldown < 0)
             fireCooldown = 0;
+
+        interactDirection = playerCam.ScreenToWorldPoint(Input.mousePosition) - playerObj.transform.position;
+        RaycastHit Crosshairhit;
+        if (Physics.Raycast(transform.position, interactDirection, out Crosshairhit, range, layerMask)) //shoot ray from barrel of gun
+        {
+            Debug.DrawLine(transform.position, Crosshairhit.point);
+            Debug.Log((transform.position - Crosshairhit.point).magnitude);
+            crosshair.transform.position = Crosshairhit.point;
+        }
+        else
+        {
+            crosshair.transform.localPosition = new Vector3(range, 0, 0);
+        }
     }
 
     public void Shoot()

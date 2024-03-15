@@ -530,7 +530,6 @@ GameObject:
   - component: {fileID: 2246157286723663346}
   - component: {fileID: 1398821853640706359}
   - component: {fileID: 5369582255035896859}
-  - component: {fileID: 8182339558982721529}
   - component: {fileID: 3104278521797453423}
   - component: {fileID: -6249610673408544164}
   - component: {fileID: -383418783671158647}
@@ -789,27 +788,6 @@ MonoBehaviour:
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
   constrainInsideGraph: 0
---- !u!65 &8182339558982721529
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4418829945125945176}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.81, y: 0.83, z: 0.2}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!82 &3104278521797453423
 AudioSource:
   m_ObjectHideFlags: 0

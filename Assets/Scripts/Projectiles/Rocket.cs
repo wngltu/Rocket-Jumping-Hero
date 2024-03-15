@@ -12,8 +12,8 @@ public class Rocket : MonoBehaviour
     Rigidbody rigidbody;
     float damage = 20f;
     float timer = 0f;
-    float explosionRadius = 5f;
-    float explosionForce = 30f;
+    float explosionRadius = 6f;
+    float explosionForce = 40f;
     int layerMask = ~((1 << 9) | (1 << 11) | (1 << 13));
     // Start is called before the first frame update
     void Start()
