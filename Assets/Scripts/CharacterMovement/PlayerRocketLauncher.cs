@@ -21,6 +21,8 @@ public class PlayerRocketLauncher : MonoBehaviour
         Instance = this;
         playerMovement = FindObjectOfType<PlayerMovement>();
         pauseManager = FindObjectOfType<PauseMenu>();
+
+        model.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -46,13 +48,13 @@ public class PlayerRocketLauncher : MonoBehaviour
 
     public virtual void Equip()
     {
-        this.gameObject.SetActive(true);
+        model.gameObject.SetActive(true);
         playerMovement.setShotRecentlyTimer();
         equipped = true;
     }
     public virtual void Unequip()
     {
-        this.gameObject.SetActive(false);
+        model.gameObject.SetActive(false);
         equipped = false;
     }
 

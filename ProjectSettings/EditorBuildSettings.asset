@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Main Menu.unity
     guid: b2acbd3394854b9479f91b135938cb0e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Testing Level.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
