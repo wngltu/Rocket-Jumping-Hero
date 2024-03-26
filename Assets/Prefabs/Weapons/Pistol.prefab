@@ -5017,6 +5017,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2281939084160878644}
+  - component: {fileID: 7735234905482994057}
   m_Layer: 8
   m_Name: Model
   m_TagString: Untagged
@@ -5040,6 +5041,22 @@ Transform:
   - {fileID: 3558518697427082407}
   m_Father: {fileID: 9187468280986667613}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!111 &7735234905482994057
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7271115591563449504}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: ff3d5be8a1d86b24199e2ad0a61718b2, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: ff3d5be8a1d86b24199e2ad0a61718b2, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &8429479038650570780
 GameObject:
   m_ObjectHideFlags: 0
@@ -5195,6 +5212,7 @@ MonoBehaviour:
   bulletTrail: {fileID: 5713675519578680126, guid: ad777a106ba4f82479a4a1f6cd66abee, type: 3}
   explodeIndicator: {fileID: 210786055253976368, guid: 427bcb42b61ae844daa3251c344f0a05, type: 3}
   explosionRadius: 0.35
+  anim: {fileID: 7735234905482994057}
 --- !u!82 &1528807306330177416
 AudioSource:
   m_ObjectHideFlags: 0

@@ -9,6 +9,8 @@ public class Rifle : weaponScript
     float range = 13f;
     public float bulletDeviationMagnitude = .25f;
 
+    public Animation anim;
+
     Vector2 interactDirection;
     Vector2 bulletDeviation;
 
@@ -65,6 +67,8 @@ public class Rifle : weaponScript
 
     public void Shoot()
     {
+        anim.Stop();
+        anim.Play();
         base.MuzzleFlash();
         playerMovementScript.setShotRecentlyTimer();
         shootSound.Play();

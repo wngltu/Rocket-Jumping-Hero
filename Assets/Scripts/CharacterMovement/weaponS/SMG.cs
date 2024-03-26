@@ -9,6 +9,8 @@ public class SMG : weaponScript
     public float range = 8f;
     public float bulletDeviationMagnitude = .5f;
 
+    public Animation anim;
+
     Vector2 interactDirection;
     Vector2 bulletDeviation;
 
@@ -65,6 +67,8 @@ public class SMG : weaponScript
 
     public void Shoot()
     {
+        anim.Stop();
+        anim.Play();
         base.MuzzleFlash();
         playerMovementScript.setShotRecentlyTimer();
         shootSound.Play();

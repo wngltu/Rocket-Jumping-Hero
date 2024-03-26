@@ -10,6 +10,8 @@ public class Knife : weaponScript
     public float range = 4.5f;
     int layerMask = ~((1 << 3) | (1 << 8) | (1 << 9) | (1 << 11) | (1 << 13) | (1 << 10));
     Vector2 interactDirection;
+
+    public Animation anim;
     // Start is called before the first frame update
     void Start()
     {
@@ -53,6 +55,8 @@ public class Knife : weaponScript
 
     public void Shoot()
     {
+        anim.Stop();
+        anim.Play();
         playerMovementScript.setShotRecentlyTimer();
         shootSound.Play();
         fireCooldown = fireRate;

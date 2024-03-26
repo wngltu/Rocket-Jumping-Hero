@@ -10,9 +10,10 @@ public class playerAnimationScript : MonoBehaviour
     PlayerHealth playerHealthScript;
     PauseMenu pauseMenuScript;
     weaponManager weaponManagerScript;
+    playerModelRotationScript rotScript;
     public GameObject playerModel;
 
-    bool facingLeft;
+    public bool facingLeft;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +21,7 @@ public class playerAnimationScript : MonoBehaviour
         playerHealthScript = FindAnyObjectByType<PlayerHealth>();
         pauseMenuScript = FindObjectOfType<PauseMenu>();
         weaponManagerScript = FindObjectOfType<weaponManager>();
+        rotScript = FindObjectOfType<playerModelRotationScript>();
     }
 
     // Update is called once per frame
@@ -39,6 +41,7 @@ public class playerAnimationScript : MonoBehaviour
         anim.SetFloat("yMagnitude", playerMovementScript.controller.velocity.y);
         anim.SetBool("isGrounded", playerMovementScript.controller.isGrounded);
         anim.SetBool("shotRecently", playerMovementScript.shotRecently);
+        anim.SetBool("isReloading", weaponManagerScript.isReloading);
         if (playerHealthScript.isDead == true)
             anim.SetBool("isDead", true);
 
@@ -50,6 +53,8 @@ public class playerAnimationScript : MonoBehaviour
             anim.SetFloat("Input Magnitude", -playerMovementScript.playerMovementVector.x);
         else if (playerMovementScript.sprintHeld && facingLeft == true)
             anim.SetFloat("Input Magnitude", -playerMovementScript.playerMovementVector.x * 2);
+
+        anim.SetFloat("aimAngle", rotScript.gameObject.transform.eulerAngles.z);
 
         if (MathF.Abs(playerMovementScript.playerMovementVector.x) >= .01f)
         {

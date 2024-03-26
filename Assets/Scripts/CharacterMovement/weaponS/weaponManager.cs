@@ -20,6 +20,8 @@ public class weaponManager : MonoBehaviour
     InventoryUIScript playerInvScript;
     public AudioSource reloadSFX;
     public AudioSource reloadFinishSFX;
+
+    public bool isReloading;
     // Start is called before the first frame update
     void Start()
     {
@@ -77,6 +79,9 @@ public class weaponManager : MonoBehaviour
         {
             DropCurrentWeapon();
         }
+
+        if (weaponInventory.Count > 0)
+            isReloading = equippedWeapon.isReloading;
     }
 
     public void UnequipAll()

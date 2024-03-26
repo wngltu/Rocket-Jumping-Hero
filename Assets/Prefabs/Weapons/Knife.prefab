@@ -198,6 +198,38 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &3488710692640870929
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2708128747148340428}
+  m_Layer: 0
+  m_Name: KnifePivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2708128747148340428
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3488710692640870929}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0.36349514, w: 0.9315961}
+  m_LocalPosition: {x: 0.139, y: -0.008, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8866033749721675095}
+  m_Father: {fileID: 3932713999437936030}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 42.63}
 --- !u!1 &5335629391072077587
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,15 +254,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5335629391072077587}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.621, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.482, y: 0.008, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3304210557793846111}
   - {fileID: 8987725799747043147}
   - {fileID: 2771252500319652546}
-  m_Father: {fileID: 3932713999437936030}
+  m_Father: {fileID: 2708128747148340428}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6657491412343055848
 GameObject:
@@ -245,6 +277,7 @@ GameObject:
   - component: {fileID: 7392509171211810405}
   - component: {fileID: 1824282078707899325}
   - component: {fileID: 8488669924372624234}
+  - component: {fileID: 7146484883490856572}
   m_Layer: 8
   m_Name: Knife
   m_TagString: droppedweapon
@@ -267,7 +300,7 @@ Transform:
   m_Children:
   - {fileID: 600715913961851973}
   - {fileID: 7950255091465447486}
-  - {fileID: 8866033749721675095}
+  - {fileID: 2708128747148340428}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3955419118615138090
@@ -305,6 +338,7 @@ MonoBehaviour:
   explodeIndicator: {fileID: 210786055253976368, guid: 427bcb42b61ae844daa3251c344f0a05, type: 3}
   explosionRadius: 0.35
   range: 2
+  anim: {fileID: 7146484883490856572}
 --- !u!54 &7392509171211810405
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -351,8 +385,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.78245115, y: 0.32553017, z: 1}
-  m_Center: {x: 0.5459845, y: 0.0042155385, z: 0}
+  m_Size: {x: 0.29727483, y: 0.6489811, z: 1}
+  m_Center: {x: 0.50244296, y: 0.30278575, z: 0}
 --- !u!82 &8488669924372624234
 AudioSource:
   m_ObjectHideFlags: 0
@@ -449,6 +483,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!111 &7146484883490856572
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6657491412343055848}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 73378c73894aaf84297fee391ca1a6a1, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 73378c73894aaf84297fee391ca1a6a1, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &8101592575350162117
 GameObject:
   m_ObjectHideFlags: 0

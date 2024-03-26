@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2720848488407842957}
   - component: {fileID: -6582040532002931037}
   - component: {fileID: 4364594048877745568}
+  - component: {fileID: 6770045462942204211}
   m_Layer: 8
   m_Name: Rifle
   m_TagString: droppedweapon
@@ -123,6 +124,7 @@ MonoBehaviour:
   explodeIndicator: {fileID: 210786055253976368, guid: 427bcb42b61ae844daa3251c344f0a05, type: 3}
   explosionRadius: 0.35
   bulletDeviationMagnitude: 0.25
+  anim: {fileID: 6770045462942204211}
 --- !u!82 &-6582040532002931037
 AudioSource:
   m_ObjectHideFlags: 0
@@ -315,6 +317,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!111 &6770045462942204211
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272075338928681332}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: b2274e3c2d0d0d1458b7202703b75a41, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: b2274e3c2d0d0d1458b7202703b75a41, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &377215796835149030
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,7 +441,7 @@ Transform:
   m_GameObject: {fileID: 4798491935850236566}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.203, y: 0.069, z: 0}
+  m_LocalPosition: {x: 0.203, y: 0.016, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

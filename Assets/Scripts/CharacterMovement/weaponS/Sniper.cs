@@ -9,6 +9,8 @@ public class Sniper : weaponScript
     float range = 17f;
     Vector2 interactDirection;
 
+    public Animation anim;
+
     int layerMask = ~((1 << 3) | (1 << 8) | (1 << 9) | (1 << 11) | (1 << 13) | (1 << 10));
     // Start is called before the first frame update
     void Start()
@@ -62,6 +64,8 @@ public class Sniper : weaponScript
 
     public void Shoot()
     {
+        anim.Stop();
+        anim.Play();
         base.MuzzleFlash();
         playerMovementScript.setShotRecentlyTimer();
         shootSound.Play();

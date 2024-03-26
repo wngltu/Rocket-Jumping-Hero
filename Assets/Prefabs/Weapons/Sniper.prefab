@@ -5002,6 +5002,7 @@ GameObject:
   - component: {fileID: -7483250256631397610}
   - component: {fileID: 5567920305982699510}
   - component: {fileID: -2587765441376682004}
+  - component: {fileID: 3410278196334710483}
   m_Layer: 8
   m_Name: Sniper
   m_TagString: droppedweapon
@@ -5062,6 +5063,7 @@ MonoBehaviour:
   bulletTrail: {fileID: 5713675519578680126, guid: ad777a106ba4f82479a4a1f6cd66abee, type: 3}
   explodeIndicator: {fileID: 210786055253976368, guid: 427bcb42b61ae844daa3251c344f0a05, type: 3}
   explosionRadius: 0.5
+  anim: {fileID: 3410278196334710483}
 --- !u!54 &8249205992428225887
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5302,6 +5304,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!111 &3410278196334710483
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9009331981593576864}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 160f81f154a4b5b40accee2c16a30670, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 160f81f154a4b5b40accee2c16a30670, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1001 &5370754018134381485
 PrefabInstance:
   m_ObjectHideFlags: 0

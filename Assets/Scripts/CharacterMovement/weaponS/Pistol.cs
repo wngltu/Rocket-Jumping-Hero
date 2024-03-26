@@ -9,6 +9,7 @@ public class Pistol : weaponScript
     public float explosionRadius = .35f;
     private float range = 12f;
     Vector2 interactDirection;
+    public Animation anim;
 
     int layerMask = ~((1 << 3) | (1 << 8) | (1 << 9) | (1 << 11) | (1 << 13) | (1 << 10));
     // Start is called before the first frame update
@@ -62,6 +63,8 @@ public class Pistol : weaponScript
 
     public void Shoot()
     {
+        anim.Stop();
+        anim.Play();
         base.MuzzleFlash();
         playerMovementScript.setShotRecentlyTimer();
         shootSound.Play();
