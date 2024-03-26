@@ -91,6 +91,7 @@ MonoBehaviour:
   canReload: 1
   isReloading: 0
   reloadInterrupted: 0
+  directionRight: 1
   pointerPos: {x: 0, y: 0}
   targetPos: {x: 0, y: 0}
   bulletTrail: {fileID: 5713675519578680126, guid: ad777a106ba4f82479a4a1f6cd66abee, type: 3}
@@ -330,6 +331,7 @@ Animation:
   m_Animation: {fileID: 7400000, guid: 036c44e2b86f32b46a65612b7c0074cd, type: 2}
   m_Animations:
   - {fileID: 7400000, guid: 036c44e2b86f32b46a65612b7c0074cd, type: 2}
+  - {fileID: 7400000, guid: baa6319b976966947ba9fec9f70f0c26, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0

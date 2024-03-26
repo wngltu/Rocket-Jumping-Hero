@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class weaponScript : MonoBehaviour
@@ -26,6 +27,7 @@ public class weaponScript : MonoBehaviour
     public bool canReload = true;
     public bool isReloading = false;
     public bool reloadInterrupted = false;
+    public bool directionRight = true;
 
     protected float currentMag;
     protected float maxMag;
@@ -66,10 +68,12 @@ public class weaponScript : MonoBehaviour
             if (Input.mousePosition.x < Screen.width / 2f) //if mouse on left half of screen
             {
                 model.transform.localScale = new Vector3(1, -1, 1);
+                directionRight = false;
             }
             else //if mouse on right half of screen
             {
                 model.transform.localScale = Vector3.one;
+                directionRight = true;
             }
         }
     }

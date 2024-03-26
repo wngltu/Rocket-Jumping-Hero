@@ -68,7 +68,10 @@ public class SMG : weaponScript
     public void Shoot()
     {
         anim.Stop();
-        anim.Play();
+        if (directionRight)
+            anim.Play("SMGRecoil");
+        else if (!directionRight)
+            anim.Play("SMGRecoilInverted");
         base.MuzzleFlash();
         playerMovementScript.setShotRecentlyTimer();
         shootSound.Play();

@@ -24,13 +24,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 689092173157213878}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.134, y: 0, z: 0}
-  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.20500001, y: 0.059, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5998345454269109026}
-  m_Father: {fileID: 9212743971559579026}
+  m_Father: {fileID: 4010758868245799676}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1444639330518061815
 GameObject:
@@ -4988,6 +4988,38 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &6973062850759827680
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4010758868245799676}
+  m_Layer: 8
+  m_Name: sniperPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4010758868245799676
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6973062850759827680}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.071, y: 0.047, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2076550248485704202}
+  m_Father: {fileID: 9212743971559579026}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9009331981593576864
 GameObject:
   m_ObjectHideFlags: 0
@@ -5023,9 +5055,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4010758868245799676}
   - {fileID: 3582429457305840785}
   - {fileID: 8839709504401107059}
-  - {fileID: 2076550248485704202}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8553922254375577355
@@ -5044,7 +5076,7 @@ MonoBehaviour:
   playerObj: {fileID: 0}
   bullet: {fileID: 0}
   barrel: {fileID: 1444639330518061815}
-  model: {fileID: 689092173157213878}
+  model: {fileID: 9009331981593576864}
   lootPillar: {fileID: 0}
   crosshair: {fileID: 5736316056175192963}
   pauseManager: {fileID: 0}
@@ -5058,6 +5090,7 @@ MonoBehaviour:
   canReload: 1
   isReloading: 0
   reloadInterrupted: 0
+  directionRight: 1
   pointerPos: {x: 0, y: 0}
   targetPos: {x: 0, y: 0}
   bulletTrail: {fileID: 5713675519578680126, guid: ad777a106ba4f82479a4a1f6cd66abee, type: 3}

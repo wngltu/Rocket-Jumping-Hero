@@ -64,7 +64,10 @@ public class Pistol : weaponScript
     public void Shoot()
     {
         anim.Stop();
-        anim.Play();
+        if (directionRight)
+            anim.Play("pistolRecoil");
+        else if (!directionRight)
+            anim.Play("pistolRecoilInverted");  
         base.MuzzleFlash();
         playerMovementScript.setShotRecentlyTimer();
         shootSound.Play();

@@ -319,7 +319,7 @@ MonoBehaviour:
   playerObj: {fileID: 0}
   bullet: {fileID: 5373034997172829452, guid: 13e14cf096168be438995f3f49a68eac, type: 3}
   barrel: {fileID: 1025506101651653046}
-  model: {fileID: 5335629391072077587}
+  model: {fileID: 6657491412343055848}
   lootPillar: {fileID: 0}
   crosshair: {fileID: 129326200824130547}
   pauseManager: {fileID: 0}
@@ -333,6 +333,7 @@ MonoBehaviour:
   canReload: 1
   isReloading: 0
   reloadInterrupted: 0
+  directionRight: 1
   pointerPos: {x: 0, y: 0}
   targetPos: {x: 0, y: 0}
   explodeIndicator: {fileID: 210786055253976368, guid: 427bcb42b61ae844daa3251c344f0a05, type: 3}
@@ -495,6 +496,7 @@ Animation:
   m_Animation: {fileID: 7400000, guid: 73378c73894aaf84297fee391ca1a6a1, type: 2}
   m_Animations:
   - {fileID: 7400000, guid: 73378c73894aaf84297fee391ca1a6a1, type: 2}
+  - {fileID: 7400000, guid: f0f668024576fec4aa5802d17e9e900b, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0

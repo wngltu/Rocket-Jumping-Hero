@@ -56,7 +56,10 @@ public class Knife : weaponScript
     public void Shoot()
     {
         anim.Stop();
-        anim.Play();
+        if (directionRight)
+            anim.Play("knifeRecoil");
+        else if (!directionRight)
+            anim.Play("knifeRecoilInverted");
         playerMovementScript.setShotRecentlyTimer();
         shootSound.Play();
         fireCooldown = fireRate;
