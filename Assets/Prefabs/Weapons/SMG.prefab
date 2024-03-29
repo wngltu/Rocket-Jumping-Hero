@@ -102,6 +102,7 @@ MonoBehaviour:
   range: 8
   bulletDeviationMagnitude: 0.5
   anim: {fileID: 7379391264294212967}
+  impactParticles: {fileID: 1892351807075712, guid: 44be68b4fc4366142a9cd1ae1f761ea4, type: 3}
 --- !u!54 &346721400898094756
 Rigidbody:
   m_ObjectHideFlags: 0

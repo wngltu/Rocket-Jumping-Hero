@@ -128,6 +128,7 @@ MonoBehaviour:
   explosionRadius: 0.35
   bulletDeviationMagnitude: 0.25
   anim: {fileID: 6770045462942204211}
+  impactParticles: {fileID: 1892351807075712, guid: 44be68b4fc4366142a9cd1ae1f761ea4, type: 3}
 --- !u!82 &-6582040532002931037
 AudioSource:
   m_ObjectHideFlags: 0
@@ -349,7 +350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f37d0fc2833d85d49bb4db58afbb1787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropImpactSound: {fileID: -6582040532002931037}
+  dropImpactSound: {fileID: 6579241464718028318}
 --- !u!82 &6579241464718028318
 AudioSource:
   m_ObjectHideFlags: 0

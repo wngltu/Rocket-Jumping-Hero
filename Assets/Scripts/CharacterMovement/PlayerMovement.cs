@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject respawnVFX;
     public GameObject playerModel;
     public AudioSource respawnSFX;
+    public ParticleSystem jumpParticles;
 
     //Horizontal variables
     private float horizontalVeloCap = 10f;
@@ -246,6 +247,10 @@ public class PlayerMovement : MonoBehaviour
             if (velocity.y > verticalVeloCap)
             {
                 velocity.y = verticalVeloCap;
+            }
+            if (!(jumpsLeft == jumpsCap))
+            {
+                jumpParticles.Play();
             }
             jumpCooldown = .5f;
             jumpsLeft -= 1;

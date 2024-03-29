@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class Pistol : weaponScript
@@ -127,10 +128,9 @@ public class Pistol : weaponScript
             yield return null;
         }
         trail.transform.position = hit.point;
-        GameObject newObject = Instantiate(impactParticles, hit.point, Quaternion.identity); //spawn a circle showing blast radius
+        //GameObject newObject = Instantiate(impactParticles, hit.point, Quaternion.identity); //spawn a circle showing blast radius
         //newObject.GetComponent<ExplosiveRadius>().explosionRadius = explosionRadius;
-
-        SpawnBulletImpact(hit.point);
+        SpawnBulletImpact(hit.point); 
         bulletImpactSound.Play();
 
         Destroy(trail.gameObject, trail.time);
@@ -154,20 +154,12 @@ public class Pistol : weaponScript
         Destroy(trail.gameObject, trail.time);
     }
 
-    private void SpawnBulletImpact(Transform trans)
-    {
-        Debug.Log("bulletimpact hit");
-        GameObject newObj = Instantiate(impactParticles, trans.position, Quaternion.LookRotation((playerObj.transform.position - trans.position).normalized));
-        newObj.transform.parent = null;
-    }
-
     private void SpawnBulletImpact(Vector3 vec)
     {
         Debug.Log("bulletimpact hit2");
         GameObject newObj = Instantiate(impactParticles, vec, Quaternion.LookRotation(playerObj.transform.position - vec));
         Debug.Log(Quaternion.LookRotation(playerObj.transform.position - vec));
         Debug.DrawRay(vec, playerObj.transform.position);
-
     }
 
 }

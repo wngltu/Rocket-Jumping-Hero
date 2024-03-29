@@ -5099,6 +5099,7 @@ MonoBehaviour:
   explodeIndicator: {fileID: 210786055253976368, guid: 427bcb42b61ae844daa3251c344f0a05, type: 3}
   explosionRadius: 0.5
   anim: {fileID: 3410278196334710483}
+  impactParticles: {fileID: 1892351807075712, guid: 44be68b4fc4366142a9cd1ae1f761ea4, type: 3}
 --- !u!54 &8249205992428225887
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5299,7 +5300,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

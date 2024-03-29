@@ -10,6 +10,7 @@ public class SMG : weaponScript
     public float bulletDeviationMagnitude = .5f;
 
     public Animation anim;
+    public GameObject impactParticles;
 
     Vector2 interactDirection;
     Vector2 bulletDeviation;
@@ -132,8 +133,7 @@ public class SMG : weaponScript
             yield return null;
         }
         trail.transform.position = hit.point;
-        GameObject newObject = Instantiate(explodeIndicator, hit.point, Quaternion.identity); //spawn a circle showing blast radius
-        newObject.GetComponent<ExplosiveRadius>().explosionRadius = explosionRadius;
+        SpawnBulletImpact(hit.point);
         bulletImpactSound.Play();
 
         Destroy(trail.gameObject, trail.time);
@@ -157,4 +157,11 @@ public class SMG : weaponScript
         Destroy(trail.gameObject, trail.time);
     }
 
+    private void SpawnBulletImpact(Vector3 vec)
+    {
+        Debug.Log("bulletimpact hit2");
+        GameObject newObj = Instantiate(impactParticles, vec, Quaternion.LookRotation(playerObj.transform.position - vec));
+        Debug.Log(Quaternion.LookRotation(playerObj.transform.position - vec));
+        Debug.DrawRay(vec, playerObj.transform.position);
+    }
 }

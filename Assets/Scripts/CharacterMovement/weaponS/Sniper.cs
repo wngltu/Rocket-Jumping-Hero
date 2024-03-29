@@ -10,6 +10,7 @@ public class Sniper : weaponScript
     Vector2 interactDirection;
 
     public Animation anim;
+    public GameObject impactParticles;
 
     int layerMask = ~((1 << 3) | (1 << 8) | (1 << 9) | (1 << 11) | (1 << 13) | (1 << 10));
     // Start is called before the first frame update
@@ -125,8 +126,7 @@ public class Sniper : weaponScript
             yield return null;
         }
         trail.transform.position = hit.point;
-        GameObject newObject = Instantiate(explodeIndicator, hit.point, Quaternion.identity); //spawn a circle showing blast radius
-        newObject.GetComponent<ExplosiveRadius>().explosionRadius = explosionRadius;
+        SpawnBulletImpact(hit.point);
         bulletImpactSound.Play();
 
         Destroy(trail.gameObject, trail.time);
@@ -148,5 +148,13 @@ public class Sniper : weaponScript
         trail.transform.position = target;
 
         Destroy(trail.gameObject, trail.time);
+    }
+
+    private void SpawnBulletImpact(Vector3 vec)
+    {
+        Debug.Log("bulletimpact hit2");
+        GameObject newObj = Instantiate(impactParticles, vec, Quaternion.LookRotation(playerObj.transform.position - vec));
+        Debug.Log(Quaternion.LookRotation(playerObj.transform.position - vec));
+        Debug.DrawRay(vec, playerObj.transform.position);
     }
 }
