@@ -10,6 +10,7 @@ public class Pistol : weaponScript
     private float range = 12f;
     Vector2 interactDirection;
     public Animation anim;
+    public GameObject impactParticles;
 
     int layerMask = ~((1 << 3) | (1 << 8) | (1 << 9) | (1 << 11) | (1 << 13) | (1 << 10));
     // Start is called before the first frame update
@@ -52,7 +53,6 @@ public class Pistol : weaponScript
         if (Physics.Raycast(transform.position, interactDirection, out Crosshairhit, range, layerMask)) //shoot ray from barrel of gun
         {
             Debug.DrawLine(transform.position, Crosshairhit.point);
-            Debug.Log((transform.position - Crosshairhit.point).magnitude);
             crosshair.transform.position = Crosshairhit.point;
         }
         else
@@ -127,8 +127,10 @@ public class Pistol : weaponScript
             yield return null;
         }
         trail.transform.position = hit.point;
-        GameObject newObject = Instantiate(explodeIndicator, hit.point, Quaternion.identity); //spawn a circle showing blast radius
-        newObject.GetComponent<ExplosiveRadius>().explosionRadius = explosionRadius;
+        GameObject newObject = Instantiate(impactParticles, hit.point, Quaternion.identity); //spawn a circle showing blast radius
+        //newObject.GetComponent<ExplosiveRadius>().explosionRadius = explosionRadius;
+
+        SpawnBulletImpact(hit.point);
         bulletImpactSound.Play();
 
         Destroy(trail.gameObject, trail.time);
@@ -150,6 +152,22 @@ public class Pistol : weaponScript
         trail.transform.position = target;
       
         Destroy(trail.gameObject, trail.time);
+    }
+
+    private void SpawnBulletImpact(Transform trans)
+    {
+        Debug.Log("bulletimpact hit");
+        GameObject newObj = Instantiate(impactParticles, trans.position, Quaternion.LookRotation((playerObj.transform.position - trans.position).normalized));
+        newObj.transform.parent = null;
+    }
+
+    private void SpawnBulletImpact(Vector3 vec)
+    {
+        Debug.Log("bulletimpact hit2");
+        GameObject newObj = Instantiate(impactParticles, vec, Quaternion.LookRotation(playerObj.transform.position - vec));
+        Debug.Log(Quaternion.LookRotation(playerObj.transform.position - vec));
+        Debug.DrawRay(vec, playerObj.transform.position);
+
     }
 
 }

@@ -355,6 +355,8 @@ MonoBehaviour:
   playerDropSFX: {fileID: 6965405325631888435}
   reloadSFX: {fileID: 2928630039434840459}
   reloadFinishSFX: {fileID: 3111607084720202234}
+  animScript: {fileID: 2576623315647550830}
+  isReloading: 0
 --- !u!114 &4355713923257352318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -904,6 +906,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 6300064855569656942}
   playerModel: {fileID: 6745346277519761747}
+  facingLeft: 0
 --- !u!82 &3732284258534861661
 AudioSource:
   m_ObjectHideFlags: 0

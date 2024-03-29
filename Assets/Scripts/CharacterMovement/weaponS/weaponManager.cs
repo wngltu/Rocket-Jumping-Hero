@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Burst.CompilerServices;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class weaponManager : MonoBehaviour
@@ -20,6 +21,7 @@ public class weaponManager : MonoBehaviour
     InventoryUIScript playerInvScript;
     public AudioSource reloadSFX;
     public AudioSource reloadFinishSFX;
+    public playerAnimationScript animScript;
 
     public bool isReloading;
     // Start is called before the first frame update
@@ -82,6 +84,8 @@ public class weaponManager : MonoBehaviour
 
         if (weaponInventory.Count > 0)
             isReloading = equippedWeapon.isReloading;
+        else
+            isReloading = false;    
     }
 
     public void UnequipAll()
@@ -96,6 +100,7 @@ public class weaponManager : MonoBehaviour
     {
         if (weaponInventory.Count > 0)
         {
+            animScript.anim.SetTrigger("isSwitchingWeapons");
             equippedWeapon = weaponInventory[equippedNum];
             UnequipAll();
             equippedWeapon.enabled = true;

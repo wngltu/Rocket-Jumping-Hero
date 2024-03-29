@@ -5104,6 +5104,7 @@ GameObject:
   - component: {fileID: 5473277747404578013}
   - component: {fileID: 1528807306330177416}
   - component: {fileID: 4299658544184760379}
+  - component: {fileID: 981242522728138710}
   m_Layer: 8
   m_Name: Pistol
   m_TagString: droppedweapon
@@ -5215,6 +5216,7 @@ MonoBehaviour:
   explodeIndicator: {fileID: 210786055253976368, guid: 427bcb42b61ae844daa3251c344f0a05, type: 3}
   explosionRadius: 0.35
   anim: {fileID: 7735234905482994057}
+  impactParticles: {fileID: 1892351807075712, guid: 44be68b4fc4366142a9cd1ae1f761ea4, type: 3}
 --- !u!82 &1528807306330177416
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5323,7 +5325,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 3b786b7d0d17bab419666f2f53e21e94, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5407,6 +5409,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &981242522728138710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8619509876918725827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f37d0fc2833d85d49bb4db58afbb1787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropImpactSound: {fileID: 4299658544184760379}
 --- !u!1001 &497835790130928778
 PrefabInstance:
   m_ObjectHideFlags: 0
