@@ -47,7 +47,7 @@ public class weaponScript : MonoBehaviour
         playerCam = FindObjectOfType<PlayerZoomManager>().gameObject.GetComponent<Camera>();
         pauseManager = FindObjectOfType<PauseMenu>();
         weaponManager = FindObjectOfType<weaponManager>();
-        playerObj = FindObjectOfType<PlayerInteraction>().playerModelHead;
+        playerObj = FindObjectOfType<PlayerInteraction>().playerModelHand;
         playerMovementScript = FindObjectOfType<PlayerMovement>();
         lootPillar = GetComponentInChildren<LootPillarScript>().gameObject;
         if (muzzleFlash != null)
@@ -64,7 +64,7 @@ public class weaponScript : MonoBehaviour
             pointerPos = pointerPos - (Vector2)transform.position;
             targetPos = pointerPos;
             transform.right = pointerPos;
-
+            /*
             if (Input.mousePosition.x < Screen.width / 2f) //if mouse on left half of screen
             {
                 model.transform.localScale = new Vector3(1, -1, 1);
@@ -74,6 +74,12 @@ public class weaponScript : MonoBehaviour
             {
                 model.transform.localScale = Vector3.one;
                 directionRight = true;
+            }
+            */
+
+            if (gameObject.transform.localScale.y < 0) //picking up from opposite direction doesnt break it
+            {
+                gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x, -gameObject.transform.localScale.y, gameObject.transform.localScale.z);
             }
         }
     }

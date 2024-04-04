@@ -28,21 +28,25 @@ public class PlayerRocketLauncher : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
+
         if (!pauseManager.paused)
         {
             pointerPos = Input.mousePosition;
             pointerPos = playerCam.ScreenToWorldPoint(pointerPos);
             pointerPos = pointerPos - (Vector2)transform.position;
             transform.right = pointerPos;
-
+            
+            /*
             if (Input.mousePosition.x < Screen.width / 2f) //if mouse on left half of screen
             {
-                model.transform.localScale = new Vector3(1, -1, 1);
+                model.transform.localScale = new Vector3(-1, -1, 1);
             }
             else //if mouse on right half of screen
             {
                 model.transform.localScale = Vector3.one;
             }
+            */
+            
         }
     }
 
@@ -68,6 +72,8 @@ public class PlayerRocketLauncher : MonoBehaviour
         {
             GameObject clone = Instantiate(bullet, barrel.transform.position, barrel.transform.rotation);
         }
+
+
         playerMovement.rocketFireCooldownTimer = playerMovement.rocketFireRate;
         playerMovement.rocketRecentlyShotTimer = playerMovement.rocketRecentlyShotTime;
     }

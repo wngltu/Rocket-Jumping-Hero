@@ -64,7 +64,8 @@ public class PlayerInteraction : MonoBehaviour
                     if (weaponManager.weaponInventory.Count < weaponManager.maxWeapons) //does player have inventory space to pick up new weapon
                     {
                         playerPickupSFX.Play();
-                        hit.collider.gameObject.transform.SetParent(playerModelHand.transform, false);
+                        hit.collider.gameObject.transform.localScale = new Vector3(1, 1, 1);
+                        hit.collider.gameObject.transform.SetParent(playerModelHand.transform, true);
                         hit.collider.gameObject.transform.localPosition = new Vector3(0, 0, 0);
                         hit.collider.gameObject.GetComponent<Rigidbody>().isKinematic = true;
                         hit.collider.gameObject.GetComponent<weaponScript>().Unequip();

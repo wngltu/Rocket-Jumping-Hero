@@ -32183,6 +32183,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 948526403472468224, guid: 6fc4bda2b09240542bc77e3bbdd50584, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.406
+      objectReference: {fileID: 0}
     - target: {fileID: 1047119112175624614, guid: 6fc4bda2b09240542bc77e3bbdd50584, type: 3}
       propertyPath: m_Controller
       value: 
@@ -32230,6 +32234,10 @@ PrefabInstance:
     - target: {fileID: 2455205884519084047, guid: 6fc4bda2b09240542bc77e3bbdd50584, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 67.200195
+      objectReference: {fileID: 0}
+    - target: {fileID: 2615688971599452245, guid: 6fc4bda2b09240542bc77e3bbdd50584, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2730928361718069658, guid: 6fc4bda2b09240542bc77e3bbdd50584, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -32415,6 +32423,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6073154482862447753, guid: 6fc4bda2b09240542bc77e3bbdd50584, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6846594584121050675, guid: 6fc4bda2b09240542bc77e3bbdd50584, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 90
@@ -32479,6 +32491,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8577949626024211481, guid: 6fc4bda2b09240542bc77e3bbdd50584, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8634232284287378160, guid: 6fc4bda2b09240542bc77e3bbdd50584, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.00066185
@@ -32533,6 +32549,7 @@ PrefabInstance:
     - {fileID: 5205388589166080088, guid: 6fc4bda2b09240542bc77e3bbdd50584, type: 3}
     - {fileID: 1711584373280034079, guid: 6fc4bda2b09240542bc77e3bbdd50584, type: 3}
     - {fileID: 5684822158988526544, guid: 6fc4bda2b09240542bc77e3bbdd50584, type: 3}
+    - {fileID: 2615688971599452245, guid: 6fc4bda2b09240542bc77e3bbdd50584, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 567253781682654322, guid: 6fc4bda2b09240542bc77e3bbdd50584, type: 3}
       insertIndex: 8
