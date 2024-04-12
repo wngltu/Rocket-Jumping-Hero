@@ -7,11 +7,13 @@ public class GrenadeProjectile : MonoBehaviour
     Enemy enemyScript;
     public static GrenadeProjectile Instance;
     public Transform barrel;
+    public GameObject model;
     public GameObject explodeIndicator;
     public GameObject explosionObject;
     Rigidbody rigidbody;
     float damage = 100f;
     float timer = 0f;
+    float explosiveDelay = 1.5f;
     float explosionRadius = 5f;
     float explosionForce = 30f;
     int layerMask = ~((1 << 9) | (1 << 11) | (1 << 13));
@@ -20,8 +22,7 @@ public class GrenadeProjectile : MonoBehaviour
     {
         Instance = this;
         rigidbody = GetComponent<Rigidbody>();
-        if (Input.mousePosition.x < Screen.width / 2f) //if mouse on left half of screen
-        {
+        /*
             if ((Mathf.Abs(Input.mousePosition.x - Screen.width / 2f)) < 360f)
             {
                 rigidbody.AddRelativeForce(new Vector3(0, -100, 300));
@@ -30,21 +31,31 @@ public class GrenadeProjectile : MonoBehaviour
             {
                 float throwMultiplier = Mathf.Abs(Input.mousePosition.x - Screen.width / 2f)/360;
                 rigidbody.AddRelativeForce(new Vector3(0, -100, 300 * throwMultiplier));
-            }
-        }
-        else //if mouse on right half of screen
+            }*/
+
+        if ((Mathf.Abs(Input.mousePosition.x - Screen.width / 2f)) < 360f)
         {
-            if ((Mathf.Abs(Input.mousePosition.x - Screen.width / 2f)) < 100f)
+            if (Input.mousePosition.x < Screen.width / 2f)
             {
-                rigidbody.AddRelativeForce(new Vector3(0, 100, -300));
+                rigidbody.AddRelativeForce(new Vector3(0, -100, -300));
+                model.transform.localScale = new Vector3(model.transform.localScale.x, -model.transform.localScale.y, model.transform.localScale.z);
             }
             else
-            {
-                float throwMultiplier = Mathf.Abs(Input.mousePosition.x - Screen.width / 2f)/360;
-                rigidbody.AddRelativeForce(new Vector3(0, 100, -300 * throwMultiplier));
-            }
+                rigidbody.AddRelativeForce(new Vector3(0, 100, -300));
         }
-        timer = 1.5f;
+        else
+        {
+            float throwMultiplier = Mathf.Abs(Input.mousePosition.x - Screen.width / 2f) / 360;
+            if (Input.mousePosition.x < Screen.width / 2f)
+            {
+                rigidbody.AddRelativeForce(new Vector3(0, -100, -300 * throwMultiplier));
+                model.transform.localScale = new Vector3(model.transform.localScale.x, -model.transform.localScale.y, model.transform.localScale.z);
+            }
+            else
+                rigidbody.AddRelativeForce(new Vector3(0, 100, -300 * throwMultiplier));
+
+        }
+        timer = explosiveDelay;
     }
 
     private void Update()

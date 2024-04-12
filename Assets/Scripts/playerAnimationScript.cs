@@ -6,6 +6,7 @@ using UnityEngine;
 public class playerAnimationScript : MonoBehaviour
 {
     public Animator anim;
+    public Animator anim2D;
     PlayerMovement playerMovementScript;
     PlayerHealth playerHealthScript;
     PauseMenu pauseMenuScript;
@@ -92,5 +93,26 @@ public class playerAnimationScript : MonoBehaviour
             anim.SetBool("hasNoWeapons", true);
         else
             anim.SetBool("hasNoWeapons", false);
+
+
+
+
+
+        anim2D.SetBool("isGrounded", playerMovementScript.controller.isGrounded);
+        if (MathF.Abs(playerMovementScript.playerMovementVector.x) >= .01f)
+        {
+            anim2D.SetBool("isMoving", true);
+        }
+        else
+            anim2D.SetBool("isMoving", false);
+
+        if (!playerMovementScript.sprintHeld && facingLeft == false)
+            anim2D.SetFloat("Speed", playerMovementScript.playerMovementVector.x); //Mathf.SmoothDamp(anim.GetFloat("Input Magnitude"), playerMovementScript.playerMovementVector.x, ref playerMovementScript.playerMovementVector.x, .5f);
+        else if (playerMovementScript.sprintHeld && facingLeft == false)
+            anim2D.SetFloat("Speed", playerMovementScript.playerMovementVector.x * 2);
+        else if (!playerMovementScript.sprintHeld && facingLeft == true)
+            anim2D.SetFloat("Speed", -playerMovementScript.playerMovementVector.x);
+        else if (playerMovementScript.sprintHeld && facingLeft == true)
+            anim2D.SetFloat("Speed", -playerMovementScript.playerMovementVector.x * 2);
     }
 }

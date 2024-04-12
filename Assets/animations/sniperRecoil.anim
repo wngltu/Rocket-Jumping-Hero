@@ -1017,7 +1017,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: sniperPivot
+    path: SniperPivot
   m_CompressedRotationCurves: []
   m_EulerCurves: []
   m_PositionCurves: []
@@ -2060,7 +2060,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalRotation.x
-    path: sniperPivot
+    path: SniperPivot
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -3071,7 +3071,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalRotation.y
-    path: sniperPivot
+    path: SniperPivot
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -4082,7 +4082,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalRotation.z
-    path: sniperPivot
+    path: SniperPivot
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -5093,7 +5093,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalRotation.w
-    path: sniperPivot
+    path: SniperPivot
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -5133,7 +5133,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesBaked.x
-    path: sniperPivot
+    path: SniperPivot
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -5172,7 +5172,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesBaked.y
-    path: sniperPivot
+    path: SniperPivot
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -5211,7 +5211,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesBaked.z
-    path: sniperPivot
+    path: SniperPivot
     classID: 4
     script: {fileID: 0}
     flags: 0

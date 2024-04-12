@@ -5009,15 +5009,18 @@ MonoBehaviour:
   barrel: {fileID: 1006228986621571328}
   model: {fileID: 0}
   lootPillar: {fileID: 0}
+  crosshair: {fileID: 0}
   pauseManager: {fileID: 0}
   weaponManager: {fileID: 0}
   shootSound: {fileID: 0}
   bulletImpactSound: {fileID: 0}
   playerMovementScript: {fileID: 0}
+  muzzleFlash: {fileID: 0}
   equipped: 0
   canShoot: 1
   canReload: 1
   isReloading: 0
   reloadInterrupted: 0
+  directionRight: 1
   pointerPos: {x: 0, y: 0}
   targetPos: {x: 0, y: 0}

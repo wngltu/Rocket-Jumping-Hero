@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,6 +26,7 @@ public class PlayerHealth : MonoBehaviour
     public GameObject gameOverScreen;
     public GameObject invincibilityShield;
     public GameObject damageIndicatorPrefab;
+    public GameObject model; 
     public AudioSource deathSound;
     public AudioSource hurtSound;
     public AudioSource hurtInvincibleSound;
@@ -149,6 +151,7 @@ public class PlayerHealth : MonoBehaviour
         rb.isKinematic = false;
         isDead = true;
         deathSound.Play();
+        model.SetActive(false);
         //pauseMenuScript.Pause();
         pauseMenuScript.pauseMenu.SetActive(false);
         pauseMenuScript.enabled = false;
