@@ -21,6 +21,7 @@ public class weaponScript : MonoBehaviour
     public PlayerMovement playerMovementScript;
     public GameObject muzzleFlash;
     ParticleSystem muzzleFlashParticleSystem;
+    public crosshairScript crosshairScript;
 
     public bool equipped = false;
     public bool canShoot = true;
@@ -29,12 +30,12 @@ public class weaponScript : MonoBehaviour
     public bool reloadInterrupted = false;
     public bool directionRight = true;
 
-    protected float currentMag;
-    protected float maxMag;
+    public float currentMag;
+    public float maxMag;
     protected float currentReserve;
     protected float maxReserve;
     protected float baseDamage;
-    protected float reloadTime = 1;
+    public float reloadTime = 1;
     protected float fireRate;
     protected float fireCooldown;
 
@@ -44,6 +45,7 @@ public class weaponScript : MonoBehaviour
     // Start is called before the first frame update
     protected void Start()
     {
+        crosshairScript = FindObjectOfType<crosshairScript>();
         playerCam = FindObjectOfType<PlayerZoomManager>().gameObject.GetComponent<Camera>();
         pauseManager = FindObjectOfType<PauseMenu>();
         weaponManager = FindObjectOfType<weaponManager>();
@@ -113,6 +115,7 @@ public class weaponScript : MonoBehaviour
         {
             if (currentReserve >= maxMag) //if more ammo than max mag
             {
+                crosshairScript.Reload();
                 weaponManager.reloadSFX.Play();
                 reloadInterrupted = false;
                 canShoot = false;
@@ -124,6 +127,7 @@ public class weaponScript : MonoBehaviour
             {
                 if (currentReserve > 0)
                 {
+                    crosshairScript.Reload();
                     weaponManager.reloadSFX.Play();
                     canShoot = false;
                     isReloading = true;

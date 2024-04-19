@@ -36,6 +36,12 @@ public class FlyingSniperEnemyFSM : Enemy
     public GameObject barrel;
     public GameObject bullet;
     public AudioSource shootSound;
+    public SpriteRenderer sprite;
+    public Sprite idleModel;
+    public Sprite attackingModel;
+    public Sprite cooldownModel;
+    public Sprite windupModel;
+    public ParticleSystem thruster;
 
     LayerMask LoSLayerMask = ((1 << 3) | (1 << 12)); //this is for checking line of sight
     LayerMask HoverLayerMask = ((1 << 12)); //this is for checking for ground to hover on
@@ -112,6 +118,8 @@ public class FlyingSniperEnemyFSM : Enemy
 
     void Idle_Enter()
     {
+        thruster.Play();
+        sprite.sprite = idleModel;
         aiPath.enabled = false;
         stateTime = 0;
         Debug.Log("enter idle state");
@@ -139,6 +147,8 @@ public class FlyingSniperEnemyFSM : Enemy
 
     void Patrol_Enter()
     {
+        thruster.Play();
+        sprite.sprite = idleModel;
         stateTime = 0;
         WalkToRandomNearbyNode();
         Debug.Log("enter patrol state");
@@ -163,6 +173,8 @@ public class FlyingSniperEnemyFSM : Enemy
 
     void Chasing_Enter()
     {
+        thruster.Play();
+        sprite.sprite = idleModel;
         aiDestinationSetter.target = playerMovement.transform;
     }
 
@@ -184,6 +196,12 @@ public class FlyingSniperEnemyFSM : Enemy
         {
             fsm.ChangeState(States.Idle, StateTransition.Safe);
         }
+
+        UpdatePlayerDirection();
+        if (playerToTheRight)
+            model.transform.localScale = new Vector3(-1, model.transform.localScale.y, model.transform.localScale.z);
+        else if (!playerToTheRight)
+            model.transform.localScale = new Vector3(1, model.transform.localScale.y, model.transform.localScale.z);
     }
 
     void Chasing_Exit()
@@ -194,20 +212,26 @@ public class FlyingSniperEnemyFSM : Enemy
 
     void AttackWindup_Enter()
     {
+        thruster.Play();
+        sprite.sprite = windupModel;
         bulletIndicator.SetActive(true);
         UpdatePlayerDirection();
         weapon.transform.right = player.transform.position - weapon.transform.position;
         if (playerToTheRight == true)
         {
             weaponModel.transform.localScale = new Vector3(1, 1, 1);
-            barrel.transform.localRotation = Quaternion.Euler(90, -90, 0);
+            barrel.transform.localRotation = Quaternion.LookRotation(GetVectorToPlayer(), Vector3.up);
         }
         else
         {
             weaponModel.transform.localScale = new Vector3(1, -1, 1);
-            barrel.transform.localRotation = Quaternion.Euler(-90, 0, 90);
+            barrel.transform.localRotation = Quaternion.LookRotation(GetVectorToPlayer(), Vector3.up);
         }
 
+        if (playerToTheRight)
+            model.transform.localScale = new Vector3(-1, model.transform.localScale.y, model.transform.localScale.z);
+        else if (!playerToTheRight)
+            model.transform.localScale = new Vector3(1, model.transform.localScale.y, model.transform.localScale.z);
 
         Debug.Log("start attack windup");
         aiPath.enabled = false;
@@ -243,6 +267,8 @@ public class FlyingSniperEnemyFSM : Enemy
 
     void Attack_Enter()
     {
+        sprite.sprite = attackingModel;
+        thruster.Play();
         shootSound.Play();
         timer = 0f;
         timer = attackTime;
@@ -253,14 +279,12 @@ public class FlyingSniperEnemyFSM : Enemy
 
             GameObject bulletInstance = Instantiate(bullet, barrel.transform, false);
             bulletInstance.GetComponent<EnemyBullet>().damage = baseDamage;
-            bulletInstance.GetComponent<Rigidbody>().AddForce(weapon.transform.right * 500f);
             bulletInstance.transform.SetParent(null);
         }
         else
         {
             GameObject bulletInstance = Instantiate(bullet, barrel.transform, false);
             bulletInstance.GetComponent<EnemyBullet>().damage = baseDamage;
-            bulletInstance.GetComponent<Rigidbody>().AddForce(weapon.transform.right * 500f);
             bulletInstance.transform.SetParent(null);
         }
     }
@@ -283,7 +307,8 @@ public class FlyingSniperEnemyFSM : Enemy
 
     void AttackBridge_Enter()
     {
-        timer = 2.5f;
+        sprite.sprite = attackingModel;
+        timer = 1f;
         if (playerToTheRight)
             rb.AddForce(150, 0, 0);
         else if (!playerToTheRight)
@@ -309,20 +334,25 @@ public class FlyingSniperEnemyFSM : Enemy
 
     void Attack2Windup_Enter()
     {
+        sprite.sprite = windupModel;
         bulletIndicator.SetActive(true);
         UpdatePlayerDirection();
         weapon.transform.right = player.transform.position - weapon.transform.position;
         if (playerToTheRight == true)
         {
             weaponModel.transform.localScale = new Vector3(1, 1, 1);
-            barrel.transform.localRotation = Quaternion.Euler(90, -90, 0);
+            barrel.transform.localRotation = Quaternion.LookRotation(GetVectorToPlayer(), Vector3.up);
         }
         else
         {
             weaponModel.transform.localScale = new Vector3(1, -1, 1);
-            barrel.transform.localRotation = Quaternion.Euler(-90, 0, 90);
+            barrel.transform.localRotation = Quaternion.LookRotation(GetVectorToPlayer(), Vector3.up);
         }
 
+        if (playerToTheRight)
+            model.transform.localScale = new Vector3(-1, model.transform.localScale.y, model.transform.localScale.z);
+        else if (!playerToTheRight)
+            model.transform.localScale = new Vector3(1, model.transform.localScale.y, model.transform.localScale.z);
 
         Debug.Log("start attack windup");
         aiPath.enabled = false;
@@ -358,6 +388,7 @@ public class FlyingSniperEnemyFSM : Enemy
 
     void Attack2_Enter()
     {
+        sprite.sprite = attackingModel;
         shootSound.Play();
         timer = 0f;
         timer = attackTime;
@@ -368,14 +399,12 @@ public class FlyingSniperEnemyFSM : Enemy
 
             GameObject bulletInstance = Instantiate(bullet, barrel.transform, false);
             bulletInstance.GetComponent<EnemyBullet>().damage = baseDamage;
-            bulletInstance.GetComponent<Rigidbody>().AddForce(weapon.transform.right * 500f);
             bulletInstance.transform.SetParent(null);
         }
         else
         {
             GameObject bulletInstance = Instantiate(bullet, barrel.transform, false);
             bulletInstance.GetComponent<EnemyBullet>().damage = baseDamage;
-            bulletInstance.GetComponent<Rigidbody>().AddForce(weapon.transform.right * 500f);
             bulletInstance.transform.SetParent(null);
         }
         fsm.ChangeState(States.AttackCooldown, StateTransition.Safe);
@@ -383,6 +412,7 @@ public class FlyingSniperEnemyFSM : Enemy
 
     void AttackCooldown_Enter()
     {
+        sprite.sprite = idleModel;
         timer = 0f;
         timer = attackCooldown;
     }

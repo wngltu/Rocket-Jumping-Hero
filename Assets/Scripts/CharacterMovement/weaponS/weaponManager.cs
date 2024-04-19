@@ -75,7 +75,7 @@ public class weaponManager : MonoBehaviour
             EquipCurrentWeapon();
         }
 
-        if (Input.GetKeyDown(KeyCode.G) && pauseManager.paused == false) //drop weapon
+        if ((Input.GetKeyDown(KeyCode.G) || Input.GetKeyDown(KeyCode.F)) && pauseManager.paused == false) //drop weapon
         {
             DropCurrentWeapon();
         }

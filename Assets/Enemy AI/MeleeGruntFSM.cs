@@ -29,6 +29,12 @@ public class MeleeGruntFSM : Enemy
     public States currentState;
     public AudioSource attackWindUpSound;
     public AudioSource attackSound;
+    public SpriteRenderer sprite;
+    public Sprite idleModel;
+    public Sprite attackingModel;
+    public Sprite cooldownModel;
+    public Sprite windupModel;
+    public ParticleSystem thruster;
 
     LayerMask LoSLayerMask = ((1 << 3) | (1 << 12)); //this is for checking line of sight
 
@@ -106,6 +112,8 @@ public class MeleeGruntFSM : Enemy
     
     void Idle_Enter()
     {
+        thruster.Stop();
+        sprite.sprite = idleModel;
         aiPath.enabled = false;
         stateTime = 0;
         Debug.Log("enter idle state");
@@ -127,6 +135,8 @@ public class MeleeGruntFSM : Enemy
     
     void Patrol_Enter()
     {
+        thruster.Play();
+        sprite.sprite = idleModel;
         aiPath.enabled = true;
         stateTime = 0;
         WalkToRandomNearbyNode();
@@ -157,6 +167,8 @@ public class MeleeGruntFSM : Enemy
 
     void Chasing_Enter()
     {
+        thruster.Play();
+        sprite.sprite = idleModel;
         aiDestinationSetter.target = playerMovement.transform;
     }
 
@@ -193,6 +205,8 @@ public class MeleeGruntFSM : Enemy
 
     void AttackWindup_Enter()
     {
+        thruster.Stop();
+        sprite.sprite = windupModel;
         attackWindUpSound.Play();
         rb.useGravity = true;
         UpdatePlayerDirection();
@@ -218,13 +232,15 @@ public class MeleeGruntFSM : Enemy
         }
         UpdatePlayerDirection();
         if (playerToTheRight)
-            model.transform.localScale = new Vector3(model.transform.localScale.x, model.transform.localScale.y, -1);
+            model.transform.localScale = new Vector3(1, model.transform.localScale.y, -1);
         else if (!playerToTheRight)
-            model.transform.localScale = new Vector3(model.transform.localScale.x, model.transform.localScale.y, 1);
+            model.transform.localScale = new Vector3(-1, model.transform.localScale.y, 1);
     }
 
     void Attack_Enter()
     {
+        thruster.Play();
+        sprite.sprite = attackingModel;
         attackSound.Play();
         rb.useGravity = true;
         attacking = true;
@@ -256,6 +272,8 @@ public class MeleeGruntFSM : Enemy
 
     void AttackCooldown_Enter()
     {
+        thruster.Stop();
+        sprite.sprite = cooldownModel;
         timer = 0f;
         timer = attackCooldown;
     }
@@ -271,6 +289,8 @@ public class MeleeGruntFSM : Enemy
 
     void Die_Enter()
     {
+        thruster.Play();
+        sprite.sprite = cooldownModel;
         isAttacking = false;
     }
 

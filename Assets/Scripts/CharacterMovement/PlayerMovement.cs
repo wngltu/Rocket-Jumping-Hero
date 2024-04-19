@@ -26,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
     public GameObject playerModel;
     public AudioSource respawnSFX;
     public ParticleSystem jumpParticles;
+    public RectTransform rocketRectFill;
+    public RectTransform rocketRectFill2;
 
     //Horizontal variables
     private float horizontalVeloCap = 10f;
@@ -73,6 +75,10 @@ public class PlayerMovement : MonoBehaviour
     public float rocketFireCooldownTimer = .0f;
     public float rocketRecentlyShotTimer = 0f;
     public float rocketRecentlyShotTime = 1.5f;
+    public float rocketRectMaxWidth;
+    public float rocketRectMaxHeight;
+    public float rocketRectMaxWidth2;
+    public float rocketRectMaxHeight2;
 
     //Other variables
     private float explosionRecoilRecoveryRate = 10; //higher = faster recovery
@@ -106,12 +112,18 @@ public class PlayerMovement : MonoBehaviour
         playerHealth = GetComponent<PlayerHealth>();
         Instance = this;
         rocketText.text = rockets.ToString();
+        rocketRectMaxWidth = rocketRectFill.rect.width;
+        rocketRectMaxHeight = rocketRectFill.rect.height;
+        rocketRectMaxWidth2 = rocketRectFill2.rect.width;
+        rocketRectMaxHeight2 = rocketRectFill2.rect.height;
+        UpdateRocketSlider();
         StartSpawnSequence();
     }
 
     // Update is called once per frame
     void Update()
     {
+        UpdateRocketSlider();
         if (gameObject.transform.position.z != 0)
         {
             gameObject.GetComponent<CharacterController>().enabled = false;
@@ -324,6 +336,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 rocketLauncher.Shoot();
                 rockets--;
+                UpdateRocketSlider();
                 rocketText.text = rockets.ToString();
                 rocketReloadSlider.value = rocketRegenTimer / rocketRegenCooldown;
                 rocketTapTimer = 0f; //make sure player can't tap shoot after shooting a held rocket
@@ -347,6 +360,7 @@ public class PlayerMovement : MonoBehaviour
             rocketLauncher.Shoot();
             rockets--;
             rocketText.text = rockets.ToString();
+            UpdateRocketSlider();
             rocketReloadSlider.value = rocketRegenTimer / rocketRegenCooldown;
             rocketTapTimer = 0;
         }
@@ -505,6 +519,14 @@ public class PlayerMovement : MonoBehaviour
         isRespawning = false;
         controller.enabled = true;
         playerModel.SetActive(true);
+    }
+
+    public void UpdateRocketSlider()
+    {
+        Debug.Log("Player Rocket Changed");
+        rocketText.text = ((int)rockets).ToString();
+        rocketRectFill.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, rocketReloadSlider.value * rocketRectMaxWidth);
+        rocketRectFill2.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, rocketReloadSlider.value * rocketRectMaxWidth2);
     }
 
     private void OnTriggerStay(Collider other)

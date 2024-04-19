@@ -80,7 +80,7 @@ public class PlayerInteraction : MonoBehaviour
                     }
                     else if (weaponManager.weaponInventory.Count >= weaponManager.maxWeapons) //if inventory is full
                     {
-                        DisplayFeedbackText("Inventory is full. Drop with G");
+                        DisplayFeedbackText("Inventory is full. Drop with F or G");
                     }
                 }
             }

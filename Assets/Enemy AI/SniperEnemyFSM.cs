@@ -27,11 +27,18 @@ public class SniperEnemyFSM : Enemy
     public GameObject weapon;
     public GameObject weaponModel;
     public GameObject barrel;
+    public GameObject barrel2;
     public GameObject bullet;
     public GameObject bulletIndicator;
     public AIDestinationSetter aiDestinationSetter;
     public States currentState;
     public AudioSource shootSound;
+    public SpriteRenderer sprite;
+    public Sprite idleModel;
+    public Sprite attackingModel;
+    public Sprite cooldownModel;
+    public Sprite windupModel;
+    public ParticleSystem thruster;
 
     LayerMask layerMask = 1 << 3;
     LayerMask LoSLayerMask = ((1 << 3) | (1 << 12)); //this is for checking line of sight
@@ -97,6 +104,8 @@ public class SniperEnemyFSM : Enemy
 
     void Idle_Enter()
     {
+        thruster.Stop();
+        sprite.sprite = idleModel;
         aiPath.enabled = false;
         stateTime = 0;
         Debug.Log("enter idle state");
@@ -117,6 +126,8 @@ public class SniperEnemyFSM : Enemy
 
     void Patrol_Enter()
     {
+        thruster.Stop();
+        sprite.sprite = idleModel;
         stateTime = 0;
         WalkToRandomNearbyNode();
         Debug.Log("enter patrol state");
@@ -144,6 +155,8 @@ public class SniperEnemyFSM : Enemy
 
     void Chasing_Enter()
     {
+        thruster.Play();
+        sprite.sprite = idleModel;
         aiDestinationSetter.target = playerMovement.transform;
     }
 
@@ -157,9 +170,9 @@ public class SniperEnemyFSM : Enemy
 
         UpdatePlayerDirection();
         if (playerToTheRight)
-            model.transform.localScale = new Vector3(model.transform.localScale.x, model.transform.localScale.y, -1);
+            model.transform.localScale = new Vector3(-1, model.transform.localScale.y, model.transform.localScale.z);
         else if (!playerToTheRight)
-            model.transform.localScale = new Vector3(model.transform.localScale.x, model.transform.localScale.y, 1);
+            model.transform.localScale = new Vector3(1, model.transform.localScale.y, model.transform.localScale.z);
     }
 
     void Chasing_Exit()
@@ -170,22 +183,14 @@ public class SniperEnemyFSM : Enemy
 
     void AttackWindup_Enter()
     {
+        thruster.Stop();
+        sprite.sprite = windupModel;
         bulletIndicator.SetActive(true);
         UpdatePlayerDirection();
         weapon.transform.right = player.transform.position - weapon.transform.position;
-        if (playerToTheRight == true)
-        {
-            weaponModel.transform.localScale = new Vector3(1, 1, 1);
-            barrel.transform.localRotation = Quaternion.Euler(90, -90, 0);
-            model.transform.localScale = new Vector3(model.transform.localScale.x, model.transform.localScale.y, -1);
-        }
-        else
-        {
-            model.transform.localScale = new Vector3(model.transform.localScale.x, model.transform.localScale.y, 1);
-            weaponModel.transform.localScale = new Vector3(1, -1, 1);
-            barrel.transform.localRotation = Quaternion.Euler(-90, 0, 90);
-        }
-        
+
+        barrel.transform.localRotation = Quaternion.LookRotation(GetVectorToPlayer(), Vector3.up);
+        barrel2.transform.localRotation = Quaternion.LookRotation(GetVectorToPlayer(), Vector3.up);
 
         Debug.Log("start attack windup");
         aiPath.enabled = false;
@@ -208,6 +213,8 @@ public class SniperEnemyFSM : Enemy
 
     void Attack_Enter()
     {
+        sprite.sprite = attackingModel;
+        thruster.Stop();
         shootSound.Play();
         timer = 0f;
         timer = attackTime;
@@ -216,14 +223,16 @@ public class SniperEnemyFSM : Enemy
         if (playerToTheRight == true)
         {
 
-            GameObject bulletInstance = Instantiate(bullet, barrel.transform, false);
+            GameObject bulletInstance = Instantiate(bullet, barrel2.transform, false);
             bulletInstance.GetComponent<EnemyBullet>().damage = baseDamage;
+            //barrel.transform.localScale = new Vector3(1, 1, 1);
             bulletInstance.transform.SetParent(null);     
         }
         else
         {
             GameObject bulletInstance = Instantiate(bullet, barrel.transform, false);
             bulletInstance.GetComponent<EnemyBullet>().damage = baseDamage;
+            //barrel.transform.localScale = new Vector3(-1, 1, 1);
             bulletInstance.transform.SetParent(null);
         }
     }
@@ -243,6 +252,8 @@ public class SniperEnemyFSM : Enemy
 
     void AttackCooldown_Enter()
     {
+        sprite.sprite = cooldownModel;
+        thruster.Stop();
         timer = 0f;
         timer = attackCooldown;
     }

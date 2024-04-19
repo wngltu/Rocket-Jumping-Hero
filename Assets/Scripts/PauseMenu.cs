@@ -10,12 +10,14 @@ public class PauseMenu : MonoBehaviour
     public TMP_Text instructionsText;
     public TMP_Text instructionsButtonText;
     public GameObject pauseButton;
+    public crosshairScript crosshairScript;
 
     public bool paused = false;
     bool instructionsToggled = false;
     // Start is called before the first frame update
     void Start()
     {
+        crosshairScript = FindObjectOfType<crosshairScript>();
     }
 
     // Update is called once per frame
@@ -40,6 +42,8 @@ public class PauseMenu : MonoBehaviour
     }
     public void Pause() //pause game
     {
+        Cursor.visible = true;
+        crosshairScript.gameObject.SetActive(false);
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
         pauseButton.GetComponent<PauseButtonScript>().ShowResumeIcon();
@@ -47,6 +51,8 @@ public class PauseMenu : MonoBehaviour
     }
     public void Unpause() //resume game
     {
+        Cursor.visible = false;
+        crosshairScript.gameObject.SetActive(true);
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
         pauseButton.GetComponent<PauseButtonScript>().ShowPauseIcon();

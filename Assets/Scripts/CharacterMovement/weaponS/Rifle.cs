@@ -56,8 +56,6 @@ public class Rifle : weaponScript
         RaycastHit Crosshairhit;
         if (Physics.Raycast(transform.position, interactDirection, out Crosshairhit, range, layerMask)) //shoot ray from barrel of gun
         {
-            Debug.DrawLine(transform.position, Crosshairhit.point);
-            Debug.Log((transform.position - Crosshairhit.point).magnitude);
             crosshair.transform.position = Crosshairhit.point;
         }
         else

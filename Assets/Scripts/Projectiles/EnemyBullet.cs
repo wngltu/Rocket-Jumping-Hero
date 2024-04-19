@@ -10,14 +10,14 @@ public class EnemyBullet : MonoBehaviour
     Rigidbody rigidbody;
     public float damage = 15f;
     float timer = 0f;
-    float bulletSpeed = 500f;
+    public float bulletSpeed = 500f;
 
     // Start is called before the first frame update
     void Start()
     {
         Instance = this;
         rigidbody = GetComponent<Rigidbody>();
-        rigidbody.AddRelativeForce(new Vector2(0,bulletSpeed));
+        rigidbody.AddRelativeForce(new Vector3(0, 0, -bulletSpeed));
         playerHealth = FindObjectOfType<PlayerHealth>();
     }
 

@@ -28,6 +28,12 @@ public class ChargingMeleeEnemyFSM : Enemy
     public States currentState;
     public AudioSource attackWindUpSound;
     public AudioSource attackSound;
+    public SpriteRenderer sprite;
+    public Sprite idleModel;
+    public Sprite attackingModel;
+    public Sprite cooldownModel;
+    public Sprite windupModel;
+    public ParticleSystem thruster;
 
     LayerMask LoSLayerMask = ((1 << 3) | (1 << 12)); //this is for checking line of sight
 
@@ -102,6 +108,8 @@ public class ChargingMeleeEnemyFSM : Enemy
 
     void Idle_Enter()
     {
+        thruster.Stop();
+        sprite.sprite = idleModel;
         aiPath.enabled = false;
         stateTime = 0;
         Debug.Log("enter idle state");
@@ -122,6 +130,8 @@ public class ChargingMeleeEnemyFSM : Enemy
 
     void Patrol_Enter()
     {
+        thruster.Play();
+        sprite.sprite = idleModel;
         stateTime = 0;
         WalkToRandomNearbyNode();
         Debug.Log("enter patrol state");
@@ -149,6 +159,8 @@ public class ChargingMeleeEnemyFSM : Enemy
 
     void Chasing_Enter()
     {
+        thruster.Play();
+        sprite.sprite = idleModel;
         aiDestinationSetter.target = playerMovement.transform;
     }
 
@@ -172,11 +184,11 @@ public class ChargingMeleeEnemyFSM : Enemy
         UpdatePlayerDirection();
         if (playerToTheRight == true)
         {
-            model.transform.localScale = new Vector3(1, model.transform.localScale.y, model.transform.localScale.z);
+            model.transform.localScale = new Vector3(-1, model.transform.localScale.y, model.transform.localScale.z);
         }
         else
         {
-            model.transform.localScale = new Vector3(-1, model.transform.localScale.y, model.transform.localScale.z);
+            model.transform.localScale = new Vector3(1, model.transform.localScale.y, model.transform.localScale.z);
         }
     }
 
@@ -188,6 +200,8 @@ public class ChargingMeleeEnemyFSM : Enemy
 
     void AttackWindup_Enter()
     {
+        thruster.Stop();
+        sprite.sprite = windupModel;
         attackWindUpSound.Play();
         rb.useGravity = true;
         UpdatePlayerDirection();
@@ -212,6 +226,8 @@ public class ChargingMeleeEnemyFSM : Enemy
     bool chargeRight;
     void Attack_Enter()
     {
+        thruster.Play();
+        sprite.sprite = attackingModel;
         attackSound.Play();
         rb.useGravity = true;
         attacking = true;
@@ -223,12 +239,12 @@ public class ChargingMeleeEnemyFSM : Enemy
         if (playerToTheRight == true)
         {
             chargeRight = true;
-            model.transform.localScale = new Vector3(1, model.transform.localScale.y, model.transform.localScale.z);
+            model.transform.localScale = new Vector3(-1, model.transform.localScale.y, model.transform.localScale.z);
         }
         else
         {
             chargeRight = false;
-            model.transform.localScale = new Vector3(-1, model.transform.localScale.y, model.transform.localScale.z);
+            model.transform.localScale = new Vector3(1, model.transform.localScale.y, model.transform.localScale.z);
         }
     }
     void Attack_Update()
@@ -275,6 +291,8 @@ public class ChargingMeleeEnemyFSM : Enemy
 
     void AttackCooldown_Enter()
     {
+        thruster.Stop();
+        sprite.sprite = cooldownModel;
         timer = 0f;
         timer = attackCooldown;
     }
@@ -290,6 +308,8 @@ public class ChargingMeleeEnemyFSM : Enemy
 
     void Died_Enter()
     {
+        thruster.Play();
+        sprite.sprite = cooldownModel;
         isAttacking = false;
     }
 
