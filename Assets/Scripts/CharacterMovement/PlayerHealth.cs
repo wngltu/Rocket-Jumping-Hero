@@ -24,13 +24,13 @@ public class PlayerHealth : MonoBehaviour
 
     public PauseMenu pauseMenuScript;
     public GameObject gameOverScreen;
-    public GameObject invincibilityShield;
     public GameObject damageIndicatorPrefab;
     public GameObject model; 
     public AudioSource deathSound;
     public AudioSource hurtSound;
     public AudioSource hurtInvincibleSound;
     public Enemy[] enemyList;
+    public Animation invincibilityFlash;
     CharacterController controller;
     Rigidbody rb;
 
@@ -41,7 +41,6 @@ public class PlayerHealth : MonoBehaviour
         pauseMenuScript = FindObjectOfType<PauseMenu>();
         currentHealth = maxHealth;
         UpdateHealth();
-        invincibilityShield.SetActive(false);
         controller = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
     }
@@ -112,25 +111,25 @@ public class PlayerHealth : MonoBehaviour
 
     void ApplyInvincibility()
     {
+        invincibilityFlash.Stop();
+        invincibilityFlash.Play();
         isInvincible = true;
         Invoke("RemoveInvincibility", invincibleTime);
-        invincibilityShield.SetActive(true);
     }
     void RemoveInvincibility()
     {
-        isInvincible = false;
-        invincibilityShield.SetActive(false);
+        isInvincible = false;   
     }
     void ApplyTrapInvincibility()
     {
+        invincibilityFlash.Stop();
+        invincibilityFlash.Play();
         isTrapInvincible = true;
-        Invoke("RemoveTrapInvincibility", trapInvincibleTime);
-        invincibilityShield.SetActive(true);
+        Invoke("RemoveTrapInvincibility", trapInvincibleTime);    
     }
     void RemoveTrapInvincibility()
     {
         isTrapInvincible = false;
-        invincibilityShield.SetActive(false);
     }
 
     public void UpdateHealth()

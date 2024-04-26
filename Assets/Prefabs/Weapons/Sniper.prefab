@@ -5204,12 +5204,16 @@ MonoBehaviour:
   bulletImpactSound: {fileID: -2587765441376682004}
   playerMovementScript: {fileID: 0}
   muzzleFlash: {fileID: 5372497311340130915}
+  crosshairScript: {fileID: 0}
   equipped: 0
   canShoot: 1
   canReload: 1
   isReloading: 0
   reloadInterrupted: 0
   directionRight: 1
+  currentMag: 0
+  maxMag: 0
+  reloadTime: 1
   pointerPos: {x: 0, y: 0}
   targetPos: {x: 0, y: 0}
   bulletTrail: {fileID: 5713675519578680126, guid: ad777a106ba4f82479a4a1f6cd66abee, type: 3}
@@ -5288,7 +5292,7 @@ AudioSource:
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0

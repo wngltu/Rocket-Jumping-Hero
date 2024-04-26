@@ -863,8 +863,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -138.82, y: 53.57}
-  m_SizeDelta: {x: 1798.42, y: 380.03}
+  m_AnchoredPosition: {x: -138.82, y: 20.028412}
+  m_SizeDelta: {x: 1798.42, y: 447.1131}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2470664650876002790
 CanvasRenderer:
@@ -887,14 +887,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.8235294}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300002, guid: 56d84991286850f428b4e7df0cca7380, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1958,8 +1958,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300024, guid: 56d84991286850f428b4e7df0cca7380, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -3261,7 +3261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 632ae7eb1d4ce49d38a1e38ee7efe7c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guid: 17ee8515854d9765-bb5bc2db7ee93f12
+  guid: c7a389490e140774-0a75fb946d7f622c
 --- !u!1 &2613378587682420207
 GameObject:
   m_ObjectHideFlags: 0
@@ -3710,7 +3710,7 @@ MonoBehaviour:
   m_text: Quit to Main Menu
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a0e143c9c5e94da4db81eeffaec88cf4, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 905580666348198175, guid: a0e143c9c5e94da4db81eeffaec88cf4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4081,15 +4081,15 @@ MonoBehaviour:
     Mouse to aim
 
     Scroll Wheel
-    to scroll through weapons
+    (or 1,2,3) to scroll through weapons
 
-    Left Click to shoot current weapon
+    LMB to shoot current weapon
 
-    Right
-    Click (hold) to aim Rocket Launcher
+    RMB
+    (hold) to aim Rocket Launcher
 
-    Left Click (while aiming Rocket Launcher)
-    to shoot a rocket'
+    LMB (while aiming Rocket Launcher) to shoot
+    a rocket'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a0e143c9c5e94da4db81eeffaec88cf4, type: 2}
   m_sharedMaterial: {fileID: 905580666348198175, guid: a0e143c9c5e94da4db81eeffaec88cf4, type: 2}
@@ -4155,7 +4155,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: -39.13761}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &3101838166190144157
@@ -4724,8 +4724,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300014, guid: 56d84991286850f428b4e7df0cca7380, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -5197,7 +5197,7 @@ MonoBehaviour:
   m_text: Retry from Checkpoint
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a0e143c9c5e94da4db81eeffaec88cf4, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 905580666348198175, guid: a0e143c9c5e94da4db81eeffaec88cf4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5632,7 +5632,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 56d84991286850f428b4e7df0cca7380, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7056,7 +7056,7 @@ MonoBehaviour:
   m_text: Retry from Level
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a0e143c9c5e94da4db81eeffaec88cf4, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 905580666348198175, guid: a0e143c9c5e94da4db81eeffaec88cf4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7454,8 +7454,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300024, guid: 56d84991286850f428b4e7df0cca7380, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -7631,9 +7631,7 @@ MonoBehaviour:
     ESC to pause/unpause
 
     Enter Options menu to toggle
-    on-screen instructions
-
-    Ctrl + Scroll to Zoom In or Zoom Out'
+    on-screen instructions'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a0e143c9c5e94da4db81eeffaec88cf4, type: 2}
   m_sharedMaterial: {fileID: 905580666348198175, guid: a0e143c9c5e94da4db81eeffaec88cf4, type: 2}
@@ -7699,7 +7697,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: -39.13761}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &6405677835174933135
@@ -8235,10 +8233,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 567253781682654322}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 899.88477, y: -517.9252}
-  m_SizeDelta: {x: 23.0269, y: 22.7067}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -60.115234, y: 22.07483}
+  m_SizeDelta: {x: 23.026917, y: 22.706726}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3183229229939820701
 CanvasRenderer:
@@ -8899,10 +8897,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 567253781682654322}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 1808.7488, y: -517.7889}
-  m_SizeDelta: {x: 328.0756, y: 41.8815}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -111.25122, y: 22.21112}
+  m_SizeDelta: {x: 328.07568, y: 41.8815}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &2450753023190003607
 CanvasRenderer:
@@ -9895,12 +9893,10 @@ MonoBehaviour:
     S (tap or hold) to fall through
     platforms
 
-    Space to jump (grounded) or double jump (airborne)
+    Space to jump (grounded) or double jump (airborne). Double jump
+    can be done after a rocket jump.
 
-    Shift
-    (hold) to sprint
-
-    Double tap A or D to dash left or right'
+    Shift (hold) to sprint'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a0e143c9c5e94da4db81eeffaec88cf4, type: 2}
   m_sharedMaterial: {fileID: 905580666348198175, guid: a0e143c9c5e94da4db81eeffaec88cf4, type: 2}
@@ -9966,7 +9962,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: -39.13761}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &8696842574902385726
@@ -10444,7 +10440,7 @@ MonoBehaviour:
   m_text: Game Over
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a0e143c9c5e94da4db81eeffaec88cf4, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 905580666348198175, guid: a0e143c9c5e94da4db81eeffaec88cf4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -10661,13 +10657,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Right Click (tap) to shoot a Rocket towards cursor
+  m_text: 'E to interact with objects (levers, dropped weapons)
 
-    E to interact
-    with objects (levers, dropped weapons)
+    R (while holding
+    a weapon) to Reload current weapon
 
-    R (while holding a weapon) to Reload
-    current weapon'
+    F or G to drop currently held weapon'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a0e143c9c5e94da4db81eeffaec88cf4, type: 2}
   m_sharedMaterial: {fileID: 905580666348198175, guid: a0e143c9c5e94da4db81eeffaec88cf4, type: 2}
@@ -10733,7 +10728,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: -39.13761}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1001 &708302505326935514
@@ -10875,6 +10870,10 @@ PrefabInstance:
     - target: {fileID: 3542033636149619835, guid: 33c206ea514f7d44aa87fdd2c80b15ed, type: 3}
       propertyPath: m_SortingLayerID
       value: 956294589
+      objectReference: {fileID: 0}
+    - target: {fileID: 3596322835866214816, guid: 33c206ea514f7d44aa87fdd2c80b15ed, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3615865485515167857, guid: 33c206ea514f7d44aa87fdd2c80b15ed, type: 3}
       propertyPath: m_Layer
@@ -11192,6 +11191,10 @@ PrefabInstance:
       propertyPath: currentHealthText
       value: 
       objectReference: {fileID: 2727074667914222272}
+    - target: {fileID: 7505302916716611302, guid: 33c206ea514f7d44aa87fdd2c80b15ed, type: 3}
+      propertyPath: invincibilityFlash
+      value: 
+      objectReference: {fileID: 8096913821429385918}
     - target: {fileID: 7539098219208291893, guid: 33c206ea514f7d44aa87fdd2c80b15ed, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -5
@@ -11280,6 +11283,7 @@ PrefabInstance:
     - {fileID: 2603765375374076887, guid: 33c206ea514f7d44aa87fdd2c80b15ed, type: 3}
     - {fileID: 4253206969545812916, guid: 33c206ea514f7d44aa87fdd2c80b15ed, type: 3}
     - {fileID: 3285567393187784079, guid: 33c206ea514f7d44aa87fdd2c80b15ed, type: 3}
+    - {fileID: 3596322835866214816, guid: 33c206ea514f7d44aa87fdd2c80b15ed, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2513426952014936263, guid: 33c206ea514f7d44aa87fdd2c80b15ed, type: 3}
       insertIndex: -1
@@ -11297,6 +11301,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1746521414008095553, guid: 33c206ea514f7d44aa87fdd2c80b15ed, type: 3}
       insertIndex: 9
       addedObject: {fileID: 4060911074236882587}
+    - targetCorrespondingSourceObject: {fileID: 1746521414008095553, guid: 33c206ea514f7d44aa87fdd2c80b15ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8096913821429385918}
     - targetCorrespondingSourceObject: {fileID: 6069609662155441105, guid: 33c206ea514f7d44aa87fdd2c80b15ed, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6679386450045138384}
@@ -11359,6 +11366,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 0
+--- !u!111 &8096913821429385918
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1290429284075650715}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 39487f0297bb7af43a1a29108dd16f9f, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 39487f0297bb7af43a1a29108dd16f9f, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &2456090937999222015 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3152991231021685029, guid: 33c206ea514f7d44aa87fdd2c80b15ed, type: 3}
@@ -11717,7 +11740,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5903115938729172915, guid: a6693373ac87afc449516e53c6bcc6bd, type: 3}
       propertyPath: guid
-      value: 281adc70da1d7524-ffc90ef4042511a0
+      value: 51df04876735e080-4adb88b7f4dc96f6
       objectReference: {fileID: 0}
     - target: {fileID: 7675958526447171964, guid: a6693373ac87afc449516e53c6bcc6bd, type: 3}
       propertyPath: m_LocalPosition.x

@@ -31,10 +31,9 @@ public class PressurePlate : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            if (interactable)
-            {
-                doorMaster.openDoor();
-            }
+            doorMaster.openDoor();
+            activatePlate();
+            Invoke("deactivatePlate", doorMaster.openTime);
         }
     }
 

@@ -5,8 +5,11 @@ public class Level2FSM : MonoBehaviour
 {
     private StateMachine<States, StateDriverUnity> fsm;
     public GameObject winScreen;
+    public GameObject nonBrokenDoorObj;
+    public GameObject brokenDoorObj;
     public PauseMenu pauseMenuScript;
-    public bool bossKilled = false;
+    public CompleteGameTele teleScript;
+    public int bossKilled = 0;
     public enum States
     {
         Init,
@@ -16,13 +19,15 @@ public class Level2FSM : MonoBehaviour
     void Start()
     {
         pauseMenuScript = FindObjectOfType<PauseMenu>();
+        teleScript = FindObjectOfType<CompleteGameTele>();
+        teleScript.gameObject.SetActive(false);
         fsm = new StateMachine<States, StateDriverUnity>(this);
         fsm.ChangeState(States.Init, StateTransition.Safe);
     }
 
     void Update()
     {
-        if (bossKilled)
+        if (bossKilled >= 2)
             fsm.ChangeState(States.WinState, StateTransition.Safe);
         fsm.Driver.Update.Invoke();
     }
@@ -41,15 +46,17 @@ public class Level2FSM : MonoBehaviour
         {
             child.gameObject.SetActive(!child.gameObject.activeSelf);
         }
+        brokenDoorObj.SetActive(true);
+        nonBrokenDoorObj.SetActive(false);
     }
 
     void WinState_Enter()
     {
-        Invoke("WinScreen", 3);
+        teleScript.gameObject.SetActive(true);
     }
 
 
-    void WinScreen()
+    public void WinScreen()
     {
         winScreen.SetActive(true);
         pauseMenuScript.Pause();

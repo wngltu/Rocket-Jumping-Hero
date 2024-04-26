@@ -30,7 +30,12 @@ public class MeleeBossFSM : Enemy
     public GameObject leftBarrel;
     public GameObject rightBarrel;
     public GameObject slamProjectile;
-    public GameObject invincibleShield;
+    public SpriteRenderer sprite;
+    public Sprite idleModel;
+    public Sprite idleShieldModel;
+    public Sprite attackingModel;
+    public Sprite cooldownModel;
+    public Sprite windupModel;
     public AIDestinationSetter aiDestinationSetter;
     public States currentState;
     public AudioSource attackWindUpSound;
@@ -88,18 +93,15 @@ public class MeleeBossFSM : Enemy
     // Update is called once per frame
     void Update()
     {
-        if (shieldCharges == 0)
+        if (shieldCharges == 0 && sprite.sprite == idleShieldModel)
         {
             isInvincible = false;
+            sprite.sprite = idleShieldModel;
         }
         if (shieldCharges > 0)
         {
             isInvincible = true;
         }
-        if (isInvincible && invincibleShield.activeSelf == false)
-            invincibleShield.SetActive(true);
-        else if (!isInvincible && invincibleShield.activeSelf == true)
-            invincibleShield.SetActive(false);
         base.Update();
         fsm.Driver.Update.Invoke();
         currentState = fsm.State;
@@ -131,6 +133,15 @@ public class MeleeBossFSM : Enemy
         stateTime += Time.deltaTime;
         if (stateTime > idleTime)
             fsm.ChangeState(States.Patrol, StateTransition.Safe);
+
+        if (shieldCharges != 0)
+        {
+            sprite.sprite = idleShieldModel;
+        }
+        else
+        {
+            sprite.sprite = idleModel;
+        }
     }
 
     void Idle_Exit()
@@ -148,6 +159,14 @@ public class MeleeBossFSM : Enemy
 
     void Patrol_Update()
     {
+        if (shieldCharges != 0)
+        {
+            sprite.sprite = idleShieldModel;
+        }
+        else
+        {
+            sprite.sprite = idleModel;
+        }
         stateTime += Time.deltaTime;
         if (Mathf.Abs(aiPath.velocity.x) < 1f) //this is to allow enemy to basically climb high altitudes
             rb.useGravity = false;
@@ -165,16 +184,31 @@ public class MeleeBossFSM : Enemy
         rb.useGravity = true;
     }
 
+    float chasingTimer = 0f; //this timer is for making the boss have a clear pattern to attacks and shielding
+    float chasingTime = 1.5f;
     void Chasing_Enter()
     {
         aiDestinationSetter.target = playerMovement.transform;
         timer = 0;
+        chasingTimer = chasingTime;
     }
+
 
     void Chasing_Update()
     {
+        if (shieldCharges != 0)
+        {
+            sprite.sprite = idleShieldModel;
+        }
+        else
+        {
+            sprite.sprite = idleModel;
+        }
+        chasingTimer -= Time.deltaTime;
+        if (chasingTimer < 0f)
+            chasingTimer = 0;
         distanceFromPlayer = Vector3.Distance(transform.position, player.transform.position);
-        if (distanceFromPlayer < attackRange) //is enemy close enough to start attack
+        if (distanceFromPlayer < attackRange && chasingTimer == 0f) //is enemy close enough to start attack
         {
             switch (Random.Range(0,2))
             {
@@ -198,7 +232,7 @@ public class MeleeBossFSM : Enemy
 
         if (distanceFromPlayer < attackRange*4)
             timer += Time.deltaTime;
-        if (timer > 2) //every 2 seconds, check rng to do slam attack or not
+        if (timer > 2 && chasingTimer == 0f) //every 2 seconds, check rng to do slam attack or not
         {
             if (Random.Range(0, 2) == 0)
             {
@@ -208,9 +242,9 @@ public class MeleeBossFSM : Enemy
 
         UpdatePlayerDirection();
         if (playerToTheRight)
-            model.transform.localScale = new Vector3(1, model.transform.localScale.y, model.transform.localScale.z);
+            sprite.flipX = true;
         else if (!playerToTheRight)
-            model.transform.localScale = new Vector3(-1, model.transform.localScale.y, model.transform.localScale.z);
+            sprite.flipX = false;
     }
 
     void Chasing_Exit()
@@ -222,6 +256,9 @@ public class MeleeBossFSM : Enemy
 
     void AttackWindup_Enter()
     {
+        sprite.sprite = windupModel;
+        isInvincible = false;
+        shieldCharges = 0;
         attackWindUpSound.Play();
         rb.useGravity = true;
         UpdatePlayerDirection();
@@ -245,6 +282,7 @@ public class MeleeBossFSM : Enemy
 
     void Attack_Enter()
     {
+        sprite.sprite = attackingModel;
         isInvincible = false;
         attackSound.Play();
         rb.useGravity = true;
@@ -283,10 +321,9 @@ public class MeleeBossFSM : Enemy
 
     void AttackCooldown_Enter()
     {
+        sprite.sprite = cooldownModel;
         timer = 0f;
         timer = attackCooldown;
-        isInvincible = false;
-        shieldCharges = 0;
     }
     void AttackCooldown_Update()
     {
@@ -305,6 +342,9 @@ public class MeleeBossFSM : Enemy
 
     void SlamAttackWindup_Enter()
     {
+        sprite.sprite = windupModel;
+        isInvincible = false;
+        shieldCharges = 0;
         attackWindUpSound.Play();
         rb.useGravity = true;
         Debug.Log("start attack windup");
@@ -325,6 +365,7 @@ public class MeleeBossFSM : Enemy
     bool slamAttackLand = false; //when the enemy touches the ground, explode in projectiles?
     void SlamAttack_Enter()
     {
+        sprite.sprite = attackingModel;
         slamAttacking = true;
         slamAttackLand = false;
         attackSound.Play();
@@ -359,8 +400,7 @@ public class MeleeBossFSM : Enemy
 
     void SlamAttackCooldown_Enter()
     {
-        isInvincible = false;
-        shieldCharges = 0;
+        sprite.sprite = cooldownModel;
         timer = 0f;
         timer = attackCooldown * 1.5f;
     }
@@ -381,6 +421,7 @@ public class MeleeBossFSM : Enemy
 
     void Died_Enter()
     {
+        sprite.sprite = cooldownModel;
         isAttacking = false;
     }
 

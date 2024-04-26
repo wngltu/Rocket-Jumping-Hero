@@ -14,7 +14,7 @@ public class MeleeGruntFSM : Enemy
     float attackRange = 3.5f;
     float baseDamage = 10f;
 
-    float idleTime = 3f;
+    float idleTime = 3f;        
     float patrolTime = 5f;
 
 
@@ -92,9 +92,9 @@ public class MeleeGruntFSM : Enemy
         currentState = fsm.State;
 
         if (rb.velocity.x > .3f)
-            model.transform.localScale = new Vector3(model.transform.localScale.x, model.transform.localScale.y, -1);
+            model.transform.localScale = new Vector3(-1, 1, 1);
         if (rb.velocity.x < -.3f)
-            model.transform.localScale = new Vector3(model.transform.localScale.x, model.transform.localScale.y, 1);
+            model.transform.localScale = new Vector3(1, 1, 1);
 
         if (Died == true)
             fsm.ChangeState(States.Die, StateTransition.Safe);
@@ -191,9 +191,9 @@ public class MeleeGruntFSM : Enemy
 
         UpdatePlayerDirection();
         if (playerToTheRight)
-            model.transform.localScale = new Vector3(model.transform.localScale.x, model.transform.localScale.y, -1);
-        else if (!playerToTheRight)
-            model.transform.localScale = new Vector3(model.transform.localScale.x, model.transform.localScale.y, 1);
+            model.transform.localScale = new Vector3(-1, 1, 1);
+        else
+            model.transform.localScale = new Vector3(1, 1, 1);
 
     }
 
@@ -232,9 +232,9 @@ public class MeleeGruntFSM : Enemy
         }
         UpdatePlayerDirection();
         if (playerToTheRight)
-            model.transform.localScale = new Vector3(1, model.transform.localScale.y, -1);
-        else if (!playerToTheRight)
-            model.transform.localScale = new Vector3(-1, model.transform.localScale.y, 1);
+            model.transform.localScale = new Vector3(-1, 1, 1);
+        else
+            model.transform.localScale = new Vector3(1, 1, 1);
     }
 
     void Attack_Enter()

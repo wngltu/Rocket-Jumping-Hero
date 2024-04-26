@@ -17,12 +17,12 @@ public class Sniper : weaponScript
     void Start()
     {
         base.Start();
-        maxMag = 3;
-        maxReserve = 9;
+        maxMag = 10;
+        maxReserve = 30;
         currentMag = maxMag;
         currentReserve = maxReserve;
-        baseDamage = 85f;
-        fireRate = 2f;
+        baseDamage = 30f;
+        fireRate = .5f;
     }
     void Update()
     {

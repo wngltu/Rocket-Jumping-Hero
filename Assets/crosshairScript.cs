@@ -9,14 +9,17 @@ public class crosshairScript : MonoBehaviour
     public Camera playerCam;
     public GameObject crosshair;
     public weaponManager wep;
+    public PlayerRocketLauncher rocket;
     public GameObject reloadCircle;
     public GameObject mainCrosshair;
+    public GameObject reloadCircleBackground;
     public Slider slider;
     float filltime;
     // Start is called before the first frame update
     void Start()
     {
         wep = FindObjectOfType<weaponManager>();
+        rocket = FindObjectOfType<PlayerRocketLauncher>();
     }
 
     // Update is called once per frame
@@ -28,19 +31,33 @@ public class crosshairScript : MonoBehaviour
         {
             if (wep.equippedWeapon.isReloading == true)
             {
-                mainCrosshair.GetComponent<Image>().color = Color.black;
                 slider.value += wep.equippedWeapon.reloadTime * Time.deltaTime;
             }
             else
             {
                 slider.value = wep.equippedWeapon.currentMag / wep.equippedWeapon.maxMag;
-                mainCrosshair.GetComponent<Image>().color = Color.white;
+            }
+
+            if (rocket.equipped == false)
+            {
+                mainCrosshair.GetComponent<Image>().color = Color.red;
+            }
+            else if (rocket.equipped == true)
+            {
+                mainCrosshair.GetComponent<Image>().color = Color.blue;
             }
         }
         else
         {
-            mainCrosshair.GetComponent<Image>().color = Color.white;
             slider.value = 0;
+            if (rocket.equipped == false)
+            {
+                mainCrosshair.GetComponent<Image>().color = new Color(1,0,0,.5f);
+            }
+            else if (rocket.equipped == true)
+            {
+                mainCrosshair.GetComponent<Image>().color = Color.blue;
+            }
         }
     }
 

@@ -17,6 +17,7 @@ TagManager:
   - explodewhenshot
   - pathingnode
   - shootplate
+  - brokendoor
   layers:
   - Default
   - TransparentFX

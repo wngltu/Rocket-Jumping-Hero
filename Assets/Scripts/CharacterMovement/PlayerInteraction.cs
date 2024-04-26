@@ -33,7 +33,7 @@ public class PlayerInteraction : MonoBehaviour
         {
             if (hit2.collider.gameObject.CompareTag("droppedweapon"))
             {
-                interactIndicatorText.text = "Click 'E' to pick up weapon";
+                interactIndicatorText.text = "Click 'E' to pick up " + hit2.collider.gameObject.name;
             }
             else if (hit2.collider.gameObject.CompareTag("lever"))
             {
@@ -78,9 +78,21 @@ public class PlayerInteraction : MonoBehaviour
                             weaponManager.EquipCurrentWeapon();
                         }
                     }
-                    else if (weaponManager.weaponInventory.Count >= weaponManager.maxWeapons) //if inventory is full
+                    else if (weaponManager.weaponInventory.Count >= weaponManager.maxWeapons && weaponManager.playerRocketLauncherScript.equipped == false) //if inventory is full
                     {
-                        DisplayFeedbackText("Inventory is full. Drop with F or G");
+                        DisplayFeedbackText("Inventory is full. Held weapon was swapped.");
+                        weaponManager.DropCurrentWeapon();
+                        playerPickupSFX.Play();
+                        hit.collider.gameObject.transform.localScale = new Vector3(1, 1, 1);
+                        hit.collider.gameObject.transform.SetParent(playerModelHand.transform, true);
+                        hit.collider.gameObject.transform.localPosition = new Vector3(0, 0, 0);
+                        hit.collider.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                        hit.collider.gameObject.GetComponent<weaponScript>().Unequip();
+                        hit.collider.gameObject.GetComponent<weaponScript>().enabled = false;
+                        hit.collider.enabled = false;
+                        weaponManager.addWeapon(hit.collider.gameObject.GetComponent<weaponScript>());
+                        weaponManager.equippedNum = weaponManager.weaponInventory.Count - 1;
+                        weaponManager.EquipCurrentWeapon();
                     }
                 }
             }

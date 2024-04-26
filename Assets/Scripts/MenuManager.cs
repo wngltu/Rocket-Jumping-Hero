@@ -33,4 +33,14 @@ public class MenuManager : MonoBehaviour
     {
         SceneManager.LoadScene("Level 2");
     }
+
+    public static void StartCredits()
+    {
+        SceneManager.LoadScene("Credits");
+    }
+
+    public static void StartMenu()
+    {
+        SceneManager.LoadScene("Main Menu");
+    }
 }

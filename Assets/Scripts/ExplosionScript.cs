@@ -52,7 +52,11 @@ public class ExplosionScript : MonoBehaviour
                     else if (obj.gameObject.tag == "explodewhenshot")
                     {
                         if (obj.gameObject.GetComponent<StickyGrenadeProjectile>().exploded == false)
-                               obj.gameObject.GetComponent<StickyGrenadeProjectile>().Explode();
+                            obj.gameObject.GetComponent<StickyGrenadeProjectile>().Explode();
+                    }
+                    else if (obj.gameObject.tag == "brokendoor")
+                    {
+                        obj.gameObject.SetActive(false);
                     }
                     else if (obj.GetComponent<Rigidbody>() != null) //component must have rigidbody to be displaced
                     {

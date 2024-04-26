@@ -3,7 +3,6 @@ using MonsterLove.StateMachine; //use _Enter, _Exit, _Finally for functions afte
 using System.Linq;
 using Pathfinding;
 using System.Collections.Generic;
-using static UnityEngine.GraphicsBuffer;
 
 public class GrenadierEnemyFSM : Enemy
 { 
@@ -27,6 +26,7 @@ public class GrenadierEnemyFSM : Enemy
     public GameObject weaponModel;
     public GameObject barrel;
     public GameObject bullet;
+    public SpriteRenderer sprite;
     public AIDestinationSetter aiDestinationSetter;
     public States currentState;
 
@@ -79,6 +79,11 @@ public class GrenadierEnemyFSM : Enemy
 
         if (Died == true)
             fsm.ChangeState(States.Die, StateTransition.Safe);
+
+        if (rb.velocity.x > .3f)
+            sprite.flipX = true;
+        if (rb.velocity.x < -.3f)
+            sprite.flipX = false;
     }
 
     void Init_Enter()
@@ -157,9 +162,9 @@ public class GrenadierEnemyFSM : Enemy
 
         UpdatePlayerDirection();
         if (playerToTheRight)
-            model.transform.localScale = new Vector3(1, model.transform.localScale.y, model.transform.localScale.z);
+            sprite.flipX = true;
         else if (!playerToTheRight)
-            model.transform.localScale = new Vector3(-1, model.transform.localScale.y, model.transform.localScale.z);
+            sprite.flipX = false;
     }
 
     void Chasing_Exit()
@@ -175,12 +180,12 @@ public class GrenadierEnemyFSM : Enemy
         if (playerToTheRight == true)
         {
             weaponModel.transform.localScale = new Vector3(5, 5, 5);
-            model.transform.localScale = new Vector3(1, model.transform.localScale.y, model.transform.localScale.z);
+            sprite.flipX = true;
         }
         else
         {
             weaponModel.transform.localScale = new Vector3(-5, 5, 5);
-            model.transform.localScale = new Vector3(-1, model.transform.localScale.y, model.transform.localScale.z);
+            sprite.flipX = false;
         }   
 
         Debug.Log("start attack windup");
@@ -208,9 +213,15 @@ public class GrenadierEnemyFSM : Enemy
         grenadeInstance.transform.SetParent(null);
         grenadeInstance.transform.localScale = new Vector3(3, 3, 3);
         if (playerToTheRight == true)
-            grenadeInstance.GetComponent<Rigidbody>().AddForce(new Vector2(distanceFromPlayer/2, 2 +(player.transform.position.y - transform.position.y)), ForceMode.Impulse);
+        {
+            grenadeInstance.GetComponent<Rigidbody>().AddForce(new Vector2(distanceFromPlayer / 2, 2 + (player.transform.position.y - transform.position.y)), ForceMode.Impulse);
+            sprite.flipX = true;
+        }
         else
-            grenadeInstance.GetComponent<Rigidbody>().AddForce(new Vector2(-distanceFromPlayer/2, 2 +(player.transform.position.y - transform.position.y)), ForceMode.Impulse);
+        {
+            sprite.flipX = false;
+            grenadeInstance.GetComponent<Rigidbody>().AddForce(new Vector2(-distanceFromPlayer / 2, 2 + (player.transform.position.y - transform.position.y)), ForceMode.Impulse);
+        }
     }
     void Attack_Update()
     {

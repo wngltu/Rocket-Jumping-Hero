@@ -36,19 +36,34 @@ public class Rocket : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         print(collision.gameObject.name.ToString());
-        if (collision.gameObject.tag == "enemy" || 
+        if (collision.gameObject.tag == "enemy" ||
             collision.gameObject.tag == "door" ||
             collision.gameObject.tag == "rdoor" ||
-            collision.gameObject.tag == "ground" || 
-            collision.gameObject.tag == "platform" || 
-            collision.gameObject.tag == "droppedweapon")
+            collision.gameObject.tag == "ground" ||
+            collision.gameObject.tag == "platform" ||
+            collision.gameObject.tag == "droppedweapon" ||
+            collision.gameObject.tag == "brokendoor")
+        {
+            if (collision.gameObject.GetComponent<MeleeBossFSM>() != null)
+                collision.gameObject.GetComponent<MeleeBossFSM>().shieldCharges = 0;
+            if (collision.gameObject.tag == "brokendoor")
+            {
+                collision.gameObject.SetActive(false);
+            }
             Explode();
+        }
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "droppedweapon")
             Explode();
+        if (other.gameObject.tag == "shootplate")
+        {
+            other.gameObject.GetComponent<ShootPlate>().togglePlate();
+            Explode();
+        }
     }
 
     public void Explode()

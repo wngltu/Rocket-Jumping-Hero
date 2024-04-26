@@ -15,6 +15,9 @@ public class TutorialFSM : MonoBehaviour
     public GameObject enemy3Spawn3;
     public GameObject healthPackPrefab;
     public GameObject player;
+    public GameObject sprintJumpWall;
+    public GameObject enemyWall;
+    public GameObject rocketJumpWall;
     public TextMeshProUGUI tutorialText;
     public weaponManager weaponMgr;
     public States currentState;
@@ -157,6 +160,7 @@ public class TutorialFSM : MonoBehaviour
     public bool sprintingGoal = false;
     void SprintJumpingGoal_Enter()
     {
+        sprintJumpWall.SetActive(false);
         tutorialText.text = "Use both Sprint(shift) and/or Double Jump(space) to overcome this obstacle";
         timer = pulseTime;
     }
@@ -248,7 +252,8 @@ public class TutorialFSM : MonoBehaviour
     public bool rjGoal1;
     void RJVerticalGoal_Enter()
     {
-        tutorialText.text = "Notice no damage is taken. Use the jump(Space) with the momentum of the rocket(M2+M1) to overcome this obstacle";
+        rocketJumpWall.SetActive(false);
+        tutorialText.text = "Notice no damage is taken. Use the Rocket Jump and Double Jump to overcome this obstacle";
         timer = pulseTime;
     }
     void RJVerticalGoal_Update()
@@ -272,6 +277,7 @@ public class TutorialFSM : MonoBehaviour
     public bool platformGoal = false;
     void Platform_Enter()
     {
+        enemyWall.SetActive(false);
         tutorialText.text = "Great work. This will be your primary transversal tool. This gray block is a platform. Tap or hold S to fall through it, and prepare for a battle.";
         timer = pulseTime;
     }
